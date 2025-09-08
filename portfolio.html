@@ -53,6 +53,19 @@
       #main > .inner > section .box.alt .image.fit:hover img {
         transform: scale(1.05);
       }
+
+				/* Also reveal overlay on keyboard focus (accessibility) */
+			#main > .inner > section .box.alt .image.fit:focus-within .overlay {
+				opacity: 1;
+			}
+
+			/* Tablet: overlay text a tad larger */
+			@media (max-width: 980px) {
+				#main > .inner > section .box.alt .image.fit .overlay {
+				font-size: 1em;
+				}
+			}
+
     </style>
   </head>
   <body class="is-preload">
@@ -76,98 +89,97 @@
             </ul>
           </header>
 
-          <!-- Content (Portfolio grid with 8 projects) -->
-          <section>
-            <header class="main" style="text-align:center;">
-              <h1>Portfolio</h1>
-            </header>
+<!-- Content (Portfolio grid with 8 projects) -->
+<section>
+  <header class="main" style="text-align:center;">
+    <h1>Portfolio</h1>
+  </header>
 
-            <div class="box alt">
-              <div class="row gtr-50 gtr-uniform">
-                <!-- Meta-analysis -->
-                <div class="col-4">
-                  <a href="meta.html">
-                    <span class="image fit">
-                      <img src="images/meta.jpg" alt="Meta-analysis project" />
-                      <div class="overlay">Meta-analysis: A synthesis of effect sizes across multiple studies, exploring subgroup patterns and publication bias.</div>
-                    </span>
-                  </a>
-                </div>
+  <div class="box alt">
+    <div class="row gtr-50 gtr-uniform">
+      <!-- Meta-analysis -->
+      <div class="col-4 col-6-medium col-12-small">
+        <a href="meta.html">
+          <span class="image fit">
+            <img src="images/meta.jpg" alt="Meta-analysis project" loading="lazy" />
+            <div class="overlay">Meta-analysis: A synthesis of effect sizes across multiple studies, exploring subgroup patterns and publication bias.</div>
+          </span>
+        </a>
+      </div>
 
-                <!-- Satisfaction Model -->
-                <div class="col-4">
-                  <a href="catch_sat.html">
-                    <span class="image fit">
-                      <img src="images/CatchSat.JPG" alt="Satisfaction Model project" />
-                      <div class="overlay">Satisfaction Model: Predicting angler satisfaction from catch outcomes, using regression-based approaches.</div>
-                    </span>
-                  </a>
-                </div>
+      <!-- Satisfaction Model -->
+      <div class="col-4 col-6-medium col-12-small">
+        <a href="catch_sat.html">
+          <span class="image fit">
+            <img src="images/CatchSat.JPG" alt="Satisfaction Model project" loading="lazy" />
+            <div class="overlay">Satisfaction Model: Predicting angler satisfaction from catch outcomes, using regression-based approaches.</div>
+          </span>
+        </a>
+      </div>
 
-                <!-- Hunting Socialization Model -->
-                <div class="col-4">
-                  <a href="hunting.html">
-                    <span class="image fit">
-                      <img src="images/hunting.JPG" alt="Hunting Socialization Model project" />
-                      <div class="overlay">Hunting Socialization: Examining how hunters’ backgrounds and experiences shape attitudes and participation.</div>
-                    </span>
-                  </a>
-                </div>
+      <!-- Hunting Socialization Model -->
+      <div class="col-4 col-6-medium col-12-small">
+        <a href="hunting.html">
+          <span class="image fit">
+            <img src="images/hunting.JPG" alt="Hunting Socialization Model project" loading="lazy" />
+            <div class="overlay">Hunting Socialization: Examining how hunters’ backgrounds and experiences shape attitudes and participation.</div>
+          </span>
+        </a>
+      </div>
 
-                <!-- Social Identity SEM -->
-                <div class="col-4">
-                  <a href="social.html">
-                    <span class="image fit">
-                      <img src="images/SEM.JPG" alt="Social Identity SEM project" />
-                      <div class="overlay">Social Identity SEM: Structural equation model linking identity, values, and support for wildlife conservation policies.</div>
-                    </span>
-                  </a>
-                </div>
+      <!-- Social Identity SEM -->
+      <div class="col-4 col-6-medium col-12-small">
+        <a href="social.html">
+          <span class="image fit">
+            <img src="images/SEM.JPG" alt="Social Identity SEM project" loading="lazy" />
+            <div class="overlay">Social Identity SEM: Structural equation model linking identity, values, and support for wildlife conservation policies.</div>
+          </span>
+        </a>
+      </div>
 
-                <!-- Wolf Project -->
-                <div class="col-4">
-                  <a href="wolf.html">
-                    <span class="image fit">
-                      <img src="images/wolf.JPG" alt="Wolf Project" />
-                      <div class="overlay">Wolf Project: Longitudinal survey data exploring shifting public attitudes toward wolf management in Montana.</div>
-                    </span>
-                  </a>
-                </div>
+      <!-- Wolf Project -->
+      <div class="col-4 col-6-medium col-12-small">
+        <a href="wolf.html">
+          <span class="image fit">
+            <img src="images/wolf.JPG" alt="Wolf Project" loading="lazy" />
+            <div class="overlay">Wolf Project: Longitudinal survey data exploring shifting public attitudes toward wolf management in Montana.</div>
+          </span>
+        </a>
+      </div>
 
-                <!-- Culture & Context -->
-                <div class="col-4">
-                  <a href="harvest.html">
-                    <span class="image fit">
-                      <img src="images/CultureContext.JPG" alt="Culture and Context project" />
-                      <div class="overlay">Culture & Context: Cross-national analysis of cultural influences on harvest probability and recreational choices.</div>
-                    </span>
-                  </a>
-                </div>
+      <!-- Culture & Context -->
+      <div class="col-4 col-6-medium col-12-small">
+        <a href="harvest.html">
+          <span class="image fit">
+            <img src="images/CultureContext.JPG" alt="Culture and Context project" loading="lazy" />
+            <div class="overlay">Culture & Context: Cross-national analysis of cultural influences on harvest probability and recreational choices.</div>
+          </span>
+        </a>
+      </div>
 
-                <!-- Fishermen Feedback -->
-                <div class="col-4">
-                  <a href="feedback.html">
-                    <span class="image fit">
-                      <img src="images/feedback.JPG" alt="Fishermen Feedback project" />
-                      <div class="overlay">Fishermen Feedback: Stakeholder surveys providing insights for Gulf of Mexico fishery management processes.</div>
-                    </span>
-                  </a>
-                </div>
+      <!-- Fishermen Feedback -->
+      <div class="col-4 col-6-medium col-12-small">
+        <a href="feedback.html">
+          <span class="image fit">
+            <img src="images/feedback.JPG" alt="Fishermen Feedback project" loading="lazy" />
+            <div class="overlay">Fishermen Feedback: Stakeholder surveys providing insights for Gulf of Mexico fishery management processes.</div>
+          </span>
+        </a>
+      </div>
 
-				<!-- Mountain Biking -->
-                <div class="col-4">
-                  <a href="mtb.html">
-                    <span class="image fit">
-                      <img src="images/mtb.png" alt="Culture and Context project" />
-                      <div class="overlay">Insights into mountain bikers’ preferences and behavior: a multidimensional approach.</div>
-                    </span>
-                  </a>
-                </div>
+      <!-- Mountain Biking -->
+      <div class="col-4 col-6-medium col-12-small">
+        <a href="mtb.html">
+          <span class="image fit">
+            <img src="images/mtb.png" alt="Mountain Biking preferences project" loading="lazy" />
+            <div class="overlay">Insights into mountain bikers’ preferences and behavior: a multidimensional approach.</div>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
-
-              </div>
-            </div>
-          </section>
 
         </div>
       </div>
