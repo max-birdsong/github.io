@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Catch Satisfaction — Trip-Level Analysis Case Study</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+  <body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Main -->
+      <div id="main">
+        <div class="inner">
+
+          <!-- Header -->
+          <header id="header">
+	        <a href="index.html" class="logo">Max Birdsong | PhD</a>
+            <ul class="icons">
+              <li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+              <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+              <li><a href="#" class="icon brands fa-google"><span class="label">Google Scholar</span></a></li>
+            </ul>
+          </header>
+
+          <!-- Content -->
+          <section>
+            <header class="main">
+              <h1>Catch Satisfaction Across Contexts</h1>
+              <p class="subtitle">Recreational fisheries in East and West Germany</p>
+            </header>
+
+            <!-- Hero -->
+            <span class="image main">
+              <img src="images/catchsat3.jpg" alt="Catch satisfaction hero" />
+            </span>
+
+            <!-- Executive Summary (STAR) -->
+            <h2>Executive Summary</h2>
+            <div style="background:#f7f7f9;padding:1.25rem;border-radius:12px;line-height:1.6;">
+              <p><strong>Situation:</strong> Two German regions collect detailed trip diaries from anglers, but results vary by water access, culture, and angler type. Leaders needed a clear view of what actually drives trip satisfaction.</p>
+              <p><strong>Task:</strong> Build a unified analysis from ~20k trips that separates signal from noise, captures non-linear payoffs (e.g., “bigger fish boost satisfaction more than expected”), and communicates results for policy and program design.</p>
+              <p><strong>Action:</strong></p>
+              <ul>
+                <li>Combined two diary programs (East/West) into one tidy, analysis-ready dataset with consistent trip, angler, and context fields.</li>
+                <li>Fit a <em>multivariate ordinal model</em> with repeated measures to account for multiple trips per person and non-linear effects (quadratic/exponential terms).</li>
+                <li>Generated model-based predictions and partial-dependence style plots in <strong>R + ggplot2</strong> for stakeholder-ready visuals.</li>
+                <li>Stress-tested results across subgroups (region, skill/commitment) to see where effects really change.</li>
+              </ul>
+              <p><strong>Result:</strong> Clear guidance on levers that move satisfaction: diminishing returns from catch rate, outsized gains from landing a large fish, modest influence of harvest, and meaningful baseline differences by region. Delivered a reproducible pipeline and an explainer deck leaders could use immediately.</p>
+            </div>
+
+            <hr class="major" />
+
+            <!-- Methods Snapshot -->
+            <h2>Methods Snapshot</h2>
+            <ul>
+              <li><strong>Data:</strong> 19,958 trips from 1,169 anglers; Lower Saxony (2011–2012) & Mecklenburg-Vorpommern (2006–2007).</li>
+              <li><strong>Features:</strong> Catch rate (CPUE), size of largest fish, proportion harvested, species diversity, prior “blank” trips, season, specialization (skill/commitment).</li>
+              <li><strong>Model:</strong> Adjacent-category ordinal logit with repeated measures; included non-linear terms to capture diminishing/exponential effects.</li>
+              <li><strong>Tooling:</strong> R for data wrangling, modeling, and charts (<strong>ggplot2</strong>); Latent Gold for the repeated-measures structure.</li>
+            </ul>
+
+            <hr class="major" />
+
+            <!-- Figure A: Central predictions -->
+            <section>
+              <h3>Predicted Satisfaction by Catch Outcomes (Central Figure)</h3>
+              <div style="max-width:780px;margin:0 auto;">
+                <span class="image fit">
+                  <img src="images/CatchSat2.JPG" alt="Predicted satisfaction by catch rate, fish size, harvest across regions" />
+                </span>
+              </div>
+              <p>
+                Model-based prediction curves for <strong>catch rate</strong>, <strong>largest fish size</strong>, and
+                <strong>proportion harvested</strong>, shown separately for each region. These are akin to 
+                <em>partial dependence</em> views: one factor varies while others are held at typical values.
+              </p>
+              <ul>
+                <li><strong>Catch rate:</strong> Strong early gains that plateau — classic diminishing returns.</li>
+                <li><strong>Fish size:</strong> A steep, non-linear lift; big fish punch above their weight for satisfaction.</li>
+                <li><strong>Harvest:</strong> Modest, steady effect; culture and baseline expectations matter more.</li>
+                <li><strong>Baseline difference:</strong> Lower Saxony starts higher at the same catch conditions, pointing to contextual/cultural drivers.</li>
+              </ul>
+              <p><em>How the chart was built:</em> I generated predicted probabilities from the fitted model across a grid of inputs, converted them to an expected satisfaction score, then plotted with <strong>ggplot2</strong>. This is the same workflow analysts use for
+              <code>predict()</code> → summarize → visualize.</p>
+            </section>
+
+            <!-- Figure B: Skill/commitment lenses -->
+            <section>
+              <h3>How Angler Segments Weight Outcomes</h3>
+              <div style="max-width:780px;margin:0 auto;">
+                <span class="image fit">
+                  <img src="images/CatchSat.JPG" alt="Predicted satisfaction by skill and behavioral commitment" />
+                </span>
+              </div>
+              <p>
+                Segment views (skill and behavioral commitment) reveal subtle but meaningful differences in how outcomes translate to satisfaction.
+                This is useful for targeting programs or communications by audience.
+              </p>
+            </section>
+
+            <hr class="major" />
+
+            <!-- Key Findings -->
+            <h2>Key Findings</h2>
+            <ul>
+              <li><strong>Non-linear payoffs:</strong> Catch rate shows diminishing returns; big-fish encounters have outsized impact.</li>
+              <li><strong>Context matters:</strong> Regional baseline satisfaction differs even at the same catch conditions.</li>
+              <li><strong>Adaptive expectations:</strong> After a run of blank trips, anglers rely less on catch outcomes for satisfaction.</li>
+              <li><strong>Segment variation:</strong> Specialized anglers weight outcomes differently than casual anglers.</li>
+            </ul>
+
+            <hr class="major" />
+
+            <!-- What this demonstrates -->
+            <h2>What This Demonstrates</h2>
+            <ul>
+              <li><strong>Data integration:</strong> Unified trip-level and person-level data across programs into a consistent schema.</li>
+              <li><strong>Modeling judgment:</strong> Chose an ordered-outcome model with non-linear terms to reflect real behavior.</li>
+              <li><strong>Explainable outputs:</strong> Turned model coefficients into intuitive, scenario-based visuals for non-technical stakeholders.</li>
+              <li><strong>Reproducibility:</strong> End-to-end R workflow (wrangle → model → predict → visualize) for fast iteration.</li>
+            </ul>
+
+            <p class="align-center">
+              <a href="#" class="button primary small">Slides / One-Pager</a>
+              <a href="#" class="button small">Code (GitHub)</a>
+              <a href="#" class="button small">Data Dictionary</a>
+            </p>
+
+            <p class="align-center"><a href="index.html" class="button">Back to Portfolio</a></p>
+          </section>
+
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div id="sidebar">
+        <div class="inner">
+
+          <!-- Search -->
+          <section id="search" class="alt">
+            <form method="post" action="#">
+              <input type="text" name="query" id="query" placeholder="Search" />
+            </form>
+          </section>
+
+          <!-- Menu -->
+          <nav id="menu">
+            <header class="major">
+              <h2>Menu</h2>
+            </header>
+            <ul>
+              <li><a href="index.html">Homepage</a></li>
+              <li><a href="meta.html">Evidence Synthesis Case Study</a></li>
+              <li><a href="catch.html">Catch Satisfaction Case Study</a></li>
+              <li><a href="elements.html">Elements</a></li>
+            </ul>
+          </nav>
+
+          <!-- Mini posts -->
+          <section>
+            <header class="major">
+              <h2>Recent</h2>
+            </header>
+            <div class="mini-posts">
+              <article>
+                <a href="fishermen.html" class="image"><img src="images/pic07.jpg" alt="" /></a>
+                <p>Fisherman Feedback: sentiment + location analysis.</p>
+              </article>
+              <article>
+                <a href="index.html" class="image"><img src="images/pic08.jpg" alt="" /></a>
+                <p>Portfolio overview and projects grid.</p>
+              </article>
+            </div>
+          </section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>    I’m always open to discussing data analytics opportunities, research collaborations, or sharing ideas about data-driven decision making.</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">maxbirdsong1221@gmail.com</a></li>
+										<li class="icon solid fa-phone">+49 15129688479</li>
+										<li class="icon solid fa-home">Glasbläserallee 8, 10245 Berlin, DE<br />
+										</li>
+									</ul>
+								</section>
+
+          <!-- Footer -->
+          <footer id="footer">
+            <p class="copyright">&copy; You. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+          </footer>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+  </body>
+</html>
+

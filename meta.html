@@ -1,0 +1,282 @@
+<!DOCTYPE HTML>
+<!--
+  Editorial by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>Meta-Analysis — Evidence Synthesis Case Study</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+  <body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Main -->
+      <div id="main">
+        <div class="inner">
+
+          <!-- Header -->
+          <header id="header">
+	        <a href="index.html" class="logo">Max Birdsong | PhD</a>
+            <ul class="icons">
+              <li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+              <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+              <li><a href="#" class="icon brands fa-google"><span class="label">Google Scholar</span></a></li>
+            </ul>
+          </header>
+
+          <!-- Content -->
+          <section>
+            <header class="main">
+              <h1>Multilevel Meta-analysis</h1>
+            </header>
+
+            <!-- Hero -->
+			<span class="image main">
+  			<img src="images/meta6.png" alt="Meta-analysis hero" />
+			</span>
+
+			<h2>Executive Summary</h2>
+
+			<div style="background:#f7f7f9;padding:1.25rem;border-radius:12px;line-height:1.6;">
+			<p><strong>Situation:</strong> Decision-makers were confronted with 20+ separate studies on angler satisfaction, each using different measures and reporting formats. Taken individually, these results were fragmented and sometimes contradictory.</p>
+
+			<p><strong>Task:</strong> Build a clear, reliable evidence base that could synthesize all studies into one coherent picture, identify the strongest drivers of satisfaction, and ensure the findings were robust enough for policy decisions.</p>
+
+			<p><strong>Action:</strong> 
+				<ul>
+				<li>Standardized results into a common effect-size metric so findings were directly comparable</li>
+				<li>Applied <em>multilevel meta-analysis</em> to account for multiple results per study (nested data)</li>
+				<li>Ran subgroup tests and meta-regressions to explain variation across settings and study designs</li>
+				<li>Checked reliability with funnel plots and sensitivity analyses to detect possible publication bias</li>
+				<li>Produced a reproducible analysis pipeline and visual summaries for stakeholders</li>
+				</ul>
+			</p>
+
+			<p><strong>Result:</strong> The final synthesis revealed which factors consistently had the strongest, most reliable effects on satisfaction. Leaders could prioritize high-impact drivers, communicate clear evidence-based insights, and understand where additional data was still needed. The process delivered not just findings, but a transferable method for combining fragmented evidence into actionable strategy.</p>
+			</div>
+
+
+            <hr class="major" />
+
+<h2>Methods Snapshot</h2>
+<p>
+  Here’s how I translated 20+ independent studies into a single, decision-ready analysis:
+</p>
+<ul>
+  <li><strong>Study selection:</strong> Screened and logged sources from academic and industry databases.</li>
+  <li><strong>Metric alignment:</strong> Converted varied reporting styles into a shared effect size for direct comparison.</li>
+  <li><strong>Evidence synthesis:</strong> Applied multilevel models that balance differences in study size and design.</li>
+  <li><strong>Quality checks:</strong> Used subgroup tests and funnel plots to confirm robustness and spot potential bias.</li>
+</ul>
+
+
+
+            <h2>Findings in Detail</h2>
+
+            <!-- Figure 1 -->
+            <section>
+              <h3>Study Screening Process</h3>
+                <div style="max-width:700px; margin: 0 auto;">
+    			<span class="image fit">
+                <img src="images/meta3.JPG" alt="Study screening flow" />
+              </span>
+			  </div>
+              <p>
+                A transparent screening flow shows how hundreds of initial search results were narrowed down to 
+                the 23 studies included in the final analysis. This gives confidence that the results are based on 
+                a systematic and unbiased process rather than cherry-picking.
+              </p>
+            </section>
+
+            <!-- Figure 3 -->
+			<section>
+  				<h3>Subgroup Analysis: Understanding Variation</h3>
+  				<div style="max-width:700px; margin: 0 auto;">
+    				<span class="image fit">
+      					<img src="images/meta2.jpg" alt="Subgroup analysis of satisfaction components" />
+    				</span>
+  				</div>
+  				<p>
+    			This figure demonstrates a <strong>subgroup analysis</strong>, a common extension of meta-analysis used to explore why results vary across studies. 
+    			Instead of only calculating one overall effect, subgroup analysis partitions the data into categories (here, different components of the fishing experience) and calculates a pooled effect size for each.
+  				</p>
+  				<p>
+    			This approach helps explain <em>heterogeneity</em>—the fact that not all studies produce the same results. By comparing subgroups, we can test whether certain factors consistently show stronger or weaker associations. 
+    			Confidence intervals illustrate the reliability of each subgroup effect, and statistical tests determine if differences between subgroups are meaningful.
+  				</p>
+  				<p>
+    			Beyond this case, subgroup analyses are valuable whenever you want to know <em>why</em> results differ across contexts—whether comparing product features, demographic groups, or organizational settings. 
+    			It’s a way of moving beyond averages to uncover patterns that matter for interpretation and decision-making.
+  				</p>
+			</section>
+
+
+
+
+			<!-- Figure 2 -->
+			<section>
+			<h3>Meta-Regression: Exploring Moderators of Satisfaction</h3>
+			<div style="max-width:700px; margin: 0 auto;">
+				<span class="image fit">
+				<img src="images/meta4.JPG" alt="Meta-regression of satisfaction determinants across moderators" />
+				</span>
+			</div>
+			<p>
+				This figure shows a <strong>meta-regression</strong> analysis, where effect sizes for 11 determinants of 
+				satisfaction were compared across different subgroups of studies. Each panel represents a different moderator:
+				(a) study setting, (b) fishery type, (c) unit of analysis, and (d) country. 
+			</p>
+			<p>
+				Meta-regression extends a standard meta-analysis by adding predictors at the study level. Instead of reporting 
+				one pooled effect, it tests whether variation in study outcomes can be explained by factors like geography, 
+				methodology, or context. The plotted points represent pooled effect sizes for each subgroup, with confidence 
+				intervals showing uncertainty, while moderator p-values indicate whether the differences are statistically 
+				meaningful.
+			</p>
+			<p>
+				The strength of this approach is general: whenever results vary across contexts, meta-regression provides 
+				a structured way to test hypotheses about <em>why</em>. In practical terms, this allows analysts to go 
+				beyond averages and identify which conditions consistently shift outcomes — whether that means differences 
+				across customer segments, regions, product categories, or study designs.
+			</p>
+			</section>
+
+
+
+			<!-- Figure 4 -->
+			<section>
+			<h3>Publication Bias Check</h3>
+			<div style="max-width:500px; margin: 0 auto;">
+				<span class="image fit">
+				<img src="images/meta5.JPG" alt="Funnel plot bias check" />
+				</span>
+			</div>
+			<p>
+				Meta-analyses rely on the assumption that the included studies represent the full body of 
+				available evidence. If only “positive” results are published and negative or inconclusive 
+				findings remain in the file drawer, estimates can become systematically biased.
+			</p>
+			<p>
+				To test this, I generated a <strong>funnel plot</strong>, a standard diagnostic for detecting 
+				publication bias. In a well-balanced funnel, study results should scatter symmetrically around 
+				the pooled effect size, with smaller studies showing more variation and larger studies clustering 
+				near the center. Systematic asymmetry would indicate missing or selectively reported evidence.
+			</p>
+			<p>
+				In this case, the funnel appeared relatively balanced, suggesting that the findings are unlikely 
+				to be strongly distorted by publication bias. The key point is methodological: incorporating 
+				bias checks ensures that reported insights rest on a stable and representative evidence base. 
+				This practice can be generalized to any domain where data availability is selective, from 
+				customer behavior studies to clinical trials.
+			</p>
+			</section>
+
+
+            <hr class="major" />
+
+			<h2>What This Demonstrates</h2>
+			<p>
+			This project demonstrates a full spectrum of data analyst skills — from handling messy inputs to delivering insights that stakeholders can actually use:
+			</p>
+			<ul>
+			<li><strong>Data integration:</strong> Combined results from dozens of independent sources into one consistent, analysis-ready dataset</li>
+			<li><strong>Data cleaning & standardization:</strong> Resolved inconsistencies, aligned variables across studies, and created a common framework for comparison</li>
+			<li><strong>Statistical analysis:</strong> Applied advanced methods (meta-analysis, subgroup tests, meta-regression) to extract reliable patterns from heterogeneous data</li>
+			<li><strong>Insight generation:</strong> Translated raw results into clear, decision-ready insights about what factors matter most</li>
+			<li><strong>Communication:</strong> Delivered findings through intuitive visuals and plain-language summaries tailored to non-technical audiences</li>
+			</ul>
+
+
+            <hr class="major" />
+
+            <p class="align-center">
+              <a href="assets/papers/angler-satisfaction-meta.pdf" class="button primary small">PDF Summary</a>
+              <a href="#" class="button small">Code (GitHub)</a>
+              <a href="#" class="button small">Data & Codebook</a>
+            </p>
+
+            <p class="align-center"><a href="index.html" class="button">Back to Portfolio</a></p>
+          </section>
+
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div id="sidebar">
+        <div class="inner">
+
+          <!-- Search -->
+          <section id="search" class="alt">
+            <form method="post" action="#">
+              <input type="text" name="query" id="query" placeholder="Search" />
+            </form>
+          </section>
+
+          <!-- Menu -->
+          <nav id="menu">
+            <header class="major">
+              <h2>Menu</h2>
+            </header>
+            <ul>
+              <li><a href="index.html">Homepage</a></li>
+              <li><a href="generic.html">Generic</a></li>
+              <li><a href="elements.html">Elements</a></li>
+              <li><a href="meta.html">Evidence Synthesis Case Study</a></li>
+            </ul>
+          </nav>
+
+          <!-- Mini posts -->
+          <section>
+            <header class="major">
+              <h2>Recent</h2>
+            </header>
+            <div class="mini-posts">
+              <article>
+                <a href="fishermen.html" class="image"><img src="images/pic07.jpg" alt="" /></a>
+                <p>Fisherman Feedback: sentiment + location analysis.</p>
+              </article>
+              <article>
+                <a href="index.html" class="image"><img src="images/pic08.jpg" alt="" /></a>
+                <p>Portfolio overview and projects grid.</p>
+              </article>
+            </div>
+          </section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>    I’m always open to discussing data analytics opportunities, research collaborations, or sharing ideas about data-driven decision making.</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">maxbirdsong1221@gmail.com</a></li>
+										<li class="icon solid fa-phone">+49 15129688479</li>
+										<li class="icon solid fa-home">Glasbläserallee 8, 10245 Berlin, DE<br />
+										</li>
+									</ul>
+								</section>
+
+          <!-- Footer -->
+          <footer id="footer">
+            <p class="copyright">&copy; You. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+          </footer>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+  </body>
+</html>

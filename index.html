@@ -1,0 +1,329 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Max Birdsong | Data Analytics Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+  .chips { display:flex; flex-wrap:wrap; gap:.4rem; margin:.5rem 0 .25rem; }
+  .chip { font-size:.8rem; padding:.2rem .5rem; border-radius:999px; background:#eef2f7; color:#334155; border:1px solid #dbe3ec; }
+  .meta-row { display:flex; flex-wrap:wrap; gap:1rem; font-size:.95rem; margin:.6rem 0; }
+  .meta-row b { color:#111827; }
+  .postcard p { margin-bottom:.6rem; }
+  .postcard .actions { margin-top:.5rem; }
+</style>
+
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+  									<a href="index.html" class="logo">Max Birdsong | PhD</a>
+  									<ul class="icons">
+   	 									<li><a href="https://github.com/max-birdsong" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+    									<li><a href="https://www.linkedin.com/in/YOUR_LINKEDIN" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+    									<li><a href="https://www.researchgate.net/profile/Max-Birdsong/research" class="icon brands fa-researchgate"><span class="label">ResearchGate</span></a></li>
+  									</ul>
+								</header>
+
+							<!-- Banner -->
+								<section id="banner">
+  									<div class="content">
+    									<header>
+      										<h1>Hi, I’m Max Birdsong</h1>
+      										<p>PhD · Data Analytics & Visualization</p>
+    									</header>
+    									<p>
+     									Social scientist turned data analyst with expertise in survey design, SQL, Python, R, and Tableau. 
+      									I specialize in transforming complex datasets into clear, actionable insights to guide strategic decisions. 
+      									Experienced in applied research, stakeholder engagement, and delivering results across academic and industry contexts.
+    									</p>
+    									<ul class="actions">
+      										<li><a href="portfolio.html" class="button big">View My Work</a></li>
+    									</ul>
+  									</div>
+  									<span class="image object">
+    									<img src="images/Max.jpg" alt="Max Birdsong" />
+  									</span>
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Areas of expertise</h2>
+									</header>
+									<div class="features">
+										<article>
+											<span class="icon fa-gem"></span>
+											<div class="content">
+												<h3>Data Management</h3>
+												<p>SQL, Python (Pandas), and R for cleaning, transforming, and analyzing large and complex datasets.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-paper-plane"></span>
+											<div class="content">
+												<h3>Analytics & Visualization</h3>
+												<p>Building clear, actionable insights using Tableau, Matplotlib, and ggplot2 for both technical and non-technical audiences.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-rocket"></span>
+											<div class="content">
+												<h3>Survey Research</h3>
+												<p>PhD-level expertise in survey design, weighting, and statistical modeling for applied social science and policy analysis.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-signal"></span>
+											<div class="content">
+												<h3>Applied Insights</h3>
+												<p>Translating complex analyses into practical recommendations that guide strategy in academic, policy, and business contexts.</p>
+											</div>
+										</article>
+									</div>
+								</section>
+
+							<!-- Section -->
+						<section>
+						<header class="major">
+							<h2>Featured project</h2>
+						</header>
+
+						<!-- Narrative summary -->
+						<div class="box">
+							<h3 style="margin-bottom:.35rem;">Wolf Survey — Turning three waves of public opinion into one clear story</h3>
+							<p style="margin:.4rem 0;">
+							Over a decade, Montana surveyed residents about wolves—tolerance, hunting, trust, and impacts. 
+							By 2023, the instruments and files didn’t line up: different schemas, overlapping IDs, shifting labels. 
+							This project rebuilt the data into a single, comparable record and delivered weighted, presentation-ready trends leaders could use.
+							</p>
+							<p style="margin:.4rem 0;">
+							<strong>Approach:</strong> co-design the latest wave for comparability → harmonize legacy files into a canonical layout → 
+							fix duplicates and standardize fields in SQL → apply weights and generate faceted charts and a briefing deck in R.
+							</p>
+							<p style="margin:.4rem 0;">
+							<strong>Outcome:</strong> a reproducible pipeline with code-backed visuals showing how tolerance for wolves and tolerance for wolf hunting moved across groups and time.
+							</p>
+
+
+						</div>
+
+						<!-- Story cards (short, plain-English copy with clear CTAs) -->
+						<div class="posts">
+
+							<article class="postcard">
+							<a href="https://github.com/max-birdsong/wolf-survey-analysis/tree/main/data/instruments" class="image">
+								<img src="images/CodingManual.JPG" alt="Survey instruments: questionnaire and coding manual" />
+							</a>
+							<h3>Survey design & implementation</h3>
+							<p>
+								The 2023 questionnaire was co-designed to match 2012/2017 on the things that matter—strata, weights, and key constructs—so trends compare cleanly.
+							</p>
+							<ul class="actions">
+								<li><a href="https://github.com/max-birdsong/wolf-survey-analysis/tree/main/data/instruments" class="button">View instruments</a></li>
+							</ul>
+							</article>
+
+							<article class="postcard">
+							<a href="https://github.com/max-birdsong/wolf-survey-analysis/blob/main/scripts/Python/Clean_Harmonize.ipynb" class="image">
+								<img src="images/python.JPG" alt="Python ETL notebook" />
+							</a>
+							<h3>Build a unified dataset (Python)</h3>
+							<p>
+								Four SPSS files, four schemas. The notebook reads each one, standardizes names, creates a shared household key, 
+								and adds license flags—so analysis starts from one table, not four.
+							</p>
+							<ul class="actions">
+								<li><a href="https://github.com/max-birdsong/wolf-survey-analysis/blob/main/scripts/Python/Clean_Harmonize.ipynb" class="button">Notebook</a></li>
+							</ul>
+							</article>
+
+							<article class="postcard">
+							<a href="https://github.com/max-birdsong/wolf-survey-analysis/blob/main/scripts/Python/Merge_All_Years.ipynb" class="image">
+								<img src="images/python.JPG" alt="Cross-wave merge notebook" />
+							</a>
+							<h3>Cross-wave integration</h3>
+							<p>
+								Prior waves aren’t identical. This step maps 2012/2017 to a canonical 2023 layout, tags each record with its wave, 
+								logs any mismatches, and exports a clean <code>MasterData</code> table.
+							</p>
+							<ul class="actions">
+								<li><a href="https://github.com/max-birdsong/wolf-survey-analysis/blob/main/scripts/Python/Merge_All_Years.ipynb" class="button">Notebook</a></li>
+							</ul>
+							</article>
+
+							<article class="postcard">
+							<a href="https://github.com/max-birdsong/wolf-survey-analysis/blob/main/scripts/SQL/Wolf_data_clean.sql" class="image">
+								<img src="images/SQL.JPG" alt="SQL cleaning script" />
+							</a>
+							<h3>SQL: de-dup & standardize</h3>
+							<p>
+								Some respondents appear more than once across years and groups. A simple, transparent rule keeps the right record, 
+								standardizes fields, and enforces ID integrity.
+							</p>
+							<ul class="actions">
+								<li><a href="https://github.com/max-birdsong/wolf-survey-analysis/blob/main/scripts/SQL/Wolf_data_clean.sql" class="button">SQL script</a></li>
+							</ul>
+							</article>
+
+							<article class="postcard">
+							<a href="https://github.com/max-birdsong/wolf-survey-analysis/blob/main/scripts/SQL/Wolf_exploratory_data_analysis.sql" class="image">
+								<img src="images/SQL.JPG" alt="SQL EDA script" />
+							</a>
+							<h3>SQL: quick health checks</h3>
+							<p>
+								Counts by wave and strata, early looks at tolerance and trust, and sanity checks on group composition—fast signals before full modeling.
+							</p>
+							<ul class="actions">
+								<li><a href="https://github.com/max-birdsong/wolf-survey-analysis/blob/main/scripts/SQL/Wolf_exploratory_data_analysis.sql" class="button">SQL script</a></li>
+							</ul>
+							</article>
+
+							<article class="postcard">
+							<a href="https://github.com/max-birdsong/wolf-survey-analysis/blob/main/scripts/R/03_plots_longitudinal.R" class="image">
+								<img src="images/R.JPG" alt="R plotting and reporting script" />
+							</a>
+							<h3>Weighted reporting (R)</h3>
+							<p>
+								Weights make each group count correctly. Code draws faceted charts with error bars and exports both a slide deck and a PNG set from the same script.
+							</p>
+							<ul class="actions">
+								<li><a href="https://github.com/max-birdsong/wolf-survey-analysis/blob/main/scripts/R/03_plots_longitudinal.R" class="button">R script</a></li>
+							</ul>
+							</article>
+
+							<article class="postcard">
+							<a href="https://github.com/max-birdsong/wolf-survey-analysis/blob/main/reports/Figures/wolves_graphs_longitudinal.pptx" class="image">
+								<img src="images/ppt.JPG" alt="Results deck thumbnail" />
+							</a>
+							<h3>Results deck (.pptx)</h3>
+							<p>
+								Stakeholder-ready slides that pull in the weighted visuals and key notes, built directly from code for easy updates.
+							</p>
+							<ul class="actions">
+								<li><a href="https://github.com/max-birdsong/wolf-survey-analysis/blob/main/reports/Figures/wolves_graphs_longitudinal.pptx" class="button">Download</a></li>
+							</ul>
+							</article>
+
+							<article class="postcard">
+							<a href="https://github.com/max-birdsong/wolf-survey-analysis/blob/main/reports/wolf_final_survey_report.pdf" class="image">
+								<img src="images/SummaryResearch.JPG" alt="Final research summary PDF" />
+							</a>
+							<h3>Research summary (PDF)</h3>
+							<p>
+								The formal write-up for leadership and public audiences, summarizing the longitudinal findings and context.
+							</p>
+							<ul class="actions">
+								<li><a href="https://github.com/max-birdsong/wolf-survey-analysis/blob/main/reports/wolf_final_survey_report.pdf" class="button">Read report</a></li>
+							</ul>
+							</article>
+
+						</div>
+						</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="portfolio.html">Portfolio</a></li>
+										<li><a href="experience.html">Experience</a></li>
+										<li>
+											<span class="opener">Specific Projects</span>
+											<ul>
+												<li><a href="social.html">Structured Equation Model</a></li>
+												<li><a href="meta.html">Meta-analysis</a></li>
+												<li><a href="mtb.html">Factor analysis</a></li>
+												<li><a href="feedback.html">Sentiment analysis</a></li>
+											</ul>
+										</li>
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Recent publications</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="https://doi.org/10.1111/cobi.14243" class="image"><img src="images/Conbio.JPG" alt="" /></a>
+											<p>Used a stratified mail survey of 5,350 Montana residents (n = 1,758, weighted sample) and structural equation modeling (SEM in R/lavaan) to test how hunter vs. nonhunter identities moderated the effects of vicarious experiences and emotions on attitudes and acceptance of grizzly bears.</p>
+										</article>
+										<article>
+											<a href="https://doi.org/10.1111/faf.12545" class="image"><img src="images/FishFisheries.JPG" alt="" /></a>
+											<p>Used a three-level random-effects meta-analysis (172 effect sizes, 23 studies) with subgroup analyses and publication bias tests to quantify how catch and non-catch factors shape recreational angler satisfaction.</p>
+										</article>
+										<article>
+											<a href="https://doi.org/10.1016/j.fishres.2022.106414" class="image"><img src="images/FishResearch.JPG" alt="" /></a>
+											<p>Analyzed 19,500+ fishing trips across contrasting governance systems in Germany to show how catch rates, fish size, and social-ecological context drive angler satisfaction, using statistical modeling to reveal non-linear effects and context-specific differences</p>
+										</article>
+									</div>
+									<ul class="actions">
+										<li><a href="#" class="button">More</a></li>
+									</ul>
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>    I’m always open to discussing data analytics opportunities, research collaborations, or sharing ideas about data-driven decision making.</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">maxbirdsong1221@gmail.com</a></li>
+										<li class="icon solid fa-phone">+49 15129688479</li>
+										<li class="icon solid fa-home">Glasbläserallee 8, 10245 Berlin, DE<br />
+										</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

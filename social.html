@@ -1,0 +1,307 @@
+<!DOCTYPE HTML>
+<!--
+  Editorial by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>Social Identity — Data Analysis & Modeling</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+  <body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Main -->
+      <div id="main">
+        <div class="inner">
+
+          <!-- Header -->
+          <header id="header">
+	        <a href="index.html" class="logo">Max Birdsong | PhD</a>
+            <ul class="icons">
+              <li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+              <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+              <li><a href="#" class="icon brands fa-google"><span class="label">Google Scholar</span></a></li>
+            </ul>
+          </header>
+
+          <!-- Content -->
+          <section>
+            <header class="main">
+              <h1>Influence of Social Identity — Data Analysis Project</h1>
+              <p>Survey data, latent variable modeling, and reproducible analysis</p>
+            </header>
+
+            <!-- Hero -->
+            <span class="image main">
+              <img src="images/SEM4.jpg" alt="Social identity analysis hero" />
+            </span>
+
+            <!-- Executive Summary (STAR) -->
+            <h2>Executive Summary</h2>
+            <div style="background:#f7f7f9;padding:1.25rem;border-radius:12px;line-height:1.6;">
+              <p><strong>Situation:</strong> Leaders needed a clear read on how people’s identities relate to support for large-carnivore policies. The raw survey contained dozens of attitudinal items and overlapping constructs.</p>
+              <p><strong>Task:</strong> Turn abstract concepts (“identity”, “attitudes”) into measurable, reliable indices and quantify how identity predicts policy support—without overfitting or confusing end users.</p>
+              <p><strong>Action:</strong></p>
+              <ul>
+                <li>Built <em>validated scales</em> (factor analysis/CFA) from multi-item batteries.</li>
+                <li>Linked identity to policy attitudes using <em>regression/SEM</em> with fit checks and sensitivity tests.</li>
+                <li>Automated the workflow in R (<code>tidyverse</code>, <code>lavaan</code>) and visualized results with <code>ggplot2</code>.</li>
+              </ul>
+              <p><strong>Result:</strong> A defensible, easy-to-explain model showing which identity dimensions most strongly predict support/opposition—delivered as a reproducible script and a brief, visual report for decision-makers.</p>
+            </div>
+
+            <hr class="major" />
+
+            <h2>Overview</h2>
+            <p>
+              This project examined how <strong>social identity</strong> shapes attitudes toward large carnivore conservation. For portfolio purposes, the emphasis is on the <strong>analytics workflow</strong>—from survey construction and scale validation to structural modeling and stakeholder-ready visuals.
+            </p>
+
+            <div class="box">
+              <ul>
+                <li><strong>Sample:</strong> Mail survey of Montana residents (n ≈ 1,600 usable responses).</li>
+                <li><strong>Data prep:</strong> Cleaned multi-item attitudinal batteries; created composite indices for identity and conservation attitudes.</li>
+                <li><strong>Focus:</strong> Do identity dimensions predict support or opposition to carnivore management policies?</li>
+              </ul>
+            </div>
+
+            <hr class="major" />
+
+            <h2>Methods Snapshot</h2>
+            <p>Built a measurable framework from abstract concepts and tested relationships end-to-end:</p>
+            <ul>
+              <li><strong>Measurement modeling:</strong> EFA → CFA to validate identity constructs; checked internal consistency (e.g., Cronbach’s α).</li>
+              <li><strong>Structural modeling:</strong> Regression and SEM to estimate links between identity and policy attitudes.</li>
+              <li><strong>Diagnostics:</strong> Model fit indices, residual checks, and sensitivity analyses (imputation vs. listwise).</li>
+              <li><strong>Tooling:</strong> R (<code>tidyverse</code> for wrangling, <code>lavaan</code>/<code>psych</code> for measurement/SEM, <code>ggplot2</code> for plots). Fully scripted for reproducibility.</li>
+            </ul>
+
+            <div class="box">
+              <h3>Highlights</h3>
+              <ul>
+                <li>Validated multi-item identity scales that actually hold together statistically.</li>
+                <li>Linked latent identity factors to outcomes with clear effect sizes and uncertainty.</li>
+                <li>Delivered <em>plain-English visuals</em> and a one-pager leaders could act on.</li>
+                <li>Reproducible pipeline: from raw CSV → cleaned scales → fitted models → exportable figures/tables.</li>
+              </ul>
+            </div>
+
+            <p class="align-right">
+              <a href="assets/papers/birdsong-social-identity.pdf" class="button primary small">PDF</a>
+              <a href="#" class="button small">Code</a>
+            </p>
+
+            <hr class="major" />
+
+        <h2>Results Snapshot</h2>
+        <p>We move from descriptive exposure differences to modeled mechanisms, then show how attitudes distribute across groups and finish with an application guide.</p>
+
+        <!-- 1) Exposure differences -->
+        <section class="spotlight">
+          <div class="content">
+            <h3>Experiences with Grizzly Bears — Hunters vs. Non-Hunters</h3>
+          </div>
+          <span class="image" style="width:100%; text-align:center;">
+            <img src="images/SEM1.JPG"
+                alt="Dumbbell plot comparing hunters and non-hunters reporting different experiences with grizzly bears"
+                style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+          </span>
+          <div class="content">
+            <p>
+              This <strong>dumbbell plot</strong> compares the proportion of <strong>hunters</strong> (black) and 
+              <strong>non-hunters</strong> (gray) reporting different types of experiences with grizzly bears.
+            </p>
+            <ul>
+              <li><strong>High contact:</strong> Hunters report more frequent experiences overall (90% vs. 78%).</li>
+              <li><strong>Negative experiences:</strong> Hunters are also more likely to report fearful encounters and property damage.</li>
+              <li><strong>Broader implication:</strong> Direct and vicarious experiences differ by group, shaping perceptions and identity around carnivore management.</li>
+            </ul>
+            <p>
+              This descriptive comparison establishes a baseline: <strong>exposure to wildlife varies systematically by group</strong>, 
+              setting the stage for modeling how identity and experience drive policy attitudes.
+            </p>
+          </div>
+        </section>
+
+
+        <!-- 2) Mechanism (SEM model) -->
+        <section class="spotlight">
+          <div class="content">
+            <h3>Structural Equation Model — Identity, Experience, and Policy Beliefs</h3>
+          </div>
+          <span class="image" style="width:100%; text-align:center;">
+            <img src="images/SEM2.JPG"
+                alt="Structural equation model linking hunter identity, experiences, attitudes, and normative beliefs"
+                style="max-width:900px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+          </span>
+          <div class="content">
+            <p>
+              This <strong>structural equation model (SEM)</strong> captures how identity and experience shape 
+              attitudes toward grizzly bears, and ultimately, <strong>normative beliefs about population management</strong>. 
+              Path coefficients indicate the size and direction of relationships, with arrow thickness proportional to effect strength.
+            </p>
+            <ul>
+              <li><strong>Identity matters:</strong> Being a hunter has both direct and indirect effects on beliefs.</li>
+              <li><strong>Emotions as a pathway:</strong> Neutral experiences influence emotional disposition, which in turn shapes attitudes and beliefs.</li>
+              <li><strong>Explained variance:</strong> The model accounts for roughly 50% of the variance in normative beliefs (<em>R²</em> = 0.51).</li>
+            </ul>
+            <p>
+              This analysis provides the <strong>mechanism-level insight</strong> behind group differences, showing 
+              not just whether hunters and non-hunters differ, but <em>why</em> and through which pathways.
+            </p>
+          </div>
+        </section>
+
+
+        <!-- 3) Distributional patterns -->
+        <section class="spotlight">
+          <div class="content">
+            <h3>Attitude Distributions — Identity × Vicarious Property Damage</h3>
+          </div>
+          <span class="image" style="width:100%; text-align:center;">
+            <img src="images/SEM.JPG"
+                alt="Faceted density plots showing attitudes toward grizzlies for hunters and non-hunters, with and without vicarious property damage"
+                style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+          </span>
+          <div class="content">
+            <p>
+              Faceted <strong>density plots</strong> (small multiples) show how attitudes toward grizzlies are distributed
+              from negative (1) to positive (5) across four groups.
+            </p>
+            <ul>
+              <li><strong>Identity signal:</strong> Hunters and non-hunters exhibit distinct baseline distributions.</li>
+              <li><strong>Damage context:</strong> Reporting vicarious property damage shifts the distribution toward less positive attitudes.</li>
+              <li><strong>Interaction:</strong> The shift is larger for some groups, consistent with the identity × VPD interaction found in modeling.</li>
+            </ul>
+            <p>
+              Together with the SEM, this view complements the dumbbell plot by showing
+              <strong>how entire distributions move</strong>—not just mean differences.
+            </p>
+          </div>
+        </section>
+
+        <!-- 4) Application / guidance -->
+        <section class="spotlight">
+          <div class="content">
+            <h3>From Results to Guidance</h3>
+          </div>
+          <span class="image" style="width:100%; text-align:center;">
+            <img src="images/SEM3.png"
+                alt="Illustrated summary comparing hunters and nonhunters, with polarizing vs uniting forces"
+                style="max-width:750px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+          </span>
+          <div class="content">
+            <p>
+              To translate statistical findings into <strong>usable insights</strong>, we developed a visual guide contrasting
+              hunters and nonhunters on their grizzly experiences and highlighting <strong>polarizing vs. uniting forces</strong>.
+            </p>
+            <ul>
+              <li><strong>Comparative traits:</strong> Hunters more likely to have direct or vicarious encounters; nonhunters less exposed but more fearful.</li>
+              <li><strong>Polarizing forces:</strong> Negative stories, dismissals, limited cross-talk, and out-group exaggeration.</li>
+              <li><strong>Uniting forces:</strong> Positive in-group narratives, collaborative interventions, shared values, and inclusive “we” language.</li>
+            </ul>
+            <p>
+              This step moves beyond modeling to show <strong>how findings can inform outreach and conflict mitigation</strong>.
+            </p>
+          </div>
+        </section>
+
+
+
+            <hr class="major" />
+
+            <h2>What This Demonstrates</h2>
+            <ul>
+              <li><strong>Measurement to insight:</strong> Turn abstract ideas into reliable metrics, not just proxies.</li>
+              <li><strong>Modeling literacy:</strong> Choose methods that match the data (factor analysis, SEM), not the other way around.</li>
+              <li><strong>Reproducibility:</strong> End-to-end R pipeline (wrangle → validate → model → visualize → export).</li>
+              <li><strong>Communication:</strong> Clear, visual storytelling that keeps stakeholders out of the weeds and in the loop.</li>
+            </ul>
+
+            <p class="align-right"><a href="index.html" class="button">Back to Portfolio</a></p>
+          </section>
+
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div id="sidebar">
+        <div class="inner">
+
+          <!-- Search -->
+          <section id="search" class="alt">
+            <form method="post" action="#">
+              <input type="text" name="query" id="query" placeholder="Search" />
+            </form>
+          </section>
+
+          <!-- Menu -->
+          <nav id="menu">
+            <header class="major">
+              <h2>Menu</h2>
+            </header>
+            <ul>
+              <li><a href="index.html">Homepage</a></li>
+              <li><a href="generic.html">Generic</a></li>
+              <li><a href="elements.html">Elements</a></li>
+              <li><a href="meta.html">Meta-Analysis</a></li>
+              <li><a href="social-identity.html">Social Identity</a></li>
+              <li><a href="ntph-alabama.html">Non-Traditional Hunters</a></li>
+            </ul>
+          </nav>
+
+          <!-- Mini posts -->
+          <section>
+            <header class="major">
+              <h2>Recent</h2>
+            </header>
+            <div class="mini-posts">
+              <article>
+                <a href="fishermen.html" class="image"><img src="images/pic07.jpg" alt="Fisherman feedback" /></a>
+                <p>Fisherman Feedback: sentiment + location analysis.</p>
+              </article>
+              <article>
+                <a href="index.html" class="image"><img src="images/pic08.jpg" alt="Portfolio grid" /></a>
+                <p>Portfolio overview and projects grid.</p>
+              </article>
+            </div>
+          </section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>    I’m always open to discussing data analytics opportunities, research collaborations, or sharing ideas about data-driven decision making.</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">maxbirdsong1221@gmail.com</a></li>
+										<li class="icon solid fa-phone">+49 15129688479</li>
+										<li class="icon solid fa-home">Glasbläserallee 8, 10245 Berlin, DE<br />
+										</li>
+									</ul>
+								</section>
+
+          <!-- Footer -->
+          <footer id="footer">
+            <p class="copyright">&copy; You. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+          </footer>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE HTML>
+<!--
+  Editorial by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>Wolf Survey — Data Engineering, Modeling & Reporting</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+  <body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Main -->
+      <div id="main">
+        <div class="inner">
+
+          <!-- Header -->
+          <header id="header">
+            <a href="index.html" class="logo">Max Birdsong | PhD</a>
+            <ul class="icons">
+              <li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+              <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+              <li><a href="#" class="icon brands fa-google"><span class="label">Google Scholar</span></a></li>
+            </ul>
+          </header>
+
+          <!-- Content -->
+          <section>
+            <header class="main">
+              <h1>Wolf Survey — Data Analysis Project</h1>
+              <p>Featured project: survey data, multi-language workflow (Python · SQL · R), reproducible reporting</p>
+            </header>
+
+            <!-- Hero -->
+            <span class="image main">
+              <img src="images/wolf2.jpg" alt="Wolf survey analytics hero" />
+            </span>
+
+            <!-- Executive Summary (business-facing STAR) -->
+            <h2>Executive Summary</h2>
+            <div style="background:#f7f7f9;padding:1.25rem;border-radius:12px;line-height:1.6;">
+              <p><strong>Situation:</strong> Decision-makers required a defensible, longitudinal read on public tolerance, trust, and experiences with wolves across three waves (2012 · 2017 · 2023).</p>
+              <p><strong>Task:</strong> Deliver a reliable analytics pipeline that harmonizes legacy instruments, cleans and weights the data, and surfaces trend insights suitable for policy and communications.</p>
+              <p><strong>Action:</strong></p>
+              <ul>
+                <li>Engineered a <em>canonical schema</em> in Python to unify four strata files and prior waves (schema drift resolved; provenance logged).</li>
+                <li>Standardized IDs and removed duplicates with <em>SQL window functions</em> and integrity checks.</li>
+                <li>Produced weighted estimates and trend visuals in R (<code>survey</code>, <code>ggplot2</code>), exported stakeholder-ready figures/decks via <code>officer</code>.</li>
+              </ul>
+              <p><strong>Result:</strong> A reproducible pipeline and concise visuals showing where tolerance, trust, licensing, and livestock impacts changed over time—clear inputs for leadership decisions.</p>
+            </div>
+
+            <hr class="major" />
+
+            <h2>Overview</h2>
+            <p>
+              Longitudinal attitudes toward wolf management in the Northern Rockies were analyzed across three waves.
+              Emphasis is on the <strong>workflow</strong>—from harmonizing legacy instruments to weighted, comparable trends—delivered as code-first, reproduction-ready outputs.
+            </p>
+
+            <div class="box">
+              <ul>
+                <li><strong>Sample:</strong> Stratified mail survey across stakeholder groups (GenPop, Deer/Elk, Landowners, Wolf licensees).</li>
+                <li><strong>Data prep:</strong> Python schema unification; SQL de-duplication; canonical variable map across 2012/2017/2023.</li>
+                <li><strong>Focus:</strong> Tolerance (wolves / hunting), trust in agencies, awareness/interactions, licensing, livestock outcomes.</li>
+              </ul>
+            </div>
+
+            <hr class="major" />
+
+            <h2>Methods Snapshot</h2>
+            <p>End-to-end pipeline for clean, comparable longitudinal analysis:</p>
+            <ul>
+              <li><strong>Harmonization:</strong> Python scripts read SPSS exports, infer year/strata, map legacy fields to a canonical layout, and log provenance.</li>
+              <li><strong>Relational cleaning:</strong> SQL staging + window functions to identify duplicates by <code>(IDNO, year, group)</code>, normalize fields, and enforce integrity.</li>
+              <li><strong>Weighting & estimates:</strong> R <code>survey</code> for weighted means/SEs and distributions by wave and strata.</li>
+              <li><strong>Visualization:</strong> <code>ggplot2</code> facets with uncertainty bands; export to PPTX/PNG via <code>officer</code>.</li>
+              <li><strong>Reproducibility:</strong> Config-driven mapping; figures regenerated from code.</li>
+            </ul>
+
+            <div class="box">
+              <h3>Highlights</h3>
+              <ul>
+                <li>Unified three waves despite schema drift and varying strata definitions.</li>
+                <li>Traceable ID handling and canonical variable mapping for apples-to-apples comparisons.</li>
+                <li>Weighted, interpretable visuals oriented to decision contexts.</li>
+                <li>Deliverables: master dataset, scripts (Python/SQL/R), slide deck, and technical summary.</li>
+              </ul>
+            </div>
+
+<p class="align-right">
+  <a href="https://github.com/max-birdsong/wolf-survey-analysis/blob/main/reports/wolf_final_survey_report.pdf" target="_blank" class="button primary small">Report (PDF)</a>
+  <a href="https://github.com/max-birdsong/wolf-survey-analysis" target="_blank" class="button small">All Code Repos</a>
+  <a href="https://github.com/max-birdsong/wolf-survey-analysis/blob/main/reports/Figures/wolves_graphs_longitudinal.pptx" target="_blank" class="button small">Deck (.pptx)</a>
+</p>
+
+
+            <hr class="major" />
+
+            <!-- Results Snapshot -->
+            <h2>Results Snapshot</h2>
+            <p>
+              Two figures summarize the core trends: tolerance for wolves on the landscape and tolerance for wolf hunting,
+              presented by stakeholder group across waves.
+            </p>
+
+            <!-- FIGURE 1: Tolerance trends -->
+            <section class="spotlight">
+              <div class="content">
+                <h3>Tolerance for Wolves on the Landscape</h3>
+              </div>
+              <span class="image" style="width:100%; text-align:center;">
+                <img src="images/wolf.JPG"
+                     alt="Tolerance toward wolves across survey waves (2012, 2017, 2023), by stakeholder group"
+                     style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+              </span>
+              <div class="content">
+                <p>
+                  Weighted means (±SE) on a 1–5 scale (1 = very intolerant, 5 = very tolerant).
+                  Results by stakeholder group and wave.
+                </p>
+                <ul>
+                  <li><strong>Deer/Elk license holders:</strong> rising tolerance (2.1 → 2.5 → 3.4).</li>
+                  <li><strong>General residents:</strong> rising tolerance (3.0 → 3.3 → 3.9).</li>
+                  <li><strong>Landowners:</strong> rising tolerance (1.7 → 2.0 → 2.5).</li>
+                  <li><strong>Wolf license holders:</strong> stable (~2.0–2.2).</li>
+                </ul>
+                <p><em>Signal:</em> broad increases in tolerance for presence, especially among general residents and deer/elk hunters.</p>
+              </div>
+            </section>
+
+            <!-- FIGURE 2: Tolerance for wolf hunting -->
+            <section class="spotlight">
+              <div class="content">
+                <h3>Tolerance for Wolf Hunting</h3>
+              </div>
+              <span class="image" style="width:100%; text-align:center;">
+                <img src="images/wolf3.JPG"
+                     alt="Tolerance toward wolf hunting across survey waves (2012, 2017, 2023), by stakeholder group"
+                     style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+              </span>
+              <div class="content">
+                <p>
+                  Weighted means (±SE) on a 1–5 scale by stakeholder group and wave.
+                </p>
+                <ul>
+                  <li><strong>Deer/Elk hunters:</strong> consistently high (~4.4) with little change.</li>
+                  <li><strong>General residents:</strong> declining tolerance (4.0 → 3.7 → 3.5).</li>
+                  <li><strong>Landowners:</strong> stable (~4.2–4.3).</li>
+                  <li><strong>Wolf license holders:</strong> very high and increasing (4.6 → 4.9).</li>
+                </ul>
+                <p><em>Signal:</em> tolerance for hunting remains high in hunting-oriented segments, while general residents trend downward.</p>
+              </div>
+            </section>
+
+            <!-- Contrast callout -->
+            <div class="box">
+              <p><strong>Presence vs. Hunting:</strong> Acceptance of wolves on the landscape rose for most groups, while acceptance of wolf hunting stayed high among hunters/landowners but declined among general residents.</p>
+            </div>
+
+            <hr class="major" />
+
+            <h2>What This Demonstrates</h2>
+            <ul>
+              <li><strong>Data engineering:</strong> Canonical schema + de-dup logic that generalize to other longitudinal programs.</li>
+              <li><strong>Survey analytics:</strong> Appropriate weighting and variance estimation for defensible inference.</li>
+              <li><strong>Transparent workflow:</strong> Code-first approach enables audits, regeneration, and rapid iteration.</li>
+              <li><strong>Outcome focus:</strong> Compact visuals and a decision-oriented deck/report.</li>
+            </ul>
+
+            <p class="align-right"><a href="index.html" class="button">Back to Portfolio</a></p>
+          </section>
+
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div id="sidebar">
+        <div class="inner">
+
+          <!-- Search -->
+          <section id="search" class="alt">
+            <form method="post" action="#">
+              <input type="text" name="query" id="query" placeholder="Search" />
+            </form>
+          </section>
+
+          <!-- Menu -->
+          <nav id="menu">
+            <header class="major">
+              <h2>Menu</h2>
+            </header>
+            <ul>
+              <li><a href="index.html">Homepage</a></li>
+              <li><a href="meta.html">Meta-Analysis</a></li>
+              <li><a href="social-identity.html">Social Identity</a></li>
+              <li><a href="ntph-alabama.html">Non-Traditional Hunters</a></li>
+              <li><a href="harvest-release.html">Harvest & Release Behavior</a></li>
+              <li><a href="mtb-preferences.html">Mountain Biker Preferences</a></li>
+              <li><a href="wolf-survey.html">Wolf Survey</a></li>
+            </ul>
+          </nav>
+
+          <!-- Mini posts -->
+          <section>
+            <header class="major">
+              <h2>Recent</h2>
+            </header>
+            <div class="mini-posts">
+              <article>
+                <a href="fishermen.html" class="image"><img src="images/pic07.jpg" alt="Fisherman feedback" /></a>
+                <p>Fisherman Feedback: sentiment + location analysis.</p>
+              </article>
+              <article>
+                <a href="index.html" class="image"><img src="images/pic08.jpg" alt="Portfolio grid" /></a>
+                <p>Portfolio overview and projects grid.</p>
+              </article>
+            </div>
+          </section>
+
+          <!-- Contact -->
+          <section>
+            <header class="major">
+              <h2>Get in touch</h2>
+            </header>
+            <p>I’m open to data analytics roles, research collaborations, and conversations about data-driven decision making.</p>
+            <ul class="contact">
+              <li class="icon solid fa-envelope"><a href="#">maxbirdsong1221@gmail.com</a></li>
+              <li class="icon solid fa-phone">+49 15129688479</li>
+              <li class="icon solid fa-home">Glasbläserallee 8, 10245 Berlin, DE<br /></li>
+            </ul>
+          </section>
+
+          <!-- Footer -->
+          <footer id="footer">
+            <p class="copyright">&copy; You. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+          </footer>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+  </body>
+</html>
+

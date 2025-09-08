@@ -1,0 +1,278 @@
+<!DOCTYPE HTML>
+<!--
+  Editorial by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>Harvest & Release Behavior — Data Analysis & Modeling</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+  <body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Main -->
+      <div id="main">
+        <div class="inner">
+
+          <!-- Header -->
+          <header id="header">
+	        <a href="index.html" class="logo">Max Birdsong | PhD</a>
+            <ul class="icons">
+              <li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+              <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+              <li><a href="#" class="icon brands fa-google"><span class="label">Google Scholar</span></a></li>
+            </ul>
+          </header>
+
+          <!-- Content -->
+          <section>
+            <header class="main">
+              <h1>Harvest & Release Behavior — Data Analysis Project</h1>
+              <p>Survey data, behavioral modeling, and reproducible reporting</p>
+            </header>
+
+            <!-- Hero -->
+            <span class="image main">
+              <img src="images/CultureContext5.jpg" alt="Harvest-release hero" />
+            </span>
+
+            <!-- Executive Summary (STAR) -->
+            <h2>Executive Summary</h2>
+            <div style="background:#f7f7f9;padding:1.25rem;border-radius:12px;line-height:1.6;">
+              <p><strong>Situation:</strong> Managers needed a defensible read on <em>why</em> German anglers harvest or release fish, and how policy, norms, and motivations interact.</p>
+              <p><strong>Task:</strong> Convert multi-item attitudes/behavior batteries into reliable indicators and estimate how social, regulatory, and motivational factors predict release vs. harvest.</p>
+              <p><strong>Action:</strong></p>
+              <ul>
+                <li>Built and validated behavioral/attitudinal indices from survey items.</li>
+                <li>Fit logistic and multinomial regression with diagnostics and subgroup checks.</li>
+                <li>Automated the workflow in R (<code>tidyverse</code>, <code>nnet</code>, <code>ggplot2</code>) and exported stakeholder-ready visuals.</li>
+              </ul>
+              <p><strong>Result:</strong> Clear predictors of release/harvest decisions, scenario comparisons for policy communication, and a reproducible script-to-figures pipeline.</p>
+            </div>
+
+            <hr class="major" />
+
+            <h2>Overview</h2>
+            <p>
+              This project analyzes national survey data from German recreational fisheries to explain <strong>release vs. harvest decisions</strong>.
+              Portfolio emphasis is on the <strong>analytics workflow</strong>—from index construction to model estimation and decision-focused visuals—
+              all reproducibly generated from code.
+            </p>
+
+            <div class="box">
+              <ul>
+                <li><strong>Sample:</strong> Nationwide survey of German anglers (n ≈ 1,500 usable responses).</li>
+                <li><strong>Data prep:</strong> Cleaned behavior, attitudes, and policy-context items; constructed composite indicators.</li>
+                <li><strong>Focus:</strong> Predicting release and harvest likelihood from social, regulatory, and motivational predictors.</li>
+              </ul>
+            </div>
+
+            <hr class="major" />
+
+            <h2>Methods Snapshot</h2>
+            <p>From raw responses to interpretable, policy-relevant effects:</p>
+            <ul>
+              <li><strong>Measurement:</strong> Item screening, internal consistency (e.g., α), and composite indices for norms, motivations, and policy context.</li>
+              <li><strong>Modeling:</strong> Binary logistic (release vs. harvest) and multinomial models for multi-category outcomes.</li>
+              <li><strong>Diagnostics:</strong> Collinearity checks, residual/fit assessment, subgroup robustness (species/regions/experience).</li>
+              <li><strong>Tooling:</strong> R (<code>tidyverse</code>, <code>nnet</code>, <code>ggplot2</code>) with scripted exports for PPT/PNG.</li>
+            </ul>
+
+            <div class="box">
+              <h3>Highlights</h3>
+              <ul>
+                <li>Validated behavioral indicators that align with theory and policy context.</li>
+                <li>Effect-size and uncertainty visuals tailored for non-technical stakeholders.</li>
+                <li>Scenario comparisons translate coefficients into “what if” outcomes.</li>
+                <li>Reproducible, auditable pipeline from raw CSV → cleaned → modeled → figures.</li>
+              </ul>
+            </div>
+
+            <p class="align-right">
+              <a href="assets/papers/birdsong-harvest-release.pdf" class="button primary small">PDF</a>
+              <a href="#" class="button small">Code</a>
+              <a href="#" class="button small">Deck (.pptx)</a>
+            </p>
+
+            <hr class="major" />
+
+          <h2>Results Snapshot</h2>
+          <p>Figures progress from model-based predictions to behavioral patterns—illustrating not only <strong>what differs</strong>, but also <strong>how those differences can be explained and applied</strong>.</p>
+
+          <!-- 1) Modeled predictions by species -->
+          <section class="spotlight">
+            <div class="content">
+              <h3>Predicted Harvest Probability by Species</h3>
+            </div>
+            <span class="image" style="width:100%; text-align:center;">
+              <img src="images/CultureContext2.png"
+                  alt="Predicted harvest probability by species and normalized CPUE across German fisheries"
+                  style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+            </span>
+            <div class="content">
+              <p>
+                Logistic mixed-effects models translate survey data into <strong>species-specific harvest probabilities</strong>. 
+                CPUE (catch-per-unit effort) was normalized to allow meaningful comparisons across species with very different catch rates.
+              </p>
+              <ul>
+                <li><strong>Consistently harvested:</strong> Trout and cod remain high regardless of CPUE.</li>
+                <li><strong>Selective patterns:</strong> For perch and zander, harvest likelihood falls as CPUE rises.</li>
+                <li><strong>Regional lens:</strong> Results shown separately for Lower Saxony (LS) and Mecklenburg–Western Pomerania (MWP), with uncertainty bands.</li>
+              </ul>
+              <p>
+                This workflow demonstrates the ability to <strong>normalize metrics, fit complex models, and deliver predictions</strong> that feed directly into management discussions.
+              </p>
+            </div>
+          </section>
+
+          <!-- 2) Angler attributes: partial effects -->
+          <section class="spotlight">
+            <div class="content">
+              <h3>Harvest Behavior and Angler Attributes</h3>
+            </div>
+            <span class="image" style="width:100%; text-align:center;">
+              <img src="images/CultureContext3.png"
+                  alt="Predicted proportion harvested across z-scored angler attributes with 95% CI, by region"
+                  style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+            </span>
+            <div class="content">
+              <p>
+                By standardizing predictors (z-scoring), the model isolates how individual attributes shift harvest likelihood. 
+                Solid = LS, dashed = MWP, with 95% CIs.
+              </p>
+              <ul>
+                <li><strong>Higher harvest with:</strong> older age, lifestyle centrality, and consumption orientation.</li>
+                <li><strong>Lower harvest with:</strong> skill and strong behavioral commitment (experienced anglers release more).</li>
+                <li><strong>Stable effects:</strong> Patterns remain consistent across states.</li>
+              </ul>
+              <p>
+                This analysis highlights <strong>how individual-level traits map onto behavior</strong>, with standardized metrics that make results comparable and stakeholder-friendly.
+              </p>
+            </div>
+          </section>
+
+          <!-- 3) Size–selectivity by species -->
+          <section class="spotlight">
+            <div class="content">
+              <h3>Harvest Probability by Fish Size</h3>
+            </div>
+            <span class="image" style="width:100%; text-align:center;">
+              <img src="images/CultureContext4.png"
+                  alt="Species-specific harvest probability vs fish length with 95% CI and histograms of observed sizes"
+                  style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+            </span>
+            <div class="content">
+              <p>
+                Logistic regressions connect <strong>fish size</strong> to harvest probability, paired with observed size distributions. 
+                Vertical lines show state minimum-size limits, providing a direct link between regulation and behavior.
+              </p>
+              <ul>
+                <li><strong>Size effect:</strong> Larger fish generally have higher harvest likelihood, leveling off near legal thresholds.</li>
+                <li><strong>Species nuance:</strong> Trout and perch are harvested at high rates regardless of size; carp shows reduced harvest at trophy lengths.</li>
+                <li><strong>Policy relevance:</strong> Inflection points align closely with state limits, showing regulation and angler behavior move together.</li>
+              </ul>
+              <p>
+                Pairing <strong>predicted curves with observed catch data</strong> makes it clear where management rules are effective—and where behavioral shifts might matter most.
+              </p>
+            </div>
+          </section>
+
+
+            <hr class="major" />
+
+            <h2>What This Demonstrates</h2>
+            <ul>
+              <li><strong>Measurement → insight:</strong> Build reliable indices from behavioral and attitudinal items.</li>
+              <li><strong>Right-size models:</strong> Choose binary vs. multinomial frameworks with explicit diagnostics.</li>
+              <li><strong>Reproducibility:</strong> Script-first workflow for fast iteration and auditability.</li>
+              <li><strong>Communication:</strong> Clear visuals that bridge technical modeling and policy decisions.</li>
+            </ul>
+
+            <p class="align-right"><a href="index.html" class="button">Back to Portfolio</a></p>
+          </section>
+
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div id="sidebar">
+        <div class="inner">
+
+          <!-- Search -->
+          <section id="search" class="alt">
+            <form method="post" action="#">
+              <input type="text" name="query" id="query" placeholder="Search" />
+            </form>
+          </section>
+
+          <!-- Menu -->
+          <nav id="menu">
+            <header class="major">
+              <h2>Menu</h2>
+            </header>
+            <ul>
+              <li><a href="index.html">Homepage</a></li>
+              <li><a href="meta.html">Meta-Analysis</a></li>
+              <li><a href="social-identity.html">Social Identity</a></li>
+              <li><a href="ntph-alabama.html">Non-Traditional Hunters</a></li>
+              <li><a href="harvest-release.html">Harvest & Release Behavior</a></li>
+              <li><a href="mtb-preferences.html">Mountain Biker Preferences</a></li>
+              <li><a href="wolf-survey.html">Wolf Survey</a></li>
+            </ul>
+          </nav>
+
+          <!-- Mini posts -->
+          <section>
+            <header class="major">
+              <h2>Recent</h2>
+            </header>
+            <div class="mini-posts">
+              <article>
+                <a href="fishermen.html" class="image"><img src="images/pic07.jpg" alt="Fisherman feedback" /></a>
+                <p>Fisherman Feedback: sentiment + location analysis.</p>
+              </article>
+              <article>
+                <a href="index.html" class="image"><img src="images/pic08.jpg" alt="Portfolio grid" /></a>
+                <p>Portfolio overview and projects grid.</p>
+              </article>
+            </div>
+          </section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>    I’m always open to discussing data analytics opportunities, research collaborations, or sharing ideas about data-driven decision making.</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">maxbirdsong1221@gmail.com</a></li>
+										<li class="icon solid fa-phone">+49 15129688479</li>
+										<li class="icon solid fa-home">Glasbläserallee 8, 10245 Berlin, DE<br />
+										</li>
+									</ul>
+								</section>
+
+          <!-- Footer -->
+          <footer id="footer">
+            <p class="copyright">&copy; You. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+          </footer>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+  </body>
+</html>

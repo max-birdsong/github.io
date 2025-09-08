@@ -1,0 +1,316 @@
+<!DOCTYPE HTML>
+<!--
+  Editorial by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>Fisherman Feedback — Sentiment & Geo Analysis</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+  <body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Main -->
+      <div id="main">
+        <div class="inner">
+
+          <!-- Header -->
+          <header id="header">
+	        <a href="index.html" class="logo">Max Birdsong | PhD</a>
+            <ul class="icons">
+              <li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+              <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+              <li><a href="#" class="icon brands fa-google"><span class="label">Google Scholar</span></a></li>
+            </ul>
+          </header>
+
+          <!-- Content -->
+          <section>
+            <header class="main">
+              <h1>Fisherman Feedback — Yellowedge Grouper</h1>
+              <p>Survey comments, sentiment scoring, and geography-aware summaries (Feb 2024)</p>
+            </header>
+
+            <!-- Hero -->
+            <span class="image main">
+              <img src="images/feedback6.JPG" alt="Fisherman Feedback overview hero" />
+            </span>
+
+            <!-- Executive Summary (STAR) -->
+            <h2>Executive Summary</h2>
+            <div style="background:#f7f7f9;padding:1.25rem;border-radius:12px;line-height:1.6;">
+              <p><strong>Situation:</strong> The Council received open-ended comments (Sept 15–Oct 13, 2023) about Yellowedge Grouper. Leaders needed a quick, defensible read on sentiment by sector and where concerns clustered geographically.</p>
+              <p><strong>Task:</strong> Clean comments, reconcile manual vs. automated sentiment, and produce <em>geo-aware</em> rollups using a 21-area Gulf grid—handling multi-area responses correctly.</p>
+              <p><strong>Action:</strong></p>
+              <ul>
+                <li>Built a lightweight R pipeline to tokenize text, apply a customized Bing lexicon, and compare with dual-reviewer manual labels.</li>
+                <li>Exploded multi-area selections to area-level records; aggregated counts and polarity by sector and grid cell.</li>
+                <li>Generated clean visuals (bars/maps/coef-style plots) suitable for briefings.</li>
+              </ul>
+              <p><strong>Result:</strong> A concise, reproducible sentiment + geography report showing where positions concentrate and which keywords drive polarity—supporting quicker, better-targeted engagement.</p>
+            </div>
+
+            <hr class="major" />
+
+            <h2>Overview</h2>
+            <p>
+              The pipeline converts <strong>63 analyzed comments</strong> into sector and geography summaries with both
+              <strong>manual</strong> and <strong>lexicon-based</strong> sentiment. For portfolio purposes, emphasis is on the
+              <strong>workflow</strong>: robust text cleaning, polarity reconciliation, and careful handling of multi-area responses for map-ready outputs.
+            </p>
+
+            <div class="box">
+              <ul>
+                <li><strong>Sample:</strong> 63 comments with sector tags; locations via 21-area Gulf grid (multi-select allowed).</li>
+                <li><strong>Sentiment:</strong> Two human reviewers (consensus labels) + automated lexicon scoring with fisheries terms (e.g., “depredation”, “longline”).</li>
+                <li><strong>Geo:</strong> Area-level rollups after exploding multi-area selections (map totals can exceed N).</li>
+              </ul>
+            </div>
+
+            <hr class="major" />
+
+            <h2>Methods Snapshot</h2>
+            <p>From raw text to actionable, geo-enabled insights:</p>
+            <ul>
+              <li><strong>Text processing:</strong> Tokenization, stopword removal, custom lexicon merge; manual labels for calibration.</li>
+              <li><strong>Polarity reconciliation:</strong> Compare manual vs. auto; flag conflicts; prioritize human consensus.</li>
+              <li><strong>Geography:</strong> Separate rows by selected areas; aggregate counts/polarity by area and sector.</li>
+              <li><strong>Tooling:</strong> R (<code>tidyverse</code>, <code>tidytext</code>), map-ready tables, <code>ggplot2</code> charts.</li>
+            </ul>
+
+            <div class="box">
+              <h3>Highlights</h3>
+              <ul>
+                <li>Manual + automated sentiment gives both quality control and scale.</li>
+                <li>Geo-aware rollups respect multi-area responses—no double-counting at the comment level.</li>
+                <li>Keyword driver view clarifies <em>why</em> sentiment skews positive or negative.</li>
+                <li>Short, reproducible script regenerates all tables/figures.</li>
+              </ul>
+            </div>
+
+            <p class="align-right">
+              <a href="#" class="button primary small">Brief (PDF)</a>
+              <a href="#" class="button small">Code</a>
+              <a href="#" class="button small">Figures (.png)</a>
+            </p>
+
+            <hr class="major" />
+
+            <h2>Results Snapshot</h2>
+            <p>Figures progress from participation and sentiment by sector → keyword drivers → geo density and geo polarity → topic subset views.</p>
+
+<!-- Geo Distribution of Responses -->
+<section class="spotlight">
+  <div class="content">
+    <h3>Geo Distribution of Responses</h3>
+  </div>
+  <span class="image" style="width:100%; text-align:center;">
+    <img src="images/feedback2.JPG"
+         alt="Response counts by Gulf area grid"
+         style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+  </span>
+  <div class="content">
+    <p>
+      Map of responses across <strong>21 Gulf areas</strong>. Because respondents could select 
+      multiple areas, the total map count (<strong>n=185</strong>) exceeds the number of individuals. 
+      This ensures <strong>multi-area tagging</strong> was correctly expanded for analysis rather than 
+      under- or over-counted.
+    </p>
+    <ul>
+      <li><strong>Data integrity:</strong> Multi-area responses exploded into area-level rows for accurate rollups.</li>
+      <li><strong>Spatial awareness:</strong> Distribution shows where concerns cluster across the Gulf.</li>
+      <li><strong>Workflow:</strong> Map-ready tables generated directly from cleaned survey data for briefing use.</li>
+    </ul>
+    <p>
+      This step demonstrates <strong>geography-aware data engineering</strong>, where text survey responses 
+      are prepared for <strong>clear, stakeholder-ready spatial summaries</strong>.
+    </p>
+  </div>
+</section>
+
+<!-- Sentiment by Sector -->
+<section class="spotlight">
+  <div class="content">
+    <h3>Sentiment by Fishing Sector</h3>
+  </div>
+  <span class="image" style="width:100%; text-align:center;">
+    <img src="images/feedback3.JPG"
+         alt="Stacked bar chart showing positive, negative, and neutral sentiment by fishing sector"
+         style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+  </span>
+  <div class="content">
+    <p>
+      Open-ended survey comments were <strong>classified into positive, negative, and neutral sentiment</strong> 
+      and cross-tabulated by sector. Respondents could select multiple sectors, 
+      so totals exceed the number of individuals (n=73).
+    </p>
+    <ul>
+      <li><strong>Commercial:</strong> Mostly negative, with only limited positive sentiment.</li>
+      <li><strong>Private recreational:</strong> Broader mix—negative and neutral dominate, but positives appear as well.</li>
+      <li><strong>For-hire:</strong> Smaller sample, sentiment balanced across categories.</li>
+    </ul>
+    <p>
+      This illustrates the ability to <strong>turn unstructured feedback into structured, stakeholder-level insights</strong>. 
+      The workflow ensures that <strong>managers can see at a glance where support or resistance is strongest</strong>.
+    </p>
+  </div>
+</section>
+
+
+<!-- Sentiment by Area (geo polarity) -->
+<section class="spotlight">
+  <div class="content">
+    <h3>Sentiment by Area</h3>
+  </div>
+  <span class="image" style="width:100%; text-align:center;">
+    <img src="images/feedback4.jpg"
+         alt="Map of Gulf grid cells showing per-area sentiment mix (positive/neutral/negative) with sample sizes"
+         style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+  </span>
+  <div class="content">
+    <p>
+      Each grid cell displays the <strong>mix of sentiment</strong> (positive/neutral/negative) and the local
+      <strong>sample size</strong>. Comments were labeled by two reviewers and then linked to one or more
+      self-reported areas; multi-area responses were expanded to area-level rows (map total n=185 &gt; 63 comments).
+    </p>
+    <ul>
+      <li><strong>Geography-aware:</strong> Correctly handles multi-select locations to avoid under/over-counting.</li>
+      <li><strong>Apportionment:</strong> Per-area sentiment helps target outreach where views skew supportive vs. critical.</li>
+      <li><strong>Data quality:</strong> Small-N cells are visible at a glance, discouraging over-interpretation.</li>
+    </ul>
+    <p>
+      This figure demonstrates <strong>clean data engineering + clear spatial storytelling</strong>—turning open-text
+      feedback into <strong>map-ready, decision-focused summaries</strong>.
+    </p>
+  </div>
+</section>
+
+<!-- Word cloud: sentiment drivers -->
+<section class="spotlight">
+  <div class="content">
+    <h3>Word Cloud: Sentiment Drivers</h3>
+  </div>
+  <span class="image" style="width:100%; text-align:center;">
+    <img src="images/feedback5.jpg"
+         alt="Word cloud of most frequent positive and negative terms from fisherman feedback"
+         style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+  </span>
+  <div class="content">
+    <p>
+      Word frequency visualization highlights the <strong>keywords driving sentiment</strong> in comments.
+      Positive terms (green) emphasize stock health and abundance, while negative terms (orange) point to
+      limits, loss, and difficulty.
+    </p>
+    <ul>
+      <li><strong>Positive themes:</strong> “healthy,” “plenty,” “large,” “sustainable.”</li>
+      <li><strong>Negative themes:</strong> “limits,” “loss,” “hard,” “impossible.”</li>
+      <li><strong>Balance:</strong> Both optimism about stock health and frustration with constraints emerge clearly.</li>
+    </ul>
+    <p>
+      This layer translates raw comments into <strong>actionable signals</strong> about what words and
+      ideas stakeholders most associate with stock condition—helping prioritize communication points.
+    </p>
+  </div>
+</section>
+
+
+
+            <hr class="major" />
+
+            <h2>What This Demonstrates</h2>
+            <ul>
+              <li><strong>Text-to-insight:</strong> Convert messy comments into interpretable, quality-controlled sentiment.</li>
+              <li><strong>Geo-aware analysis:</strong> Correctly handle multi-area tagging for map-ready rollups.</li>
+              <li><strong>Reproducibility:</strong> Script-first workflow that a policy team can rerun and audit.</li>
+              <li><strong>Communication:</strong> Clear visuals that move fast from data to decisions.</li>
+            </ul>
+
+            <p class="align-right"><a href="index.html" class="button">Back to Portfolio</a></p>
+          </section>
+
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div id="sidebar">
+        <div class="inner">
+
+          <!-- Search -->
+          <section id="search" class="alt">
+            <form method="post" action="#">
+              <input type="text" name="query" id="query" placeholder="Search" />
+            </form>
+          </section>
+
+          <!-- Menu -->
+          <nav id="menu">
+            <header class="major">
+              <h2>Menu</h2>
+            </header>
+            <ul>
+              <li><a href="index.html">Homepage</a></li>
+              <li><a href="meta.html">Meta-Analysis</a></li>
+              <li><a href="social-identity.html">Social Identity</a></li>
+              <li><a href="ntph-alabama.html">Non-Traditional Hunters</a></li>
+              <li><a href="harvest-release.html">Harvest & Release Behavior</a></li>
+              <li><a href="mtb-preferences.html">Mountain Biker Preferences</a></li>
+              <li><a href="wolf-survey.html">Wolf Survey</a></li>
+              <li><a href="fishermen.html">Fisherman Feedback</a></li>
+            </ul>
+          </nav>
+
+          <!-- Mini posts -->
+          <section>
+            <header class="major">
+              <h2>Recent</h2>
+            </header>
+            <div class="mini-posts">
+              <article>
+                <a href="fishermen.html" class="image"><img src="images/pic07.jpg" alt="Fisherman feedback" /></a>
+                <p>Fisherman Feedback: sentiment + location analysis.</p>
+              </article>
+              <article>
+                <a href="index.html" class="image"><img src="images/pic08.jpg" alt="Portfolio grid" /></a>
+                <p>Portfolio overview and projects grid.</p>
+              </article>
+            </div>
+          </section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>    I’m always open to discussing data analytics opportunities, research collaborations, or sharing ideas about data-driven decision making.</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">maxbirdsong1221@gmail.com</a></li>
+										<li class="icon solid fa-phone">+49 15129688479</li>
+										<li class="icon solid fa-home">Glasbläserallee 8, 10245 Berlin, DE<br />
+										</li>
+									</ul>
+								</section>
+
+          <!-- Footer -->
+          <footer id="footer">
+            <p class="copyright">&copy; You. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+          </footer>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+  </body>
+</html>

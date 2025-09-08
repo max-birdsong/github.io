@@ -1,0 +1,404 @@
+<!DOCTYPE HTML>
+<!--
+  Editorial by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>Mountain Biker Preferences — Data Analysis & Modeling</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+  <body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Main -->
+      <div id="main">
+        <div class="inner">
+
+          <!-- Header -->
+          <header id="header">
+	        <a href="index.html" class="logo">Max Birdsong | PhD</a>
+            <ul class="icons">
+              <li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+              <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+              <li><a href="#" class="icon brands fa-google"><span class="label">Google Scholar</span></a></li>
+            </ul>
+          </header>
+
+          <!-- Content -->
+          <section>
+            <header class="main">
+              <h1>Mountain Biker Preferences — Data Analysis Project</h1>
+              <p>Mixed-methods survey, factor modeling, and revealed preferences</p>
+            </header>
+
+            <!-- Hero -->
+            <span class="image main">
+              <img src="images/mtb2.jpg" alt="Mountain biking analysis hero" />
+            </span>
+
+            <!-- Executive Summary (STAR) -->
+<h2>Executive Summary</h2>
+<div style="background:#f7f7f9;padding:1.25rem;border-radius:12px;line-height:1.6;">
+  <p><strong>Situation:</strong> Planners needed to understand what <em>motivates</em> riders (push factors), what <em>destination attributes</em> attract them (pull factors), and how these interact to shape actual visitation.</p>
+  
+  <p><strong>Task:</strong> Build a reliable data pipeline that turns survey responses and destination information into clear insights on customer preferences and visitation drivers.</p>
+  
+  <p><strong>Action:</strong></p>
+  <ul>
+    <li>Created and administered a statewide rider survey covering motivations and destination attributes.</li>
+    <li>Condensed <em>25 motivation items</em> into five customer motive segments; reduced <em>57 pull items</em> into eight destination features.</li>
+    <li>Mapped how motives influence attribute preferences using multivariable regression with error control.</li>
+    <li>Scraped trail and amenity data, built an algorithm to calculate travel distance for every respondent, and integrated these datasets into a customer-choice model predicting visitation patterns.</li>
+  </ul>
+  
+  <p><strong>Result:</strong> A reproducible analytics pipeline and clear visuals showing that travel distance is the biggest barrier to visitation, while trail supply, variety, and supporting infrastructure significantly increase demand—moderated by different customer segments.</p>
+</div>
+
+
+
+
+            <hr class="major" />
+
+            <h2>Overview</h2>
+            <p>
+              The project maps <strong>push motives</strong> to <strong>pull attributes</strong> and then to <strong>observed visitation</strong>.
+              Portfolio emphasis is on the <strong>workflow</strong>: scale construction, dimensionality reduction, effect estimation, and exportable visuals—fully scripted in R.
+            </p>
+
+            <div class="box">
+              <ul>
+                <li><strong>Sample:</strong> Online survey of Alabama riders (n = 593; club/listserv + state park outreach; ~1 month fielding).</li>
+                <li><strong>Instruments:</strong> 18 motive items (1–5), 57 setting items (1–5) grouped into 6 categories, 28 destinations with visit frequencies.</li>
+                <li><strong>Objective:</strong> Connect motives → preferred attributes → real destination choices.</li>
+              </ul>
+            </div>
+
+            <hr class="major" />
+
+            <h2>Methods Snapshot</h2>
+            <p>From raw Qualtrics exports to interpretable effects and predictions:</p>
+            <ul>
+              <li><strong>Data engineering:</strong> Harmonized Likert coding; logic/range checks; deduping; long-format tables for items and destinations.</li>
+              <li><strong>Push factors:</strong> EFA/CFA with varimax; five motives (stimulus-avoidance, novelty, competency-mastery, social, competition); reliabilities recorded.</li>
+              <li><strong>Pull factors:</strong> PCA on 57 items → eight components (trail features, advanced features, park facilities, community infra, natural setting, amenities, camping, entertainment).</li>
+              <li><strong>Push → Pull:</strong> Multivariable regressions per pull component; Holm–Bonferroni corrections.</li>
+              <li><strong>Revealed preferences:</strong> Use/non-use GLM (visited=1 vs matched 0s) with rider random effects; predictors include distance, trail miles, count of trails, avg ratings, difficulty mix; motive interactions probed.</li>
+              <li><strong>Tooling:</strong> R (<code>tidyverse</code>, <code>psych</code>, base PCA, <code>lme4</code>/<code>glmmTMB</code>, <code>ggplot2</code>); scripted exports.</li>
+            </ul>
+
+            <div class="box">
+              <h3>Highlights</h3>
+              <ul>
+                <li>Validated 5-factor motive structure; 8 pull components explain most variance.</li>
+                <li>Transparent push→pull tables and heatmaps summarize many effects compactly.</li>
+                <li>RSF-style GLM with random effects leverages real behavior, not just intentions.</li>
+                <li>End-to-end reproducibility: raw → cleaned → modeled → figures/deck.</li>
+              </ul>
+            </div>
+
+            <p class="align-right">
+              <a href="assets/papers/birdsong-mtb-preferences.pdf" class="button primary small">PDF</a>
+              <a href="#" class="button small">Code</a>
+              <a href="#" class="button small">Data dictionary</a>
+            </p>
+
+            <hr class="major" />
+
+            <h2>Results Snapshot</h2>
+            <p>Figures move in sequence: from validated structure of rider motives and destination attributes,
+  to their linkages, and finally to revealed behaviors—keeping the story practical for trail and tourism decisions.</p>
+
+<!-- Motivation structure: Push factors -->
+<section class="spotlight">
+  <div class="content">
+    <h3>Factor Analysis of Rider Motivations (Push)</h3>
+  </div>
+
+  <div class="content">
+    <p>
+      Analysis of <strong>25 motivation items</strong> yielded a <strong>five-factor solution</strong> explaining
+      ~<strong>69%</strong> of variance (31.9 + 14.9 + 9.5 + 7.6 + 5.3). All five factors showed acceptable reliability.
+    </p>
+
+    <div style="overflow-x:auto;">
+      <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+        <thead>
+          <tr>
+            <th style="text-align:left; border-bottom:1px solid #ddd; padding:6px;">Factor</th>
+            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Eigenvalue</th>
+            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">% Var</th>
+            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Mean</th>
+            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">SD</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:6px;">Competency–Mastery</td><td style="text-align:right; padding:6px;">5.86</td><td style="text-align:right; padding:6px;">31.9</td><td style="text-align:right; padding:6px;">3.35</td><td style="text-align:right; padding:6px;">0.97</td></tr>
+          <tr><td style="padding:6px;">Stimulus Avoidance</td><td style="text-align:right; padding:6px;">2.73</td><td style="text-align:right; padding:6px;">14.9</td><td style="text-align:right; padding:6px;">4.12</td><td style="text-align:right; padding:6px;">0.68</td></tr>
+          <tr><td style="padding:6px;">Social Interaction</td><td style="text-align:right; padding:6px;">1.74</td><td style="text-align:right; padding:6px;">9.5</td><td style="text-align:right; padding:6px;">3.34</td><td style="text-align:right; padding:6px;">0.99</td></tr>
+          <tr><td style="padding:6px;">Competition</td><td style="text-align:right; padding:6px;">1.39</td><td style="text-align:right; padding:6px;">7.6</td><td style="text-align:right; padding:6px;">2.83</td><td style="text-align:right; padding:6px;">1.05</td></tr>
+          <tr><td style="padding:6px;">Novelty</td><td style="text-align:right; padding:6px;">0.98</td><td style="text-align:right; padding:6px;">5.3</td><td style="text-align:right; padding:6px;">3.66</td><td style="text-align:right; padding:6px;">0.86</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ul style="margin-top:0.75rem;">
+      <li><strong>Competency–Mastery:</strong> skills, challenge, progress.</li>
+      <li><strong>Stimulus Avoidance:</strong> stress relief, quiet escape.</li>
+      <li><strong>Social Interaction:</strong> group riding, belonging.</li>
+      <li><strong>Competition:</strong> race, compare, improve vs. others.</li>
+      <li><strong>Novelty:</strong> variety, new places, exploration.</li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- Destination attributes: Pull factors -->
+<section class="spotlight">
+  <div class="content">
+    <h3>Factor Analysis of Destination Attributes (Pull)</h3>
+  </div>
+
+  <div class="content">
+    <p>
+      Analysis of <strong>57 setting items</strong> yielded an <strong>eight-component solution</strong> explaining
+      ~<strong>62.4%</strong> of variance (21.1 + 9.7 + 7.5 + 6.2 + 6.0 + 4.5 + 3.8 + 3.6).
+      These “pull” dimensions summarize what destinations provide.
+    </p>
+
+    <div style="overflow-x:auto;">
+      <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+        <thead>
+          <tr>
+            <th style="text-align:left; border-bottom:1px solid #ddd; padding:6px;">Component</th>
+            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Eigenvalue</th>
+            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">% Var</th>
+            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Mean</th>
+            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">SD</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:6px;">Trail Features</td><td style="text-align:right; padding:6px;">8.70</td><td style="text-align:right; padding:6px;">21.1</td><td style="text-align:right; padding:6px;">3.72</td><td style="text-align:right; padding:6px;">0.63</td></tr>
+          <tr><td style="padding:6px;">Natural Setting</td><td style="text-align:right; padding:6px;">4.01</td><td style="text-align:right; padding:6px;">9.7</td><td style="text-align:right; padding:6px;">3.08</td><td style="text-align:right; padding:6px;">0.85</td></tr>
+          <tr><td style="padding:6px;">Park Amenities</td><td style="text-align:right; padding:6px;">3.10</td><td style="text-align:right; padding:6px;">7.5</td><td style="text-align:right; padding:6px;">2.41</td><td style="text-align:right; padding:6px;">0.81</td></tr>
+          <tr><td style="padding:6px;">Park Facilities</td><td style="text-align:right; padding:6px;">2.56</td><td style="text-align:right; padding:6px;">6.2</td><td style="text-align:right; padding:6px;">3.82</td><td style="text-align:right; padding:6px;">0.61</td></tr>
+          <tr><td style="padding:6px;">Community Infrastructure</td><td style="text-align:right; padding:6px;">2.49</td><td style="text-align:right; padding:6px;">6.0</td><td style="text-align:right; padding:6px;">3.54</td><td style="text-align:right; padding:6px;">0.87</td></tr>
+          <tr><td style="padding:6px;">Advanced Features</td><td style="text-align:right; padding:6px;">1.86</td><td style="text-align:right; padding:6px;">4.5</td><td style="text-align:right; padding:6px;">3.35</td><td style="text-align:right; padding:6px;">0.89</td></tr>
+          <tr><td style="padding:6px;">Camping</td><td style="text-align:right; padding:6px;">1.48</td><td style="text-align:right; padding:6px;">3.8</td><td style="text-align:right; padding:6px;">2.32</td><td style="text-align:right; padding:6px;">1.01</td></tr>
+          <tr><td style="padding:6px;">Entertainment</td><td style="text-align:right; padding:6px;">1.41</td><td style="text-align:right; padding:6px;">3.6</td><td style="text-align:right; padding:6px;">3.05</td><td style="text-align:right; padding:6px;">1.14</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ul style="margin-top:0.75rem;">
+      <li><strong>Trail Features:</strong> singletrack length, mileage, variety, crowding.</li>
+      <li><strong>Natural Setting:</strong> scenery, natural variety, wildlife, pristine feel.</li>
+      <li><strong>Park Amenities:</strong> showers, toilets, grills, picnic areas.</li>
+      <li><strong>Park Facilities:</strong> signage, maintenance, maps, parking, connectivity/reviews.</li>
+      <li><strong>Community Infrastructure:</strong> bike shops/clubs, culture, welcoming vibe.</li>
+      <li><strong>Advanced Features:</strong> downhill/flow, bike-only trails, terrain challenge.</li>
+      <li><strong>Camping:</strong> developed & primitive sites, RV options.</li>
+      <li><strong>Entertainment:</strong> food and brewery availability.</li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- Push × Pull link: multivariable regression heatmap -->
+<section class="spotlight">
+  <div class="content">
+    <h3>Linking Rider Motives (Push) to Destination Attributes (Pull)</h3>
+  </div>
+
+  <span class="image" style="width:100%; text-align:center;">
+    <img src="images/mtb.png"
+         alt="Heatmap of multivariable regression β coefficients between push motives and pull attributes; asterisks denote significant relationships"
+         style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+  </span>
+
+  <div class="content">
+    <p>
+      Multivariable regressions relate the five <strong>push motives</strong> to the eight <strong>pull attributes</strong>.
+      Cells show standardized <strong>β coefficients</strong> (color = effect size; sign encoded by the palette),
+      with <strong>asterisks marking BH-adjusted <em>p</em> &lt; .05</strong>.
+    </p>
+    <ul>
+      <li><strong>Stimulus-Avoidance → Natural Setting</strong>: strongest positive link (seek scenery, quiet, pristine areas).</li>
+      <li><strong>Mastery → Advanced Features & Community Infrastructure</strong>: skills/ progression align with tech features and local riding support.</li>
+      <li><strong>Novelty → Trail Features</strong>: variety and mileage attract exploration-oriented riders.</li>
+      <li><strong>Social → Amenities/Camping</strong>: small-to-moderate positives where groups can gather and stay.</li>
+      <li><strong>Competition</strong>: limited effects overall (light cells), suggesting race mindset isn’t the main destination driver here.</li>
+    </ul>
+    <p style="opacity:.9;">
+      Because effects are estimated in a single model, each cell reflects the unique association of a push factor with a pull attribute
+      <em>holding the other motives constant</em>—more decision-useful than simple correlations.
+    </p>
+  </div>
+</section>
+
+
+<!-- Revealed preference model: visitation vs destination attributes -->
+<section class="spotlight">
+  <div class="content">
+    <h3>Revealed Preferences — What Drives Visitation?</h3>
+  </div>
+
+  <div class="content">
+    <p>
+      We combined a <strong>scraped destination dataset</strong> (trail miles, number of trails, average rating,
+      share of difficult trails) with an <strong>origin–destination cost matrix</strong> (home→site distance for each rider).
+      Using riders’ reported visit counts, we fit a <strong>multivariable regression</strong> with interactions between
+      destination attributes and rider traits (commitment + five motives).
+    </p>
+
+    <!-- Key takeaways first -->
+    <ul>
+      <li><strong>Distance dominates:</strong> large negative main effect; far sites see fewer visits.</li>
+      <li><strong>More to ride helps:</strong> trail <em>miles</em> and <em>number of trails</em> generally increase visits.</li>
+      <li><strong>Quality matters:</strong> higher average ratings predict more visitation.</li>
+      <li><strong>Difficulty is nuanced:</strong> baseline effect small, but varies by rider type (see interactions).</li>
+    </ul>
+
+    <!-- Compact coefficient table -->
+    <div style="overflow-x:auto; margin-top:0.75rem;">
+      <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+        <thead>
+          <tr>
+            <th style="text-align:left; border-bottom:1px solid #ddd; padding:6px;">Predictor</th>
+            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Main</th>
+            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Behav. Commit.</th>
+            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Mastery</th>
+            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Stimulus-Avoid.</th>
+            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Social</th>
+            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Competition</th>
+            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Novelty</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:6px;">Distance</td><td style="text-align:right; padding:6px;">−3.080**</td><td style="text-align:right; padding:6px;">−0.364*</td><td style="text-align:right; padding:6px;">−0.587**</td><td style="text-align:right; padding:6px;">−1.096**</td><td style="text-align:right; padding:6px;">0.470**</td><td style="text-align:right; padding:6px;">−0.257**</td><td style="text-align:right; padding:6px;">2.240**</td></tr>
+          <tr><td style="padding:6px;">Miles of trail</td><td style="text-align:right; padding:6px;">0.362**</td><td style="text-align:right; padding:6px;">0.231**</td><td style="text-align:right; padding:6px;">0.231**</td><td style="text-align:right; padding:6px;">−0.089</td><td style="text-align:right; padding:6px;">−0.321**</td><td style="text-align:right; padding:6px;">−0.143**</td><td style="text-align:right; padding:6px;">0.117</td></tr>
+          <tr><td style="padding:6px;">Number of trails</td><td style="text-align:right; padding:6px;">0.654**</td><td style="text-align:right; padding:6px;">0.087</td><td style="text-align:right; padding:6px;">−0.091</td><td style="text-align:right; padding:6px;">−0.216</td><td style="text-align:right; padding:6px;">0.124</td><td style="text-align:right; padding:6px;">0.249**</td><td style="text-align:right; padding:6px;">−0.190</td></tr>
+          <tr><td style="padding:6px;">Average rating</td><td style="text-align:right; padding:6px;">0.332**</td><td style="text-align:right; padding:6px;">−0.144**</td><td style="text-align:right; padding:6px;">0.065</td><td style="text-align:right; padding:6px;">0.265</td><td style="text-align:right; padding:6px;">0.318**</td><td style="text-align:right; padding:6px;">0.198**</td><td style="text-align:right; padding:6px;">−0.552**</td></tr>
+          <tr><td style="padding:6px;">% Difficult trails</td><td style="text-align:right; padding:6px;">0.099</td><td style="text-align:right; padding:6px;">0.260**</td><td style="text-align:right; padding:6px;">0.645**</td><td style="text-align:right; padding:6px;">0.239</td><td style="text-align:right; padding:6px;">−0.430**</td><td style="text-align:right; padding:6px;">−0.353**</td><td style="text-align:right; padding:6px;">0.111</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.9rem; margin-top:0.5rem;">
+        <em>Notes:</em> Entries are coefficients from a single multivariable model.
+        <strong>*</strong> p&nbsp;&lt;&nbsp;.05, <strong>**</strong> p&nbsp;&lt;&nbsp;.01 (multiple-testing adjusted).
+        Interaction columns indicate how the predictor’s effect changes with the rider attribute (slope moderation).
+      </p>
+    </div>
+
+    <!-- What it means in practice -->
+    <ul style="margin-top:0.75rem;">
+      <li><strong>Novelty offsets distance:</strong> novelty-seeking riders are more willing to travel (large positive distance×novelty).</li>
+      <li><strong>Mastery likes challenge & supply:</strong> mastery strengthens the draw of trail miles and difficult terrain.</li>
+      <li><strong>Social riders value vibe over volume:</strong> more miles can matter less; ratings help more.</li>
+      <li><strong>Committed/competitive riders are selective:</strong> they favor difficulty and quality, and are less swayed by raw mileage.</li>
+    </ul>
+
+    <p style="opacity:.9;">
+      This section showcases full-stack work: <strong>web scraping</strong> → <strong>OD-matrix engineering</strong> →
+      <strong>interaction modeling</strong> → <strong>decision-ready effects</strong> that explain <em>who goes where and why</em>.
+    </p>
+  </div>
+</section>
+
+            <hr class="major" />
+
+            <h2>What This Demonstrates</h2>
+            <ul>
+              <li><strong>Measurement → insight:</strong> Latent motives and reduced attribute sets that decision-makers can use.</li>
+              <li><strong>Behaviorally grounded:</strong> Real visitation (use/non-use) complements stated preferences.</              li>
+              <li><strong>Reproducibility:</strong> Code-first pipeline enables audit, extensions, and quick re-runs.</li>
+              <li><strong>Communication:</strong> Compact visuals that translate stats into planning guidance.</li>
+            </ul>
+
+            <p class="align-right"><a href="index.html" class="button">Back to Portfolio</a></p>
+          </section>
+
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div id="sidebar">
+        <div class="inner">
+
+          <!-- Search -->
+          <section id="search" class="alt">
+            <form method="post" action="#">
+              <input type="text" name="query" id="query" placeholder="Search" />
+            </form>
+          </section>
+
+          <!-- Menu -->
+          <nav id="menu">
+            <header class="major">
+              <h2>Menu</h2>
+            </header>
+            <ul>
+              <li><a href="index.html">Homepage</a></li>
+              <li><a href="meta.html">Meta-Analysis</a></li>
+              <li><a href="social-identity.html">Social Identity</a></li>
+              <li><a href="ntph-alabama.html">Non-Traditional Hunters</a></li>
+              <li><a href="harvest-release.html">Harvest & Release Behavior</a></li>
+              <li><a href="mtb-preferences.html">Mountain Biker Preferences</a></li>
+              <li><a href="fishermen.html">Fisherman Feedback</a></li>
+              <li><a href="wolf-survey.html">Wolf Survey</a></li>
+            </ul>
+          </nav>
+
+          <!-- Mini posts -->
+          <section>
+            <header class="major">
+              <h2>Recent</h2>
+            </header>
+            <div class="mini-posts">
+              <article>
+                <a href="fishermen.html" class="image"><img src="images/pic07.jpg" alt="Fisherman feedback" /></a>
+                <p>Fisherman Feedback: sentiment + location analysis.</p>
+              </article>
+              <article>
+                <a href="index.html" class="image"><img src="images/pic08.jpg" alt="Portfolio grid" /></a>
+                <p>Portfolio overview and projects grid.</p>
+              </article>
+            </div>
+          </section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>    I’m always open to discussing data analytics opportunities, research collaborations, or sharing ideas about data-driven decision making.</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">maxbirdsong1221@gmail.com</a></li>
+										<li class="icon solid fa-phone">+49 15129688479</li>
+										<li class="icon solid fa-home">Glasbläserallee 8, 10245 Berlin, DE<br />
+										</li>
+									</ul>
+								</section>
+
+          <!-- Footer -->
+          <footer id="footer">
+            <p class="copyright">&copy; You. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+          </footer>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+  </body>
+</html>
