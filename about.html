@@ -1,0 +1,341 @@
+<!DOCTYPE HTML>
+<!-- Editorial by HTML5 UP -->
+<html>
+  <head>
+    <title>About — Max Birdsong</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <style>
+      /* Page-local polish */
+      .lead { font-size:1.06rem; line-height:1.9; }
+      .soft { color:#64748b; }
+      .chips { display:flex; flex-wrap:wrap; gap:.45rem; margin:.5rem 0 0; }
+      .chip { background:#f2f4f8; border:1px solid #e5e7eb; padding:.25rem .6rem; border-radius:999px; font-size:.9rem; }
+      .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap:1.25rem; }
+      .grid-3 { display:grid; grid-template-columns: repeat(3,1fr); gap:1.25rem; }
+      .card { border:1px solid #e5e7eb; border-radius:10px; padding:1rem; background:#fff; }
+      .card h3 { margin:0 0 .35rem; }
+      .muted { color:#6b7280; }
+      .rule { height:1px; background:#e5e7eb; margin:1rem 0 1.25rem; }
+      @media (max-width: 980px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+      /* Fix list bullets overlapping text on some layouts */
+      #main .inner ul:not(.actions):not(.icons) { list-style-position: outside; padding-left: 1.2rem; }
+
+      /* Banner headshot sizing */
+      #banner .image.object { width: 28%; min-width: 220px; }
+      #banner .image.object img { border-radius: 10px; max-height: 380px; object-fit: cover; }
+      @media (max-width: 1280px) { #banner .image.object { width: 32%; } }
+      @media (max-width: 980px)  { #banner .image.object { width: 36%; } }
+      @media (max-width: 736px)  {
+        #banner .image.object { width: 100%; max-width: 420px; margin: 1rem auto 0; }
+      }
+
+      /* Alternating timeline */
+      .timeline-grid {
+        display:grid;
+        grid-template-columns: 1fr 2px 1fr;
+        gap:1rem 1.25rem;
+        position:relative;
+        align-items:start;
+      }
+      .timeline-grid .t-center { position:relative; }
+      .timeline-grid .t-line {
+        position:absolute; left:0; right:0; top:0; bottom:0;
+        width:2px; background:#e5e7eb; margin:0 auto; display:block;
+      }
+      .t-col { position:relative; }
+      .t-card {
+        position:relative;
+        border:1px solid #e5e7eb; background:#fff; border-radius:10px; padding:1rem;
+      }
+      .t-card h3 { margin:.1rem 0 .25rem; }
+      .t-meta { color:#6b7280; margin:.15rem 0 .5rem; }
+      .t-dot {
+        position:absolute; top:1rem; width:10px; height:10px; background:#111827; border-radius:50%;
+      }
+      .t-left .t-card .t-dot { right:-1.35rem; }
+      .t-right .t-card .t-dot { left:-1.35rem; }
+
+      @media (max-width: 980px) {
+        .timeline-grid { grid-template-columns: 2px 1fr; }
+        .t-center { grid-column:1; }
+        .t-left, .t-right { grid-column:2; }
+        .t-left .t-card .t-dot, .t-right .t-card .t-dot { left:-1.35rem; right:auto; }
+      }
+    </style>
+  </head>
+  <body class="is-preload">
+    <div id="wrapper">
+
+      <!-- Main -->
+      <div id="main">
+        <div class="inner">
+
+          <!-- Header -->
+          <header id="header">
+            <a href="index.html" class="logo">Max Birdsong | PhD</a>
+            <ul class="icons">
+              <li><a href="https://github.com/max-birdsong" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+              <li><a href="https://www.linkedin.com/in/YOUR_LINKEDIN" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+              <li><a href="https://www.researchgate.net/profile/Max-Birdsong/research" class="icon brands fa-researchgate"><span class="label">ResearchGate</span></a></li>
+            </ul>
+          </header>
+
+          <!-- Banner -->
+          <section id="banner">
+            <div class="content">
+              <header>
+                <h1>Hi, I’m Max Birdsong</h1>
+                <p class="soft">Data-oriented social scientist in Berlin</p>
+              </header>
+              <p class="lead">
+                I help teams turn messy data into decisions. I build reliable pipelines, keep models interpretable,
+                and ship visuals that people can brief from. I recently moved back to Berlin and I’m looking to
+                contribute these skills in a product, research, or policy setting where outcomes matter.
+              </p>
+              <div class="chips">
+                <span class="chip">Survey design</span>
+                <span class="chip">SQL</span>
+                <span class="chip">Python</span>
+                <span class="chip">R</span>
+                <span class="chip">Visualization</span>
+                <span class="chip">Reproducible pipelines</span>
+              </div>
+              <ul class="actions" style="margin-top:1rem;">
+                <li><a href="portfolio.html" class="button primary">See my work</a></li>
+                <li><a href="experience.html" class="button">Experience &amp; publications</a></li>
+                <li><a href="mailto:maxbirdsong1221@gmail.com" class="button icon solid fa-envelope">Email</a></li>
+              </ul>
+            </div>
+            <span class="image object">
+              <img src="images/Max.jpg" alt="Max Birdsong" />
+            </span>
+          </section>
+
+          <!-- What I do in practice (PIPELINE) -->
+          <section>
+            <header class="major"><h2>What I do in practice</h2></header>
+            <div class="grid-3">
+              <div class="card">
+                <h3>Collect</h3>
+                <p class="muted">Turn questions into usable data.</p>
+                <p>Design surveys and tracking plans, pull API/SQL extracts, and set simple data checks.</p>
+              </div>
+              <div class="card">
+                <h3>Analyze</h3>
+                <p class="muted">Find the signal.</p>
+                <p>Clean joins and IDs, apply weights where needed, and run clear, interpretable analyses.</p>
+              </div>
+              <div class="card">
+                <h3>Visualize &amp; ship</h3>
+                <p class="muted">Make it easy to act.</p>
+                <p>Build dashboards and code-generated decks; summarize with “what happened, so what, now what.”</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- The path so far (alternating timeline) -->
+          <section>
+            <header class="major"><h2>The path so far</h2></header>
+
+            <div class="timeline-grid">
+              <div class="t-col t-left">
+                <div class="t-card">
+                  <span class="t-dot"></span>
+                  <h3>Graduate assistantship — Auburn University</h3>
+                  <p class="t-meta">Built a statewide hunting survey end-to-end</p>
+                  <p>Designed the questionnaire, mailed it, and took it through data entry and analysis—where my love of clean, reproducible pipelines started.</p>
+                </div>
+              </div>
+              <div class="t-center"><span class="t-line"></span></div>
+              <div class="t-col t-right">
+                <div class="t-card">
+                  <span class="t-dot"></span>
+                  <h3>PhD in Berlin — Humboldt-Universität</h3>
+                  <p class="t-meta">24,000+ fishing trips across thousands of anglers</p>
+                  <p>Worked on long-term monitoring programs. Used R, SQL, and Git to wrangle large data, fit models, and communicate results to scientific and practitioner audiences.</p>
+                </div>
+              </div>
+
+              <div class="t-col t-left">
+                <div class="t-card">
+                  <span class="t-dot"></span>
+                  <h3>University of Montana</h3>
+                  <p class="t-meta">Code-first pipeline + policy-ready outputs</p>
+                  <p>Unified older data, automated reporting, and delivered visuals used in wolf harvest policy discussions.</p>
+                </div>
+              </div>
+              <div class="t-center"><span class="t-line"></span></div>
+              <div class="t-col t-right">
+                <div class="t-card">
+                  <span class="t-dot"></span>
+                  <h3>Gulf of Mexico Fishery Management Council</h3>
+                  <p class="t-meta">Policy &amp; governance</p>
+                  <p>Contributed to high-level policy documents and translated technical analysis into clear guidance for public hearings and decision-makers.</p>
+                </div>
+              </div>
+
+              <div class="t-col t-left">
+                <div class="t-card">
+                  <span class="t-dot"></span>
+                  <h3>Now — Berlin</h3>
+                  <p class="t-meta">Back in Berlin</p>
+                  <p>Open to roles where data and people meet—survey analytics, decision science, or product analytics. Short consulting projects welcome.</p>
+                </div>
+              </div>
+              <div class="t-center"><span class="t-line"></span></div>
+              <div class="t-col t-right"></div>
+            </div>
+          </section>
+
+          <!-- Recent impact -->
+          <section>
+            <header class="major"><h2>Recent impact</h2></header>
+            <div class="grid-3">
+              <div class="card">
+                <h3>Wolf survey (3 waves)</h3>
+                <p class="muted">Drifting schemas → one clean story</p>
+                <p>Unified legacy files, fixed IDs in SQL, applied weights, and delivered trend visuals used in briefings.</p>
+                <p><a href="wolf.html">Project</a> · <a href="https://github.com/max-birdsong/wolf-survey-analysis">Code</a></p>
+              </div>
+              <div class="card">
+                <h3>Mountain biking</h3>
+                <p class="muted">Motives → settings → behavior</p>
+                <p>Linked rider motives to destination attributes and visitation—turning findings into planning signals.</p>
+                <p><a href="mtb.html">Project</a></p>
+              </div>
+              <div class="card">
+                <h3>Angler satisfaction</h3>
+                <p class="muted">Evidence + field data</p>
+                <p>Meta-analysis plus cross-system data to separate context effects from core drivers of satisfaction.</p>
+                <p><a href="catch_sat.html">Project</a></p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Skills -->
+          <section>
+            <header class="major"><h2>Skills &amp; tools</h2></header>
+            <div class="grid-2">
+              <div class="card">
+                <h3>Core</h3>
+                <div class="chips">
+                  <span class="chip">Python (pandas, Jupyter)</span>
+                  <span class="chip">R (survey, ggplot2)</span>
+                  <span class="chip">SQL (MySQL/Postgres)</span>
+                  <span class="chip">Git/GitHub</span>
+                </div>
+                <h3 style="margin-top:1rem;">Visualization &amp; reporting</h3>
+                <div class="chips">
+                  <span class="chip">ggplot2 / Matplotlib</span>
+                  <span class="chip">Tableau</span>
+                  <span class="chip">officer / PowerPoint</span>
+                </div>
+              </div>
+              <div class="card">
+                <h3>Survey &amp; analytics</h3>
+                <div class="chips">
+                  <span class="chip">Questionnaire design</span>
+                  <span class="chip">Weights &amp; variance</span>
+                  <span class="chip">Regression / GLM</span>
+                  <span class="chip">Factor/PCA</span>
+                  <span class="chip">SEM (lavaan)</span>
+                  <span class="chip">Experimental design</span>
+                </div>
+                <h3 style="margin-top:1rem;">Workflow</h3>
+                <div class="chips">
+                  <span class="chip">Reproducible pipelines</span>
+                  <span class="chip">Data dictionaries</span>
+                  <span class="chip">Code review</span>
+                </div>
+              </div>
+            </div>
+            <div class="rule"></div>
+            <p class="muted">See <a href="experience.html">Experience &amp; publications</a> for roles and papers, or explore the <a href="portfolio.html">Portfolio</a> for end-to-end examples with code.</p>
+          </section>
+
+          <!-- Contact -->
+          <section>
+            <header class="major"><h2>Let’s connect</h2></header>
+            <p>Based in Berlin; open to data analytics roles, research collaborations, and short consulting projects.</p>
+            <ul class="actions">
+              <li><a href="mailto:maxbirdsong1221@gmail.com" class="button icon solid fa-envelope">Email</a></li>
+              <li><a href="https://www.linkedin.com/in/YOUR_LINKEDIN" class="button icon brands fa-linkedin">LinkedIn</a></li>
+              <li><a href="https://github.com/max-birdsong" class="button icon brands fa-github">GitHub</a></li>
+            </ul>
+          </section>
+
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div id="sidebar">
+        <div class="inner">
+
+          <!-- Search -->
+          <section id="search" class="alt">
+            <form method="post" action="#">
+              <input type="text" name="query" id="query" placeholder="Search" />
+            </form>
+          </section>
+
+          <!-- Menu -->
+          <nav id="menu">
+            <header class="major">
+              <h2>Menu</h2>
+            </header>
+            <ul>
+              <li><a href="index.html">Homepage</a></li>
+              <li><a href="portfolio.html">Portfolio</a></li>
+              <li><a href="experience.html">Experience</a></li>
+              <li>
+                <span class="opener">Specific Projects</span>
+                <ul>
+                  <li><a href="wolf.html">Wolf Survey — Longitudinal Trends</a></li>
+                  <li><a href="mtb.html">Mountain Biking — Preferences &amp; Behavior</a></li>
+                  <li><a href="social.html">Social Identity SEM — Montana Grizzlies</a></li>
+                  <li><a href="catch_sat.html">Angler Satisfaction Model</a></li>
+                  <li><a href="hunting.html">Hunting Socialization — Pathways</a></li>
+                  <li><a href="harvest.html">Culture &amp; Context — Harvest</a></li>
+                  <li><a href="feedback.html">Fishermen Feedback — Sentiment &amp; Locations</a></li>
+                  <li><a href="meta.html">Meta-analysis — Evidence Synthesis</a></li>
+                </ul>
+              </li>
+              <li><a href="about.html">About Me</a></li>
+            </ul>
+          </nav>
+
+          <!-- Contact -->
+          <section>
+            <header class="major"><h2>Get in touch</h2></header>
+            <p>I’m always open to discussing data analytics opportunities, research collaborations, or sharing ideas about data-driven decision making.</p>
+            <ul class="contact">
+              <li class="icon solid fa-envelope"><a href="mailto:maxbirdsong1221@gmail.com">maxbirdsong1221@gmail.com</a></li>
+              <li class="icon solid fa-phone">+49 15129688479</li>
+              <li class="icon solid fa-home">Glasbläserallee 8, 10245 Berlin, DE</li>
+            </ul>
+          </section>
+
+          <!-- Footer -->
+          <footer id="footer">
+            <p class="copyright">&copy; You. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+          </footer>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
+
+
+
+
