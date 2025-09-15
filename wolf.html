@@ -344,19 +344,16 @@
 <h2>Insights: Deep Dive</h2>
 
 <p>
-  The three survey waves reveal distinct patterns in tolerance for wolves and wolf hunting. 
-  Among the <strong>general population</strong>, tolerance for wolves on the landscape has 
-  <strong>steadily increased</strong>, while tolerance for wolf hunting has <strong>declined</strong>. 
-  At present, residents are about equally tolerant of wolves and of wolf hunting 
-  (with a slight edge toward hunting), highlighting a nuanced balance in public sentiment.
+  The three survey waves reveal clear shifts in tolerance for wolves on the Montana landscape. 
+  Among the <strong>general population</strong>, tolerance has <strong>steadily increased</strong> over time, 
+  indicating a gradual broadening of acceptance.
 </p>
 
 <p>
-  <strong>Landowners, deer hunters, and wolf hunters</strong> show a different trajectory: 
-  all three groups have become <strong>somewhat more tolerant of wolves over time</strong>, 
-  but they remain <strong>consistently and strongly supportive of wolf hunting</strong>. 
-  This stability suggests that, despite gradual shifts, hunting continues to be viewed 
-  as a legitimate management tool across stakeholder segments most directly connected to wolves.
+  <strong>Landowners, deer hunters, and wolf hunters</strong> show a similar upward trend—
+  becoming somewhat more tolerant of wolves—though their baseline levels remain comparatively 
+  lower than the general public. These gradual increases across all groups suggest a broader 
+  softening of attitudes, even among stakeholders most directly affected by wolf presence.
 </p>
 
 <p style="font-size:.9rem; color:#666; margin-top:.25rem;">
@@ -439,6 +436,110 @@
   vizElement.parentNode.insertBefore(scriptElement, vizElement);
 </script>
 
+<h3>Distribution of Tolerance (5-Level Scale)</h3>
+<p>
+  Public sentiment has shifted markedly over the decade. In <strong>2012</strong>, the distribution was
+  heavily skewed toward opposition; by <strong>2023</strong>, the profile is far more balanced with large gains
+  in tolerant responses. The stacked bars below show the weighted share of respondents at each level
+  (1 = very intolerant … 5 = very tolerant) for each wave.
+</p>
+
+<ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+  <li><strong>Strong opposition fell sharply:</strong> <em>Very intolerant</em> dropped from ~50% (2012) to ~21% (2023).
+      Combined <em>Intolerant + Very intolerant</em> declined from ~70% → ~40%.</li>
+  <li><strong>Tolerance grew substantially:</strong> <em>Tolerant + Very tolerant</em> rose from ~16% (2012) to ~47% (2023),
+      with the biggest gains in the <em>Tolerant</em> category.</li>
+  <li><strong>Neutral edged down:</strong> the mid category is roughly steady through 2017, then dips by 2023—suggesting
+      fence-sitters are moving toward tolerance rather than intolerance.</li>
+</ul>
+
+<p style="font-size:.9rem;color:#666;margin-top:-.25rem;">
+  <em>Tip:</em> Click a legend item (e.g., <strong>Neutral</strong>) to isolate that percentage across all three waves.
+</p>
+
+<style>
+  /* Center + size the viz */
+  .viz-wrap-5cat { 
+    max-width: 900px; 
+    margin: 1rem auto 0; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+  }
+  .tableauPlaceholder.viz-5cat { 
+    width: 100%; 
+    max-width: 800px; 
+    aspect-ratio: 4 / 3; 
+    margin: 0 auto;
+  }
+  .tableauPlaceholder.viz-5cat object { 
+    width: 100%; 
+    height: 100%; 
+    display: block; 
+    margin: 0 auto;
+  }
+  @media (max-width: 640px){
+    .tableauPlaceholder.viz-5cat { aspect-ratio: 3 / 4; }
+  }
+</style>
+
+<div class="viz-wrap-5cat">
+  <!-- Your Tableau Public embed -->
+  <div class='tableauPlaceholder viz-5cat' id='viz1757947469848' style='position: relative'>
+    <noscript>
+      <a href='#'>
+        <img alt='Dashboard 2 ' src='https://public.tableau.com/static/images/Wo/Wolf_tolerance_histogram/Dashboard2/1_rss.png' style='border: none' />
+      </a>
+    </noscript>
+    <object class='tableauViz' style='display:none;'>
+      <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+      <param name='embed_code_version' value='3' />
+      <param name='site_root' value='' />
+      <param name='name' value='Wolf_tolerance_histogram/Dashboard2' />
+      <param name='tabs' value='no' />
+      <param name='toolbar' value='yes' />
+      <param name='static_image' value='https://public.tableau.com/static/images/Wo/Wolf_tolerance_histogram/Dashboard2/1.png' />
+      <param name='animate_transition' value='yes' />
+      <param name='display_static_image' value='yes' />
+      <param name='display_spinner' value='yes' />
+      <param name='display_overlay' value='yes' />
+      <param name='display_count' value='yes' />
+      <param name='language' value='en-US' />
+      <param name='filter' value='publish=yes' />
+    </object>
+  </div>
+</div>
+
+<script type='text/javascript'>
+  var divElement = document.getElementById('viz1757947469848');
+  var vizElement = divElement.getElementsByTagName('object')[0];
+  // Responsive sizing
+  if (divElement.offsetWidth > 800) {
+    vizElement.style.minWidth='420px';
+    vizElement.style.maxWidth='800px';
+    vizElement.style.width='100%';
+    vizElement.style.minHeight='520px';
+    vizElement.style.maxHeight='900px';
+    vizElement.style.height=(divElement.offsetWidth*0.70)+'px';
+  } else if (divElement.offsetWidth > 500) {
+    vizElement.style.minWidth='360px';
+    vizElement.style.maxWidth='720px';
+    vizElement.style.width='100%';
+    vizElement.style.minHeight='480px';
+    vizElement.style.maxHeight='820px';
+    vizElement.style.height=(divElement.offsetWidth*0.75)+'px';
+  } else {
+    vizElement.style.width='100%';
+    vizElement.style.height='640px';
+  }
+  var scriptElement = document.createElement('script');
+  scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+  vizElement.parentNode.insertBefore(scriptElement, vizElement);
+</script>
+
+<p style="text-align:center; font-size:.9rem; color:#444; margin-top:.6rem;">
+  <em>Weighted percentages by wave (1 = very intolerant … 5 = very tolerant).</em>
+</p>
 
 
 
