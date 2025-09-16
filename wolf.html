@@ -542,56 +542,17 @@
             </p>
 
 <!-- ===================== -->
-<!-- Encounters: Prevalence -->
+<!-- Encounters: Prevalence + Effects -->
 <!-- ===================== -->
-<h3>Encounters: How Common Are They?</h3>
+<h3>Encounters: How Common Are They, and Why Do They Matter?</h3>
+
 <p>
-  What share of people report seeing <em>tracks</em>, <em>hearing howls</em>, <em>seeing wolves</em>, or <em>experiencing damage</em>?
-  The chart below shows prevalence by group. Hover for exact percentages or use filters to focus.
+  Encounters with wolves are not rare. A clear majority of Montanans have <strong>seen tracks</strong> or 
+  <strong>heard howls</strong>, while direct sightings and damage reports are less common. As expected, 
+  <strong>wolf hunters</strong> report the highest prevalence across nearly every category, followed by 
+  <strong>deer hunters</strong> and <strong>landowners</strong>. The <strong>general public</strong> reports 
+  encounters at lower but still substantial rates. 
 </p>
-
-<style>
-  /* Reuse your centered layout pattern */
-  .viz-wrap { 
-    max-width: 900px; 
-    margin: 1rem auto 0; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
-  }
-  .tableauPlaceholder.viz-stack {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    display: block;
-  }
-  .tableauPlaceholder.viz-stack object {
-    width: 100%;
-    height: 100%;
-    display: block;
-    margin: 0 auto;
-  }
-
-  /* Make prevalence taller than normal so multi-row panels breathe */
-  #wolfPrevViz.tableauPlaceholder.viz-stack { aspect-ratio: 4 / 5; }  /* taller */
-  /* Effects can stay more standard */
-  #wolfEffectsViz.tableauPlaceholder.viz-stack { aspect-ratio: 4 / 3; }
-
-  /* Tighter on phones */
-  @media (max-width: 640px){
-    #wolfPrevViz.tableauPlaceholder.viz-stack,
-    #wolfEffectsViz.tableauPlaceholder.viz-stack {
-      aspect-ratio: 3 / 4;
-    }
-  }
-
-  .viz-caption {
-    text-align: center;
-    font-size: 0.9rem;
-    color: #444;
-    margin-top: 0.6rem;
-  }
-</style>
 
 <div class="viz-wrap">
   <div class="tableauPlaceholder viz-stack" id="wolfPrevViz" style="position:relative">
@@ -622,13 +583,12 @@
 </div>
 <p class="viz-caption"><em>Prevalence by group for tracks, howls, sightings, and damage.</em></p>
 
-<!-- =============== -->
-<!-- Encounters: Effects -->
-<!-- =============== -->
-<h3>Encounters: How They Relate to Attitudes</h3>
 <p>
-  Do specific encounters correspond to shifts in perceptions and tolerance?
-  Explore associations below; hover for details and filter to compare segments.
+  But prevalence alone doesn’t tell the whole story. What matters is how these encounters shape 
+  people’s <strong>perceptions and attitudes toward wolves</strong>. For example, those who report 
+  hearing howls or seeing tracks often express higher awareness and stronger opinions—whether 
+  supportive or oppositional—than those without direct experience. In this sense, encounters act 
+  as “contact points” that reinforce or shift tolerance.
 </p>
 
 <div class="viz-wrap">
@@ -660,8 +620,54 @@
 </div>
 <p class="viz-caption"><em>Associations between encounters and perceptions/attitudes.</em></p>
 
+<p>
+  Taken together, the prevalence and effects charts suggest a feedback loop: 
+  <strong>more frequent encounters</strong> lead to <strong>sharper attitudes</strong>, which in turn 
+  influence tolerance levels. For instance, wolf hunters’ high exposure coincides with consistently 
+  strong views, while members of the general public—who encounter wolves less often—show broader variation 
+  and more moderate shifts. 
+</p>
+
+<style>
+  .viz-wrap { 
+    max-width: 900px; 
+    margin: 1rem auto 0; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+  }
+  .tableauPlaceholder.viz-stack {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    display: block;
+  }
+  .tableauPlaceholder.viz-stack object {
+    width: 100%;
+    height: 100%;
+    display: block;
+    margin: 0 auto;
+  }
+
+  #wolfPrevViz.tableauPlaceholder.viz-stack { aspect-ratio: 4 / 5; }
+  #wolfEffectsViz.tableauPlaceholder.viz-stack { aspect-ratio: 4 / 3; }
+
+  @media (max-width: 640px){
+    #wolfPrevViz.tableauPlaceholder.viz-stack,
+    #wolfEffectsViz.tableauPlaceholder.viz-stack {
+      aspect-ratio: 3 / 4;
+    }
+  }
+
+  .viz-caption {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #444;
+    margin-top: 0.6rem;
+  }
+</style>
+
 <script>
-  // Only load the Tableau API once
   (function ensureTableauApi(){
     var already = document.querySelector('script[src*="public.tableau.com/javascripts/api/viz_v1.js"]');
     if (!already) {
@@ -671,7 +677,6 @@
     }
   })();
 
-  // Optional: add a bit of extra height for desktop on the prevalence viz (beyond CSS aspect-ratio)
   function sizeViz(containerId, desktopH, tabletH, mobileH){
     var div = document.getElementById(containerId);
     if (!div) return;
@@ -685,17 +690,16 @@
       obj.style.width = '100%'; obj.style.height = mobileH + 'px';
     }
   }
-  // Prevalence: taller (height ≈ width * 1.10 on desktop, 0.95 on tablet)
+
   sizeViz('wolfPrevViz', 1.10, 0.95, 720);
-  // Effects: standard (height ≈ width * 0.66 on desktop, 0.75 on tablet)
   sizeViz('wolfEffectsViz', 0.66, 0.75, 640);
 
-  // Recompute on resize for nicer responsiveness
   window.addEventListener('resize', function(){
     sizeViz('wolfPrevViz', 1.10, 0.95, 720);
     sizeViz('wolfEffectsViz', 0.66, 0.75, 640);
   });
 </script>
+
 
 
             <!-- Executive Summary (business-facing STAR) -->
