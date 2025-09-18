@@ -541,301 +541,169 @@
               <em>Weighted percentages by wave (1 = very intolerant … 5 = very tolerant).</em>
             </p>
 
-<!-- ===================== -->
-<!-- Encounters: Prevalence + Effects -->
-<!-- ===================== -->
-<h3>Encounters: How Common Are They, and Why Do They Matter?</h3>
+            <!-- =============== -->
+            <!-- Encounters: Effects First -->
+            <!-- =============== -->
+            <h3>Encounters: How They Shape Tolerance</h3>
 
-<p>
-  Encounters with wolves are not rare. A clear majority of Montanans have <strong>seen tracks</strong> or 
-  <strong>heard howls</strong>, while direct sightings and damage reports are less common. As expected, 
-  <strong>wolf hunters</strong> report the highest prevalence across nearly every category, followed by 
-  <strong>deer hunters</strong> and <strong>landowners</strong>. The <strong>general public</strong> reports 
-  encounters at lower but still substantial rates. 
-</p>
-
-<div class="viz-wrap">
-  <div class="tableauPlaceholder viz-stack" id="wolfPrevViz" style="position:relative">
-    <noscript>
-      <a href="#">
-        <img alt="Wolf Encounters — Prevalence"
-             src="https://public.tableau.com/static/images/Wo/Wolf_encounters/Dashboard3/1_rss.png"
-             style="border:none" />
-      </a>
-    </noscript>
-    <object class="tableauViz" style="display:none;">
-      <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
-      <param name="embed_code_version" value="3" />
-      <param name="site_root" value="" />
-      <param name="name" value="Wolf_encounters&#47;Dashboard3" />
-      <param name="tabs" value="no" />
-      <param name="toolbar" value="yes" />
-      <param name="static_image" value="https://public.tableau.com/static/images/Wo/Wolf_encounters/Dashboard3/1.png" />
-      <param name="animate_transition" value="yes" />
-      <param name="display_static_image" value="yes" />
-      <param name="display_spinner" value="yes" />
-      <param name="display_overlay" value="yes" />
-      <param name="display_count" value="yes" />
-      <param name="language" value="en-US" />
-      <param name="filter" value="publish=yes" />
-    </object>
-  </div>
-</div>
-<p class="viz-caption"><em>Prevalence by group for tracks, howls, sightings, and damage.</em></p>
-
-<p>
-  But prevalence alone doesn’t tell the whole story. What matters is how these encounters shape 
-  people’s <strong>perceptions and attitudes toward wolves</strong>. For example, those who report 
-  hearing howls or seeing tracks often express higher awareness and stronger opinions—whether 
-  supportive or oppositional—than those without direct experience. In this sense, encounters act 
-  as “contact points” that reinforce or shift tolerance.
-</p>
-
-<div class="viz-wrap">
-  <div class="tableauPlaceholder viz-stack" id="wolfEffectsViz" style="position:relative">
-    <noscript>
-      <a href="#">
-        <img alt="Wolf Encounters — Effects"
-             src="https://public.tableau.com/static/images/Wo/Wolf_encounters_effects/Dashboard4/1_rss.png"
-             style="border:none" />
-      </a>
-    </noscript>
-    <object class="tableauViz" style="display:none;">
-      <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
-      <param name="embed_code_version" value="3" />
-      <param name="site_root" value="" />
-      <param name="name" value="Wolf_encounters_effects&#47;Dashboard4" />
-      <param name="tabs" value="no" />
-      <param name="toolbar" value="yes" />
-      <param name="static_image" value="https://public.tableau.com/static/images/Wo/Wolf_encounters_effects/Dashboard4/1.png" />
-      <param name="animate_transition" value="yes" />
-      <param name="display_static_image" value="yes" />
-      <param name="display_spinner" value="yes" />
-      <param name="display_overlay" value="yes" />
-      <param name="display_count" value="yes" />
-      <param name="language" value="en-US" />
-      <param name="filter" value="publish=yes" />
-    </object>
-  </div>
-</div>
-<p class="viz-caption"><em>Associations between encounters and perceptions/attitudes.</em></p>
-
-<p>
-  Taken together, the prevalence and effects charts suggest a feedback loop: 
-  <strong>more frequent encounters</strong> lead to <strong>sharper attitudes</strong>, which in turn 
-  influence tolerance levels. For instance, wolf hunters’ high exposure coincides with consistently 
-  strong views, while members of the general public—who encounter wolves less often—show broader variation 
-  and more moderate shifts. 
-</p>
-
-<style>
-  .viz-wrap { 
-    max-width: 900px; 
-    margin: 1rem auto 0; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
-  }
-  .tableauPlaceholder.viz-stack {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    display: block;
-  }
-  .tableauPlaceholder.viz-stack object {
-    width: 100%;
-    height: 100%;
-    display: block;
-    margin: 0 auto;
-  }
-
-  #wolfPrevViz.tableauPlaceholder.viz-stack { aspect-ratio: 4 / 5; }
-  #wolfEffectsViz.tableauPlaceholder.viz-stack { aspect-ratio: 4 / 3; }
-
-  @media (max-width: 640px){
-    #wolfPrevViz.tableauPlaceholder.viz-stack,
-    #wolfEffectsViz.tableauPlaceholder.viz-stack {
-      aspect-ratio: 3 / 4;
-    }
-  }
-
-  .viz-caption {
-    text-align: center;
-    font-size: 0.9rem;
-    color: #444;
-    margin-top: 0.6rem;
-  }
-</style>
-
-<script>
-  (function ensureTableauApi(){
-    var already = document.querySelector('script[src*="public.tableau.com/javascripts/api/viz_v1.js"]');
-    if (!already) {
-      var s = document.createElement('script');
-      s.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-      document.body.appendChild(s);
-    }
-  })();
-
-  function sizeViz(containerId, desktopH, tabletH, mobileH){
-    var div = document.getElementById(containerId);
-    if (!div) return;
-    var obj = div.getElementsByTagName('object')[0];
-    var w = div.offsetWidth || 800;
-    if (w > 800) {
-      obj.style.width = '100%'; obj.style.height = (w * desktopH) + 'px';
-    } else if (w > 500) {
-      obj.style.width = '100%'; obj.style.height = (w * tabletH) + 'px';
-    } else {
-      obj.style.width = '100%'; obj.style.height = mobileH + 'px';
-    }
-  }
-
-  sizeViz('wolfPrevViz', 1.10, 0.95, 720);
-  sizeViz('wolfEffectsViz', 0.66, 0.75, 640);
-
-  window.addEventListener('resize', function(){
-    sizeViz('wolfPrevViz', 1.10, 0.95, 720);
-    sizeViz('wolfEffectsViz', 0.66, 0.75, 640);
-  });
-</script>
-
-
-
-            <!-- Executive Summary (business-facing STAR) -->
-            <h2>Executive Summary</h2>
-            <div style="background:#f7f7f9;padding:1.25rem;border-radius:12px;line-height:1.6;">
-              <p><strong>Situation:</strong> Decision-makers required a defensible, longitudinal read on public tolerance, trust, and experiences with wolves across three waves (2012 · 2017 · 2023).</p>
-              <p><strong>Task:</strong> Deliver a reliable analytics pipeline that harmonizes legacy instruments, cleans and weights the data, and surfaces trend insights suitable for policy and communications.</p>
-              <p><strong>Action:</strong></p>
-              <ul>
-                <li>Engineered a <em>canonical schema</em> in Python to unify four strata files and prior waves (schema drift resolved; provenance logged).</li>
-                <li>Standardized IDs and removed duplicates with <em>SQL window functions</em> and integrity checks.</li>
-                <li>Produced weighted estimates and trend visuals in R (<code>survey</code>, <code>ggplot2</code>), exported stakeholder-ready figures/decks via <code>officer</code>.</li>
-              </ul>
-              <p><strong>Result:</strong> A reproducible pipeline and concise visuals showing where tolerance, trust, licensing, and livestock impacts changed over time—clear inputs for leadership decisions.</p>
-            </div>
-
-            <hr class="major" />
-
-            <h2>Overview</h2>
             <p>
-              Longitudinal attitudes toward wolf management in the Northern Rockies were analyzed across three waves.
-              Emphasis is on the <strong>workflow</strong>—from harmonizing legacy instruments to weighted, comparable trends—delivered as code-first, reproduction-ready outputs.
+              The chart below comes from a <strong>multivariate regression</strong>, meaning that each coefficient
+              reflects the <em>independent effect</em> of that encounter type while <strong>controlling for the
+              influence of the others</strong>. In other words, we can say how much tolerance shifts after seeing
+              tracks, <em>net of</em> whether someone has also seen a wolf near their home, heard of property
+              damage, etc.
             </p>
 
-            <div class="box">
-              <ul>
-                <li><strong>Sample:</strong> Stratified mail survey across stakeholder groups (GenPop, Deer/Elk, Landowners, Wolf licensees).</li>
-                <li><strong>Data prep:</strong> Python schema unification; SQL de-duplication; canonical variable map across 2012/2017/2023.</li>
-                <li><strong>Focus:</strong> Tolerance (wolves / hunting), trust in agencies, awareness/interactions, licensing, livestock outcomes.</li>
-              </ul>
-            </div>
-
-            <hr class="major" />
-
-            <h2>Methods Snapshot</h2>
-            <p>End-to-end pipeline for clean, comparable longitudinal analysis:</p>
-            <ul>
-              <li><strong>Harmonization:</strong> Python scripts read SPSS exports, infer year/strata, map legacy fields to a canonical layout, and log provenance.</li>
-              <li><strong>Relational cleaning:</strong> SQL staging + window functions to identify duplicates by <code>(IDNO, year, group)</code>, normalize fields, and enforce integrity.</li>
-              <li><strong>Weighting & estimates:</strong> R <code>survey</code> for weighted means/SEs and distributions by wave and strata.</li>
-              <li><strong>Visualization:</strong> <code>ggplot2</code> facets with uncertainty bands; export to PPTX/PNG via <code>officer</code>.</li>
-              <li><strong>Reproducibility:</strong> Config-driven mapping; figures regenerated from code.</li>
+            <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+              <li><strong>Seeing tracks:</strong> a small but significant negative effect.</li>
+              <li><strong>Seeing a wolf from afar:</strong> the clearest positive effect—distant sightings are reliably positive.</li>
+              <li><strong>Seeing a wolf close to home:</strong> a strong negative effect.</li>
+              <li><strong>Hearing about property damage:</strong> the largest negative effect overall.</li>
             </ul>
 
-            <div class="box">
-              <h3>Highlights</h3>
-              <ul>
-                <li>Unified three waves despite schema drift and varying strata definitions.</li>
-                <li>Traceable ID handling and canonical variable mapping for apples-to-apples comparisons.</li>
-                <li>Weighted, interpretable visuals oriented to decision contexts.</li>
-                <li>Deliverables: master dataset, scripts (Python/SQL/R), slide deck, and technical summary.</li>
-              </ul>
+            <h4 style="margin-top:1rem;">Plain Takeaways</h4>
+            <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+              <li><strong>Not all encounters are equal:</strong> distant sightings reliably build tolerance, while property damage erodes it the most.</li>
+              <li><strong>The “home” context matters:</strong> sightings near where people live tilt strongly negative, regardless of tracks or damage.</li>
+              <li><strong>Group contrasts are muted:</strong> landowners and the general public show similar patterns. Wolf hunters, however, don’t respond positively to any encounters — meaning tolerance in that group likely requires different levers than “making encounters feel safer.”</li>
+            </ul>
+
+            <div class="viz-wrap">
+              <div class='tableauPlaceholder viz-5cat' id='viz1757947469848' style='position: relative'>
+                <!-- Tableau embed for effects -->
+                <object class="tableauViz" style="display:none;">
+                  <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
+                  <param name="embed_code_version" value="3" />
+                  <param name="name" value="Wolf_encounters_effects/Dashboard4" />
+                  <param name="tabs" value="no" />
+                  <param name="toolbar" value="yes" />
+                  <param name="static_image" value="https://public.tableau.com/static/images/Wo/Wolf_encounters_effects/Dashboard4/1.png" />
+                  <param name="display_static_image" value="yes" />
+                  <param name="display_spinner" value="yes" />
+                  <param name="display_overlay" value="yes" />
+                  <param name="display_count" value="yes" />
+                  <param name="language" value="en-US" />
+                </object>
+              </div>
             </div>
+            <p class="viz-caption"><em>Associations between specific encounter types and tolerance toward wolves.</em></p>
 
-          <p class="align-right">
-            <a href="https://github.com/max-birdsong/wolf-survey-analysis/blob/main/reports/wolf_final_survey_report.pdf" target="_blank" class="button primary small">Report (PDF)</a>
-            <a href="https://github.com/max-birdsong/wolf-survey-analysis" target="_blank" class="button small">All Code Repos</a>
-            <a href="https://github.com/max-birdsong/wolf-survey-analysis/blob/main/reports/Figures/wolves_graphs_longitudinal.pptx" target="_blank" class="button small">Deck (.pptx)</a>
-          </p>
+            <!-- =============== -->
+            <!-- Then Prevalence -->
+            <!-- =============== -->
+            <h3>Encounters: How Common Are They?</h3>
 
-
-            <hr class="major" />
-
-            <!-- Results Snapshot -->
-            <h2>Results Snapshot</h2>
             <p>
-              Two figures summarize the core trends: tolerance for wolves on the landscape and tolerance for wolf hunting,
-              presented by stakeholder group across waves.
+              Knowing which encounters matter most raises the next question: <strong>how often do people
+              actually have them?</strong> The prevalence chart shows that while <em>positive encounters</em>
+              (like seeing wolves from afar) do occur, the <em>more common experiences</em> tend to be neutral
+              or negative—especially <strong>tracks</strong> and <strong>damage reports</strong>.
             </p>
 
-            <!-- FIGURE 1: Tolerance trends -->
-            <section class="spotlight">
-              <div class="content">
-                <h3>Tolerance for Wolves on the Landscape</h3>
-              </div>
-              <span class="image" style="width:100%; text-align:center;">
-                <img src="images/wolf.JPG"
-                     alt="Tolerance toward wolves across survey waves (2012, 2017, 2023), by stakeholder group"
-                     style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
-              </span>
-              <div class="content">
-                <p>
-                  Weighted means (±SE) on a 1–5 scale (1 = very intolerant, 5 = very tolerant).
-                  Results by stakeholder group and wave.
-                </p>
-                <ul>
-                  <li><strong>Deer/Elk license holders:</strong> rising tolerance (2.1 → 2.5 → 3.4).</li>
-                  <li><strong>General residents:</strong> rising tolerance (3.0 → 3.3 → 3.9).</li>
-                  <li><strong>Landowners:</strong> rising tolerance (1.7 → 2.0 → 2.5).</li>
-                  <li><strong>Wolf license holders:</strong> stable (~2.0–2.2).</li>
-                </ul>
-                <p><em>Signal:</em> broad increases in tolerance for presence, especially among general residents and deer/elk hunters.</p>
-              </div>
-            </section>
+            <p>
+              This imbalance helps explain why tolerance grows slowly: many Montanans’ first-hand experiences
+              skew toward reminders of risk rather than awe. And for wolf hunters, even when encounters occur,
+              they rarely translate into positive shifts.
+            </p>
 
-            <!-- FIGURE 2: Tolerance for wolf hunting -->
-            <section class="spotlight">
-              <div class="content">
-                <h3>Tolerance for Wolf Hunting</h3>
+            <div class="viz-wrap">
+              <div class='tableauPlaceholder viz-5cat' id='viz1757947469848' style='position: relative'>
+                <!-- Tableau embed for prevalence -->
+                <object class="tableauViz" style="display:none;">
+                  <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
+                  <param name="embed_code_version" value="3" />
+                  <param name="name" value="Wolf_encounters/Dashboard3" />
+                  <param name="tabs" value="no" />
+                  <param name="toolbar" value="yes" />
+                  <param name="static_image" value="https://public.tableau.com/static/images/Wo/Wolf_encounters/Dashboard3/1.png" />
+                  <param name="display_static_image" value="yes" />
+                  <param name="display_spinner" value="yes" />
+                  <param name="display_overlay" value="yes" />
+                  <param name="display_count" value="yes" />
+                  <param name="language" value="en-US" />
+                </object>
               </div>
-              <span class="image" style="width:100%; text-align:center;">
-                <img src="images/wolf3.JPG"
-                     alt="Tolerance toward wolf hunting across survey waves (2012, 2017, 2023), by stakeholder group"
-                     style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
-              </span>
-              <div class="content">
-                <p>
-                  Weighted means (±SE) on a 1–5 scale by stakeholder group and wave.
-                </p>
-                <ul>
-                  <li><strong>Deer/Elk hunters:</strong> consistently high (~4.4) with little change.</li>
-                  <li><strong>General residents:</strong> declining tolerance (4.0 → 3.7 → 3.5).</li>
-                  <li><strong>Landowners:</strong> stable (~4.2–4.3).</li>
-                  <li><strong>Wolf license holders:</strong> very high and increasing (4.6 → 4.9).</li>
-                </ul>
-                <p><em>Signal:</em> tolerance for hunting remains high in hunting-oriented segments, while general residents trend downward.</p>
-              </div>
-            </section>
-
-            <!-- Contrast callout -->
-            <div class="box">
-              <p><strong>Presence vs. Hunting:</strong> Acceptance of wolves on the landscape rose for most groups, while acceptance of wolf hunting stayed high among hunters/landowners but declined among general residents.</p>
             </div>
+            <p class="viz-caption"><em>Prevalence of encounters by group (tracks, howls, sightings, damage).</em></p>
 
-            <hr class="major" />
+            <p>
+              Together, these visuals highlight a challenge for coexistence: 
+              <strong>the encounters most common on the landscape are not the ones that improve tolerance.</strong> 
+              Building acceptance may therefore depend less on exposure alone and more on how those experiences 
+              are interpreted, discussed, and managed.
+            </p>
 
-            <h2>What This Demonstrates</h2>
-            <ul>
-              <li><strong>Data engineering:</strong> Canonical schema + de-dup logic that generalize to other longitudinal programs.</li>
-              <li><strong>Survey analytics:</strong> Appropriate weighting and variance estimation for defensible inference.</li>
-              <li><strong>Transparent workflow:</strong> Code-first approach enables audits, regeneration, and rapid iteration.</li>
-              <li><strong>Outcome focus:</strong> Compact visuals and a decision-oriented deck/report.</li>
-            </ul>
+            <style>
+              .viz-wrap { 
+                max-width: 900px; 
+                margin: 1rem auto 0; 
+                display: flex; 
+                justify-content: center; 
+                align-items: center;
+              }
+              .tableauPlaceholder.viz-stack {
+                width: 100%;
+                max-width: 800px;
+                margin: 0 auto;
+                display: block;
+              }
+              .tableauPlaceholder.viz-stack object {
+                width: 100%;
+                height: 100%;
+                display: block;
+                margin: 0 auto;
+              }
 
-            <p class="align-right"><a href="index.html" class="button">Back to Portfolio</a></p>
-          </section>
+              #wolfPrevViz.tableauPlaceholder.viz-stack { aspect-ratio: 4 / 5; }
+              #wolfEffectsViz.tableauPlaceholder.viz-stack { aspect-ratio: 4 / 3; }
+
+              @media (max-width: 640px){
+                #wolfPrevViz.tableauPlaceholder.viz-stack,
+                #wolfEffectsViz.tableauPlaceholder.viz-stack {
+                  aspect-ratio: 3 / 4;
+                }
+              }
+
+              .viz-caption {
+                text-align: center;
+                font-size: 0.9rem;
+                color: #444;
+                margin-top: 0.6rem;
+              }
+            </style>
+
+            <script>
+              (function ensureTableauApi(){
+                var already = document.querySelector('script[src*="public.tableau.com/javascripts/api/viz_v1.js"]');
+                if (!already) {
+                  var s = document.createElement('script');
+                  s.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+                  document.body.appendChild(s);
+                }
+              })();
+
+              function sizeViz(containerId, desktopH, tabletH, mobileH){
+                var div = document.getElementById(containerId);
+                if (!div) return;
+                var obj = div.getElementsByTagName('object')[0];
+                var w = div.offsetWidth || 800;
+                if (w > 800) {
+                  obj.style.width = '100%'; obj.style.height = (w * desktopH) + 'px';
+                } else if (w > 500) {
+                  obj.style.width = '100%'; obj.style.height = (w * tabletH) + 'px';
+                } else {
+                  obj.style.width = '100%'; obj.style.height = mobileH + 'px';
+                }
+              }
+
+              sizeViz('wolfEffectsViz', 0.66, 0.75, 640);
+              sizeViz('wolfPrevViz', 1.10, 0.95, 720);
+
+              window.addEventListener('resize', function(){
+                sizeViz('wolfEffectsViz', 0.66, 0.75, 640);
+                sizeViz('wolfPrevViz', 1.10, 0.95, 720);
+              });
+            </script>
 
         </div>
       </div>
