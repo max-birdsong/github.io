@@ -42,7 +42,7 @@
               <img src="images/CultureContext5.jpg" alt="Harvest-release hero" />
             </span>
 
-                        <!-- ======================= -->
+              <!-- ======================= -->
             <!-- Table of Contents (Auto) -->
               <!-- ======================= -->
               <style>
@@ -177,160 +177,304 @@
               })();
               </script>
 
-            <!-- Executive Summary (STAR) -->
-            <h2>Executive Summary</h2>
-            <div style="background:#f7f7f9;padding:1.25rem;border-radius:12px;line-height:1.6;">
-              <p><strong>Situation:</strong> Managers needed a defensible read on <em>why</em> German anglers harvest or release fish, and how policy, norms, and motivations interact.</p>
-              <p><strong>Task:</strong> Convert multi-item attitudes/behavior batteries into reliable indicators and estimate how social, regulatory, and motivational factors predict release vs. harvest.</p>
-              <p><strong>Action:</strong></p>
-              <ul>
-                <li>Built and validated behavioral/attitudinal indices from survey items.</li>
-                <li>Fit logistic and multinomial regression with diagnostics and subgroup checks.</li>
-                <li>Automated the workflow in R (<code>tidyverse</code>, <code>nnet</code>, <code>ggplot2</code>) and exported stakeholder-ready visuals.</li>
-              </ul>
-              <p><strong>Result:</strong> Clear predictors of release/harvest decisions, scenario comparisons for policy communication, and a reproducible script-to-figures pipeline.</p>
-            </div>
+              <!-- ======================= -->
+              <!-- Background -->
+              <!-- ======================= -->
+              <hr class="major" />
+              <h2>Background</h2>
 
+              <p>
+                Fisheries managers face a core challenge: <strong>angler behavior drives mortality as much as regulations do</strong>.  
+                Even when legal harvest rules are clear, outcomes depend on whether anglers choose to keep or release fish.  
+                In Germany, where cultural norms lean strongly toward consumption, this makes voluntary catch-and-release a pivotal yet 
+                unpredictable factor. Our project tackles this problem by <strong>analyzing large-scale trip records and angler data</strong> 
+                to uncover what shapes harvest decisions—providing management with evidence-based levers to align conservation targets 
+                with actual on-the-water behavior.
+              </p>
+
+
+          <!-- ======================= -->
+          <!-- Executive Summary -->
+          <!-- ======================= -->
+          <hr class="major" />
+          <h2>Executive Summary</h2>
+
+          <p>
+          Voluntary catch-and-release (vCandR) is increasingly shaping the future of German fisheries. 
+          Drawing on nearly <strong>20,000 trip-level records</strong> from anglers in two northern states 
+          (<strong>Lower Saxony in the West, Mecklenburg–Western Pomerania in the East</strong>), 
+          our study offers one of the most comprehensive looks at how <strong>culture, angler traits, and context</strong> 
+          interact to drive harvest decisions. 
+          We find clear contrasts between regions: East German anglers harvest a larger share of their catch, 
+          while West German anglers demonstrate higher release rates—reflecting legacies of culture, governance, and norms. 
+          </p>
+
+          <p>
+          Beyond geography, <strong>species, fish size, and angler characteristics</strong> strongly influence behavior. 
+          Marine and migratory species are kept more often than freshwater fish, 
+          while trout and cod show consistently high harvest rates. 
+          Age, lifestyle centrality, and consumptive orientation push anglers toward keeping fish, 
+          whereas higher skill and stronger commitment reduce harvest likelihood. 
+          Fish size plays a pivotal role: intermediate-sized fish are most likely to be harvested, 
+          while both small and trophy-sized fish are more often released. 
+          </p>
+
+          <p>
+          Taken together, these findings highlight both <strong>constraints and opportunities</strong> for managers. 
+          Harvest and release practices are not uniform but shaped by <strong>social context, cultural legacies, and species-specific norms</strong>. 
+          Recognizing this diversity can support more <strong>tailored regulations, communication, and stakeholder engagement</strong>, 
+          ensuring that management strategies align with how anglers actually behave on the water. 
+          </p>
+
+
+            <!-- ======================= -->
+            <!-- Methods -->
+            <!-- ======================= -->
             <hr class="major" />
+            <h2>Methods</h2>
 
-            <h2>Overview</h2>
             <p>
-              This project analyzes national survey data from German recreational fisheries to explain <strong>release vs. harvest decisions</strong>.
-              Portfolio emphasis is on the <strong>analytics workflow</strong>—from index construction to model estimation and decision-focused visuals—
-              all reproducibly generated from code.
+              To understand what drives anglers’ decisions to harvest or release fish, we drew on 
+              <strong>two year-long fishing diary programs</strong> in northern Germany. One was run in 
+              Mecklenburg–Western Pomerania (MWP), where access is largely open, and the other in 
+              Lower Saxony (LS), where angling is organized through clubs. Across both settings, anglers 
+              documented their trips in real time: when and where they fished, what species they targeted, 
+              how many fish they caught, how large they were, and whether they kept or released them.  
             </p>
 
-            <div class="box">
-              <ul>
-                <li><strong>Sample:</strong> Nationwide survey of German anglers (n ≈ 1,500 usable responses).</li>
-                <li><strong>Data prep:</strong> Cleaned behavior, attitudes, and policy-context items; constructed composite indicators.</li>
-                <li><strong>Focus:</strong> Predicting release and harvest likelihood from social, regulatory, and motivational predictors.</li>
-              </ul>
-            </div>
-
-            <hr class="major" />
-
-            <h2>Methods Snapshot</h2>
-            <p>From raw responses to interpretable, policy-relevant effects:</p>
-            <ul>
-              <li><strong>Measurement:</strong> Item screening, internal consistency (e.g., α), and composite indices for norms, motivations, and policy context.</li>
-              <li><strong>Modeling:</strong> Binary logistic (release vs. harvest) and multinomial models for multi-category outcomes.</li>
-              <li><strong>Diagnostics:</strong> Collinearity checks, residual/fit assessment, subgroup robustness (species/regions/experience).</li>
-              <li><strong>Tooling:</strong> R (<code>tidyverse</code>, <code>nnet</code>, <code>ggplot2</code>) with scripted exports for PPT/PNG.</li>
-            </ul>
-
-            <div class="box">
-              <h3>Highlights</h3>
-              <ul>
-                <li>Validated behavioral indicators that align with theory and policy context.</li>
-                <li>Effect-size and uncertainty visuals tailored for non-technical stakeholders.</li>
-                <li>Scenario comparisons translate coefficients into “what if” outcomes.</li>
-                <li>Reproducible, auditable pipeline from raw CSV → cleaned → modeled → figures.</li>
-              </ul>
-            </div>
-
-            <p class="align-right">
-              <a href="assets/papers/birdsong-harvest-release.pdf" class="button primary small">PDF</a>
-              <a href="#" class="button small">Code</a>
-              <a href="#" class="button small">Deck (.pptx)</a>
+            <p>
+              The diaries were paired with survey data capturing <strong>angler characteristics</strong> 
+              such as experience, skill, and orientation toward consumption. This allowed us to 
+              link individual and cultural traits with actual harvest decisions. Trip context was 
+              also included—for example, target species, time spent fishing, and satisfaction with 
+              prior trips—since these situational factors often influence behavior.  
             </p>
 
-            <hr class="major" />
+            <p>
+              We then applied <strong>statistical modeling frameworks</strong> to identify the strongest 
+              predictors of harvest and release decisions. Models were designed to account for differences 
+              across species, anglers, and fisheries, providing a robust picture of how psychological, 
+              cultural, and contextual factors interact.  
+            </p>
 
-          <h2>Results Snapshot</h2>
+          <h2>Insights: Deep Dive</h2>
           <p>Figures progress from model-based predictions to behavioral patterns—illustrating not only <strong>what differs</strong>, but also <strong>how those differences can be explained and applied</strong>.</p>
 
-          <!-- 1) Modeled predictions by species -->
-          <section class="spotlight">
-            <div class="content">
-              <h3>Predicted Harvest Probability by Species</h3>
-            </div>
-            <span class="image" style="width:100%; text-align:center;">
-              <img src="images/CultureContext2.png"
-                  alt="Predicted harvest probability by species and normalized CPUE across German fisheries"
-                  style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
-            </span>
-            <div class="content">
-              <p>
-                Logistic mixed-effects models translate survey data into <strong>species-specific harvest probabilities</strong>. 
-                CPUE (catch-per-unit effort) was normalized to allow meaningful comparisons across species with very different catch rates.
-              </p>
-              <ul>
-                <li><strong>Consistently harvested:</strong> Trout and cod remain high regardless of CPUE.</li>
-                <li><strong>Selective patterns:</strong> For perch and zander, harvest likelihood falls as CPUE rises.</li>
-                <li><strong>Regional lens:</strong> Results shown separately for Lower Saxony (LS) and Mecklenburg–Western Pomerania (MWP), with uncertainty bands.</li>
-              </ul>
-              <p>
-                This workflow demonstrates the ability to <strong>normalize metrics, fit complex models, and deliver predictions</strong> that feed directly into management discussions.
-              </p>
-            </div>
-          </section>
+      <!-- 1) Modeled predictions by species -->
+      <section class="spotlight">
+        <div class="content">
+          <h3>Predicted Harvest Probability by Species</h3>
+        </div>
+        <span class="image" style="width:100%; text-align:center;">
+          <img src="images/CultureContext2.png"
+              alt="Predicted harvest probability by species and normalized CPUE across German fisheries"
+              style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+        </span>
+        <div class="content">
+          <p>
+            Using <strong>logistic mixed-effects models</strong>, we estimated the probability that anglers would 
+            harvest their catch for each major species, while accounting for differences in catch rates 
+            through a standardized <strong>CPUE (catch-per-unit effort)</strong> metric. This allowed 
+            comparisons across species and between the two study regions.  
+          </p>
+          <ul>
+            <li>
+              <strong>Cultural baseline:</strong> Anglers in Mecklenburg–Western Pomerania (MWP, East Germany) 
+              consistently harvested a greater share of their catch compared to Lower Saxony (LS, West Germany), 
+              even after controlling for trip context and angler traits.  
+            </li>
+            <li>
+              <strong>Catch scarcity effect:</strong> Across both regions, harvest probability rose when catch rates 
+              were low—suggesting anglers are more likely to keep fish when they are harder to come by.  
+            </li>
+            <li>
+              <strong>Species differences:</strong> Trout and cod show persistently high harvest probabilities, while 
+              species like perch and zander display <em>selective release patterns</em>, with harvest likelihood 
+              declining as CPUE increases.  
+            </li>
+            <li>
+              <strong>Regional interactions:</strong> East–West contrasts are not uniform: MWP anglers harvested 
+              <em>more carp</em> but <em>fewer perch, cod, and zander</em> relative to LS anglers, underscoring how 
+              cultural history shapes species-specific norms.  
+            </li>
+          </ul>
+          <p>
+            These findings illustrate how <strong>species biology, catch conditions, and cultural context combine 
+            to influence retention behavior</strong>. The approach goes beyond averages, generating predictive 
+            insights that managers can use to anticipate harvest pressure under varying conditions.  
+          </p>
+        </div>
+      </section>
 
-          <!-- 2) Angler attributes: partial effects -->
-          <section class="spotlight">
-            <div class="content">
-              <h3>Harvest Behavior and Angler Attributes</h3>
-            </div>
-            <span class="image" style="width:100%; text-align:center;">
-              <img src="images/CultureContext3.png"
-                  alt="Predicted proportion harvested across z-scored angler attributes with 95% CI, by region"
-                  style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
-            </span>
-            <div class="content">
-              <p>
-                By standardizing predictors (z-scoring), the model isolates how individual attributes shift harvest likelihood. 
-                Solid = LS, dashed = MWP, with 95% CIs.
-              </p>
-              <ul>
-                <li><strong>Higher harvest with:</strong> older age, lifestyle centrality, and consumption orientation.</li>
-                <li><strong>Lower harvest with:</strong> skill and strong behavioral commitment (experienced anglers release more).</li>
-                <li><strong>Stable effects:</strong> Patterns remain consistent across states.</li>
-              </ul>
-              <p>
-                This analysis highlights <strong>how individual-level traits map onto behavior</strong>, with standardized metrics that make results comparable and stakeholder-friendly.
-              </p>
-            </div>
-          </section>
 
-          <!-- 3) Size–selectivity by species -->
-          <section class="spotlight">
-            <div class="content">
-              <h3>Harvest Probability by Fish Size</h3>
-            </div>
-            <span class="image" style="width:100%; text-align:center;">
-              <img src="images/CultureContext4.png"
-                  alt="Species-specific harvest probability vs fish length with 95% CI and histograms of observed sizes"
-                  style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
-            </span>
-            <div class="content">
-              <p>
-                Logistic regressions connect <strong>fish size</strong> to harvest probability, paired with observed size distributions. 
-                Vertical lines show state minimum-size limits, providing a direct link between regulation and behavior.
-              </p>
-              <ul>
-                <li><strong>Size effect:</strong> Larger fish generally have higher harvest likelihood, leveling off near legal thresholds.</li>
-                <li><strong>Species nuance:</strong> Trout and perch are harvested at high rates regardless of size; carp shows reduced harvest at trophy lengths.</li>
-                <li><strong>Policy relevance:</strong> Inflection points align closely with state limits, showing regulation and angler behavior move together.</li>
-              </ul>
-              <p>
-                Pairing <strong>predicted curves with observed catch data</strong> makes it clear where management rules are effective—and where behavioral shifts might matter most.
-              </p>
-            </div>
-          </section>
+      <!-- 2) Angler attributes: partial effects -->
+      <section class="spotlight">
+        <div class="content">
+          <h3>Harvest Behavior and Angler Attributes</h3>
+        </div>
+        <span class="image" style="width:100%; text-align:center;">
+          <img src="images/CultureContext3.png"
+              alt="Predicted proportion harvested across z-scored angler attributes with 95% CI, by region"
+              style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+        </span>
+        <div class="content">
+          <p>
+            By <strong>standardizing predictors (z-scoring)</strong>, the model isolates how six core angler attributes 
+            shift the probability of harvest, holding other factors constant. Solid lines represent Lower Saxony (LS, 
+            West Germany), dashed lines represent Mecklenburg–Western Pomerania (MWP, East Germany), with shaded 
+            ribbons indicating 95% confidence intervals.  
+          </p>
+          <ul>
+            <li>
+              <strong>Age and lifestyle centrality:</strong> Older anglers and those who view fishing as central 
+              to their lifestyle are consistently more likely to keep fish. The effect of centrality-to-lifestyle 
+              (CTL) is particularly pronounced in LS, pointing to stronger cultural reinforcement of harvest in that region.  
+            </li>
+            <li>
+              <strong>Skill and commitment:</strong> Higher self-perceived skill and stronger behavioral commitment 
+              (e.g., time, effort, and investment in the activity) both reduce harvest rates. Experienced, highly 
+              engaged anglers are more selective and more likely to release fish, especially species like pike and cyprinids.  
+            </li>
+            <li>
+              <strong>Consumption orientation:</strong> Anglers with stronger consumptive values predictably keep more 
+              fish, underscoring how personal values translate directly into harvest behavior.  
+            </li>
+            <li>
+              <strong>Non-effects:</strong> Catch orientation (general preference for catching vs. keeping) showed 
+              no significant influence once other traits were accounted for—suggesting behavior is better explained 
+              by specific values and skills than by broad stated preferences.  
+            </li>
+            <li>
+              <strong>Species overlay:</strong> Regardless of angler traits, species identity still matters: trout, 
+              salmonids, and cod remain the most frequently harvested, while pike sits at the opposite end as the 
+              least consumptive species.  
+            </li>
+          </ul>
+          <p>
+            Taken together, the analysis shows how <strong>demographics, psychology, and culture intersect with species 
+            biology</strong> to shape harvest outcomes. For managers, this means that outreach and regulation cannot be 
+            “one size fits all”—strategies must align with the <em>values and experience profiles</em> of anglers as much 
+            as with ecological conditions.  
+          </p>
+        </div>
+      </section>
+
+
+<!-- 3) Size–selectivity by species -->
+<section class="spotlight">
+  <div class="content">
+    <h3>Harvest Probability by Fish Size</h3>
+  </div>
+  <span class="image" style="width:100%; text-align:center;">
+    <img src="images/CultureContext4.png"
+        alt="Species-specific harvest probability vs fish length with 95% CI and histograms of observed sizes"
+        style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+  </span>
+  <div class="content">
+    <p>
+      Mixed-effects logistic regressions link <strong>individual fish size</strong> to harvest probability, shown 
+      alongside observed size distributions for six focal species in Lower Saxony. Dashed vertical lines mark 
+      <strong>legal minimum-size limits</strong>, providing a direct visual connection between regulation and angler behavior.  
+    </p>
+    <ul>
+      <li>
+        <strong>Size effect:</strong> Harvest probability rises steeply with fish length, peaking just above the 
+        minimum-size thresholds. Beyond intermediate sizes, the effect tapers off—indicating that very large 
+        “trophy” fish are increasingly likely to be released.  
+      </li>
+      <li>
+        <strong>Species nuance:</strong> Trout and perch are harvested at high rates regardless of size, reflecting 
+        cultural or culinary preferences. By contrast, carp display a different curve—harvest likelihood drops 
+        for the largest individuals, signaling angler selectivity for release at trophy lengths.  
+      </li>
+      <li>
+        <strong>Regulatory alignment:</strong> Inflection points in the curves coincide closely with statutory 
+        size limits, underscoring that <em>angler choices and regulatory thresholds move in tandem</em>.  
+      </li>
+      <li>
+        <strong>Robustness check:</strong> A sensitivity analysis (raising all limits by 20%) confirmed that 
+        the size effect persists—reinforcing that harvest behavior is strongly size-driven, not an artifact of 
+        current legal cutoffs.  
+      </li>
+    </ul>
+    <p>
+      Pairing <strong>predicted behavioral curves with observed length frequencies</strong> makes clear where 
+      rules are effective and where angler practice introduces additional selectivity. This dual perspective 
+      helps managers anticipate how changes to size regulations might shift harvest rates across species.  
+    </p>
+  </div>
+</section>
+
+<!-- ======================= -->
+<!-- Recommendations Section -->
+<!-- ======================= -->
+<hr class="major" />
+<h2>Recommendations</h2>
+
+<section>
+  <h3>Communication & Outreach</h3>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+    <li><strong>Frame species differently:</strong> Position marine and trout harvest as culturally appropriate, while promoting stewardship narratives for pike and carp where voluntary release is already common.</li>
+    <li><strong>Highlight trophy release norms:</strong> Share stories of anglers releasing large pike/carp to build social approval for protecting broodstock.</li>
+    <li><strong>Segment messages by angler type:</strong> Skilled and highly avid anglers can be recruited as peer role models; centrality-driven anglers respond better to “protecting our waters” framing.</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Policy & Regulation</h3>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+    <li><strong>Adopt size-based protections:</strong> Slot or trophy limits can reinforce existing behavior where anglers already release the biggest fish.</li>
+    <li><strong>Tailor rules regionally:</strong> In MWP, emphasize daily limits and food-value guidance; in LS, clubs can trial selective-harvest policies with peer enforcement.</li>
+    <li><strong>Link regulation to behavior:</strong> Align legal thresholds with natural inflection points in harvest probability to improve compliance and outcomes.</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Monitoring & Adaptation</h3>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+    <li><strong>Standardize angler logs:</strong> Expand diary/logbook systems for trip-level harvest/release tracking across regions.</li>
+    <li><strong>Pilot test changes:</strong> Trial new size or slot limits for 1–2 years with pre-set KPIs to evaluate effectiveness.</li>
+    <li><strong>Track culture shifts:</strong> Use shorter pulse surveys to detect generational changes in release norms more quickly than long-interval studies.</li>
+  </ul>
+</section>
+
+<!-- ======================= -->
+<!-- Clarifying Questions, Assumptions, Caveats -->
+<!-- ======================= -->
+<hr class="major" />
+<h2>Clarifying Questions, Assumptions, Caveats</h2>
+
+<section>
+  <h3>Clarifying Questions</h3>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+    <li><strong>Culture vs. time:</strong> How much of the East–West difference reflects lasting cultural traditions versus shifts over time in release behavior?</li>
+    <li><strong>Voluntary vs. regulatory:</strong> To what extent were recorded releases driven by personal choice versus club or state rules?</li>
+    <li><strong>Generational change:</strong> Are younger anglers systematically more release-oriented, or are differences mainly regional?</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Assumptions</h3>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+    <li><strong>Representativeness:</strong> Diary participants are assumed to reflect the wider angler populations in each state, despite different recruitment methods (phone vs. club-based).</li>
+    <li><strong>Regulation baseline:</strong> Analyses assume anglers followed state minimum-size rules, even though some clubs may have stricter requirements.</li>
+    <li><strong>Stable predictors:</strong> Specialization, skill, and consumptive orientation are treated as consistent traits, not shifting within the year of study.</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Caveats</h3>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+    <li><strong>Timing mismatch:</strong> The two surveys were conducted a decade apart, so regional contrasts may partly reflect temporal change rather than pure cultural difference.</li>
+    <li><strong>Self-reporting:</strong> Data rely on anglers’ diaries, which may under- or overstate behaviors due to recall or social desirability bias.</li>
+    <li><strong>Interpretation limits:</strong> Models capture associations, not causation; some drivers of voluntary release remain uncertain.</li>
+  </ul>
+</section>
+
+
 
 
             <hr class="major" />
-
-            <h2>What This Demonstrates</h2>
-            <ul>
-              <li><strong>Measurement → insight:</strong> Build reliable indices from behavioral and attitudinal items.</li>
-              <li><strong>Right-size models:</strong> Choose binary vs. multinomial frameworks with explicit diagnostics.</li>
-              <li><strong>Reproducibility:</strong> Script-first workflow for fast iteration and auditability.</li>
-              <li><strong>Communication:</strong> Clear visuals that bridge technical modeling and policy decisions.</li>
-            </ul>
-
-            <p class="align-right"><a href="index.html" class="button">Back to Portfolio</a></p>
-          </section>
 
         </div>
       </div>

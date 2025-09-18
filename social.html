@@ -42,8 +42,8 @@
               <img src="images/SEM4.jpg" alt="Social identity analysis hero" />
             </span>
 
-                        <!-- ======================= -->
-            <!-- Table of Contents (Auto) -->
+              <!-- ======================= -->
+              <!-- Table of Contents (Auto) -->
               <!-- ======================= -->
               <style>
                 html { scroll-behavior: smooth; }
@@ -177,190 +177,330 @@
               })();
               </script>
 
-            <!-- Executive Summary (STAR) -->
-            <h2>Executive Summary</h2>
-            <div style="background:#f7f7f9;padding:1.25rem;border-radius:12px;line-height:1.6;">
-              <p><strong>Situation:</strong> Leaders needed a clear read on how people’s identities relate to support for large-carnivore policies. The raw survey contained dozens of attitudinal items and overlapping constructs.</p>
-              <p><strong>Task:</strong> Turn abstract concepts (“identity”, “attitudes”) into measurable, reliable indices and quantify how identity predicts policy support—without overfitting or confusing end users.</p>
-              <p><strong>Action:</strong></p>
-              <ul>
-                <li>Built <em>validated scales</em> (factor analysis/CFA) from multi-item batteries.</li>
-                <li>Linked identity to policy attitudes using <em>regression/SEM</em> with fit checks and sensitivity tests.</li>
-                <li>Automated the workflow in R (<code>tidyverse</code>, <code>lavaan</code>) and visualized results with <code>ggplot2</code>.</li>
-              </ul>
-              <p><strong>Result:</strong> A defensible, easy-to-explain model showing which identity dimensions most strongly predict support/opposition—delivered as a reproducible script and a brief, visual report for decision-makers.</p>
-            </div>
+              <!-- =======================
+             Background (technical)
+              ======================== -->
+      <hr class="major" />
+      <h2>Background</h2>
 
-            <hr class="major" />
+      <p>
+        Grizzly bear conservation in Montana is shaped not only by biological realities, 
+        but also by <strong>deep social divisions</strong>. Hunters and nonhunters often hold 
+        sharply different views about grizzlies, and these differences go beyond demographics 
+        or direct encounters. They are rooted in <strong>social identity</strong>—how people 
+        see themselves and their in-groups in relation to wildlife and policy.
+      </p>
 
-            <h2>Overview</h2>
-            <p>
-              This project examined how <strong>social identity</strong> shapes attitudes toward large carnivore conservation. For portfolio purposes, the emphasis is on the <strong>analytics workflow</strong>—from survey construction and scale validation to structural modeling and stakeholder-ready visuals.
-            </p>
-
-            <div class="box">
-              <ul>
-                <li><strong>Sample:</strong> Mail survey of Montana residents (n ≈ 1,600 usable responses).</li>
-                <li><strong>Data prep:</strong> Cleaned multi-item attitudinal batteries; created composite indices for identity and conservation attitudes.</li>
-                <li><strong>Focus:</strong> Do identity dimensions predict support or opposition to carnivore management policies?</li>
-              </ul>
-            </div>
-
-            <hr class="major" />
-
-            <h2>Methods Snapshot</h2>
-            <p>Built a measurable framework from abstract concepts and tested relationships end-to-end:</p>
-            <ul>
-              <li><strong>Measurement modeling:</strong> EFA → CFA to validate identity constructs; checked internal consistency (e.g., Cronbach’s α).</li>
-              <li><strong>Structural modeling:</strong> Regression and SEM to estimate links between identity and policy attitudes.</li>
-              <li><strong>Diagnostics:</strong> Model fit indices, residual checks, and sensitivity analyses (imputation vs. listwise).</li>
-              <li><strong>Tooling:</strong> R (<code>tidyverse</code> for wrangling, <code>lavaan</code>/<code>psych</code> for measurement/SEM, <code>ggplot2</code> for plots). Fully scripted for reproducibility.</li>
-            </ul>
-
-            <div class="box">
-              <h3>Highlights</h3>
-              <ul>
-                <li>Validated multi-item identity scales that actually hold together statistically.</li>
-                <li>Linked latent identity factors to outcomes with clear effect sizes and uncertainty.</li>
-                <li>Delivered <em>plain-English visuals</em> and a one-pager leaders could act on.</li>
-                <li>Reproducible pipeline: from raw CSV → cleaned scales → fitted models → exportable figures/tables.</li>
-              </ul>
-            </div>
-
-            <p class="align-right">
-              <a href="assets/papers/birdsong-social-identity.pdf" class="button primary small">PDF</a>
-              <a href="#" class="button small">Code</a>
-            </p>
-
-            <hr class="major" />
-
-        <h2>Results Snapshot</h2>
-        <p>We move from descriptive exposure differences to modeled mechanisms, then show how attitudes distribute across groups and finish with an application guide.</p>
-
-        <!-- 1) Exposure differences -->
-        <section class="spotlight">
-          <div class="content">
-            <h3>Experiences with Grizzly Bears — Hunters vs. Non-Hunters</h3>
-          </div>
-          <span class="image" style="width:100%; text-align:center;">
-            <img src="images/SEM1.JPG"
-                alt="Dumbbell plot comparing hunters and non-hunters reporting different experiences with grizzly bears"
-                style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
-          </span>
-          <div class="content">
-            <p>
-              This <strong>dumbbell plot</strong> compares the proportion of <strong>hunters</strong> (black) and 
-              <strong>non-hunters</strong> (gray) reporting different types of experiences with grizzly bears.
-            </p>
-            <ul>
-              <li><strong>High contact:</strong> Hunters report more frequent experiences overall (90% vs. 78%).</li>
-              <li><strong>Negative experiences:</strong> Hunters are also more likely to report fearful encounters and property damage.</li>
-              <li><strong>Broader implication:</strong> Direct and vicarious experiences differ by group, shaping perceptions and identity around carnivore management.</li>
-            </ul>
-            <p>
-              This descriptive comparison establishes a baseline: <strong>exposure to wildlife varies systematically by group</strong>, 
-              setting the stage for modeling how identity and experience drive policy attitudes.
-            </p>
-          </div>
-        </section>
+      <p>
+        To investigate these dynamics, we used a statewide survey of 
+        <strong>1,758 Montana residents</strong> to examine how experiences with grizzlies 
+        (from distant sightings to reports of property damage) are filtered through 
+        identity-based lenses. Applying <strong>structural equation modeling (SEM)</strong>, 
+        we tested whether hunter identity changes how people interpret experiences, form 
+        attitudes, and ultimately decide whether the grizzly population is “too large” 
+        or “too small.” The results provide <strong>defensible insight</strong> into why 
+        support and opposition to carnivore management remain polarized—and how Montana’s 
+        social landscape will shape the success of conservation plans moving forward.
+      </p>
 
 
-        <!-- 2) Mechanism (SEM model) -->
-        <section class="spotlight">
-          <div class="content">
-            <h3>Structural Equation Model — Identity, Experience, and Policy Beliefs</h3>
-          </div>
-          <span class="image" style="width:100%; text-align:center;">
-            <img src="images/SEM2.JPG"
-                alt="Structural equation model linking hunter identity, experiences, attitudes, and normative beliefs"
-                style="max-width:900px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
-          </span>
-          <div class="content">
-            <p>
-              This <strong>structural equation model (SEM)</strong> captures how identity and experience shape 
-              attitudes toward grizzly bears, and ultimately, <strong>normative beliefs about population management</strong>. 
-              Path coefficients indicate the size and direction of relationships, with arrow thickness proportional to effect strength.
-            </p>
-            <ul>
-              <li><strong>Identity matters:</strong> Being a hunter has both direct and indirect effects on beliefs.</li>
-              <li><strong>Emotions as a pathway:</strong> Neutral experiences influence emotional disposition, which in turn shapes attitudes and beliefs.</li>
-              <li><strong>Explained variance:</strong> The model accounts for roughly 50% of the variance in normative beliefs (<em>R²</em> = 0.51).</li>
-            </ul>
-            <p>
-              This analysis provides the <strong>mechanism-level insight</strong> behind group differences, showing 
-              not just whether hunters and non-hunters differ, but <em>why</em> and through which pathways.
-            </p>
-          </div>
-        </section>
+ <!-- ======================= -->
+<!-- Executive Summary -->
+<!-- ======================= -->
+<hr class="major" />
+<h2>Executive Summary</h2>
+
+<p>
+  Montanans’ experiences with grizzly bears are widespread, but <strong>hunters report significantly more frequent and more negative encounters</strong> than non-hunters. 
+  Hunters were 34% more likely to see grizzlies from afar, 64% more likely to report a fearful encounter, and 75% more likely to experience direct property damage. 
+  They also heard more secondhand stories of conflict, reflecting social networks where hunting is common.
+</p>
+
+<p>
+  Structural equation modeling revealed that <strong>social identity shapes how these experiences translate into attitudes and acceptance</strong>. 
+  Neutral sightings tended to reduce fear and improve attitudes among non-hunters, but had little effect on hunters. 
+  In contrast, <strong>vicarious property damage strongly eroded hunters’ attitudes</strong>, while having no significant effect on non-hunters. 
+  The model explained roughly half of the variation in population beliefs (<em>R²</em> = 0.51), showing that identity-driven processes are central to the policy landscape.
+</p>
+
+<p>
+  Taken together, the findings highlight a dynamic of both risk and opportunity: 
+  <strong>hunters’ in-group storytelling amplifies conflict and can drive attitudes downward, while non-hunters remain more insulated and more responsive to neutral experiences</strong>. 
+  These insights suggest that <strong>conflict prevention, positive encounter framing, and careful communication within and across identity groups</strong> will be essential for managing grizzly recovery in Montana without deepening polarization.
+</p>
 
 
-        <!-- 3) Distributional patterns -->
-        <section class="spotlight">
-          <div class="content">
-            <h3>Attitude Distributions — Identity × Vicarious Property Damage</h3>
-          </div>
-          <span class="image" style="width:100%; text-align:center;">
-            <img src="images/SEM.JPG"
-                alt="Faceted density plots showing attitudes toward grizzlies for hunters and non-hunters, with and without vicarious property damage"
-                style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
-          </span>
-          <div class="content">
-            <p>
-              Faceted <strong>density plots</strong> (small multiples) show how attitudes toward grizzlies are distributed
-              from negative (1) to positive (5) across four groups.
-            </p>
-            <ul>
-              <li><strong>Identity signal:</strong> Hunters and non-hunters exhibit distinct baseline distributions.</li>
-              <li><strong>Damage context:</strong> Reporting vicarious property damage shifts the distribution toward less positive attitudes.</li>
-              <li><strong>Interaction:</strong> The shift is larger for some groups, consistent with the identity × VPD interaction found in modeling.</li>
-            </ul>
-            <p>
-              Together with the SEM, this view complements the dumbbell plot by showing
-              <strong>how entire distributions move</strong>—not just mean differences.
-            </p>
-          </div>
-        </section>
+<!-- =======================
+             Methods
+======================== -->
+<hr class="major" />
+<h2>Methods</h2>
 
-        <!-- 4) Application / guidance -->
-        <section class="spotlight">
-          <div class="content">
-            <h3>From Results to Guidance</h3>
-          </div>
+<p>
+  We conducted a <strong>statewide mail survey</strong> of Montana residents in 2019–2020, drawing a
+  random sample of 5,350 households. Three mailings (2–4 weeks apart) followed best-practice survey
+  design standards, and 1,758 residents returned usable responses. The survey was pretested with
+  graduate students, faculty, and agency staff to ensure clarity.
+</p>
+
+<p>
+  The questionnaire measured several elements known to shape people’s views of wildlife:
+</p>
+<ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.6;">
+  <li><strong>Attitudes</strong> toward grizzly bears, using a series of rating questions.</li>
+  <li><strong>Emotional responses</strong> such as fear or anxiety.</li>
+  <li><strong>Experiences</strong> with grizzlies, including neutral encounters (e.g., seeing one at a
+      distance) and hearing about property damage secondhand.</li>
+  <li><strong>Beliefs about population size</strong>, asking whether the current grizzly population
+      is too small, about right, or too large.</li>
+</ul>
+
+<p>
+  To make sure results represented Montana’s adult population, survey data were
+  <strong>weighted</strong> for selection probability, nonresponse, and census benchmarks, producing
+  a margin of error of roughly ±3.5%. We also compared <strong>hunters (n=901)</strong> and
+  <strong>nonhunters (n=774)</strong> to see if their experiences and responses differed.
+</p>
+
+<p>
+  For analysis, we used <strong>structural equation modeling (SEM)</strong>. SEM is a statistical
+  technique that goes beyond simple correlations or regressions. Instead of looking at one
+  relationship at a time, it maps out a <strong>chain of cause-and-effect links</strong> between
+  multiple factors. In this case, the models tested:
+</p>
+
+<ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.6;">
+  <li>How <strong>experiences</strong> with grizzlies influence <strong>emotions</strong>.</li>
+  <li>How those emotions then shape <strong>attitudes</strong>.</li>
+  <li>And how attitudes ultimately feed into <strong>population size beliefs</strong>.</li>
+</ul>
+
+<p>
+  SEM also allowed us to test whether these pathways looked different for
+  <strong>hunters versus nonhunters</strong>—for example, whether a distant sighting improves
+  tolerance among nonhunters but has no effect among hunters. By tracing these links, SEM reveals
+  the <strong>underlying mechanisms</strong> that connect day-to-day experiences with broader
+  policy views, rather than just reporting surface-level differences.
+</p>
+
+
+<!-- =======================
+              Deep Dive
+======================== -->
+
+<h2>Insights: Deep Dive</h2>
+
+<!-- 1) Exposure differences -->
+<section class="spotlight">
+  <div class="content">
+    <h3>Experiences with Grizzly Bears — Hunters vs. Non-Hunters</h3>
+  </div>
+  <span class="image" style="width:100%; text-align:center;">
+    <img src="images/SEM1.JPG"
+         alt="Dumbbell plot comparing hunters and non-hunters reporting different experiences with grizzly bears"
+         style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+  </span>
+  <div class="content">
+    <p>
+      Before attitudes and policies come into play, the most basic difference is simply 
+      <strong>how often people encounter grizzly bears</strong>. Hunters consistently report 
+      more contact with grizzlies across every experience type—ranging from distant sightings 
+      to direct property damage.
+    </p>
+    <ul>
+      <li>Hunters were <strong>34% more likely</strong> to see grizzlies from afar.</li>
+      <li>They were <strong>64% more likely</strong> to report a fearful encounter.</li>
+      <li><strong>75% more likely</strong> to have experienced property damage firsthand.</li>
+      <li><strong>43% more likely</strong> to hear of damage through friends or family.</li>
+    </ul>
+    <p>
+      This pattern reflects both hunters’ time spent outdoors and their <strong>social networks 
+      that circulate grizzly stories and incidents</strong>. Taken together, hunters enter the 
+      policy conversation with a <strong>denser web of personal and vicarious experiences</strong> 
+      than non-hunters—an essential foundation for the identity-driven differences we model later.
+    </p>
+  </div>
+</section>
+
+<!-- 2) Mechanism (SEM model) -->
+<section class="spotlight">
+  <div class="content">
+    <h3>Structural Equation Model — Identity, Experience, and Policy Beliefs</h3>
+  </div>
+  <span class="image" style="width:100%; text-align:center;">
+    <img src="images/SEM2.JPG"
+         alt="Structural equation model linking hunter identity, experiences, attitudes, and normative beliefs"
+         style="max-width:900px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+  </span>
+  <div class="content">
+    <p>
+      The <strong>structural equation model (SEM)</strong> unpacks the chain of influence: 
+      how experiences with grizzly bears and the <strong>hunter vs. non-hunter identity</strong> 
+      combine to shape emotions, attitudes, and ultimately <strong>beliefs about how many 
+      grizzlies Montana should have</strong>. Arrow thickness reflects effect strength, and 
+      together the model explains over half of the variation in policy views (<em>R²</em> = 0.51).
+    </p>
+    <ul>
+      <li><strong>Neutral experiences matter:</strong> Seeing bears from afar generally 
+        builds more positive feelings (β = 0.395), but this effect is <em>much stronger for non-hunters</em>. 
+        For hunters, distant sightings don’t carry the same positive weight.</li>
+      <li><strong>Identity shapes fear:</strong> Simply being a hunter was linked with 
+        less fear of grizzlies overall (β = 0.405), independent of actual experiences.</li>
+      <li><strong>Damage stories divide groups:</strong> Hearing about property damage 
+        was a <em>major negative driver</em> for hunters (β = −0.381), pulling their attitudes 
+        downward, while non-hunters’ views were largely unaffected by these stories.</li>
+      <li><strong>Attitudes are pivotal:</strong> Among all pathways, attitudes toward grizzlies 
+        had the largest direct effect on beliefs about population size (β = −0.571), far outweighing 
+        direct effects of identity or experience alone.</li>
+    </ul>
+    <p>
+      In short, the SEM shows that <strong>hunters’ denser and often negative experiences translate 
+      into stricter views on grizzly numbers, mediated through group identity and shared stories</strong>. 
+      Non-hunters, by contrast, lean more on positive encounters and are less swayed by damage reports. 
+      These identity-driven pathways explain <em>why</em> hunters and non-hunters arrive at such different 
+      conclusions about management—even when living in the same landscapes.
+    </p>
+  </div>
+</section>
+
+      
+
+<!-- 3) Distributional patterns -->
+<section class="spotlight">
+  <div class="content">
+    <h3>Attitude Distributions — Identity × Vicarious Property Damage</h3>
+  </div>
+  <span class="image" style="width:100%; text-align:center;">
+    <img src="images/SEM.JPG"
+         alt="Faceted density plots showing attitudes toward grizzlies for hunters and non-hunters, with and without vicarious property damage"
+         style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+  </span>
+  <div class="content">
+    <p>
+      These faceted <strong>density plots</strong> show the full distribution of attitudes toward grizzlies 
+      (1 = strongly negative, 5 = strongly positive) across four groups: hunters and non-hunters, 
+      each split by whether they reported <strong>vicarious property damage (VPD)</strong>.
+    </p>
+    <ul>
+      <li><strong>Baseline contrast:</strong> Even without damage, hunters’ attitudes cluster lower 
+          than non-hunters, signaling a built-in identity gap.</li>
+      <li><strong>Damage effect:</strong> For hunters, exposure to VPD pulls the entire curve 
+          leftward—toward more negative attitudes—making the difference stark. 
+          Among non-hunters, the curve barely shifts.</li>
+      <li><strong>Distributional lens:</strong> This highlights that the impact isn’t just a small 
+          average dip—<em>the whole population of hunters moves</em> toward the negative end when 
+          damage stories circulate.</li>
+    </ul>
+    <p>
+      This visualization reinforces the SEM findings: <strong>identity filters the impact of experiences</strong>. 
+      For hunters, property damage stories cascade into collective attitude shifts. 
+      For non-hunters, the same information barely registers. 
+      Understanding these distributional patterns helps explain why conflicts over grizzly management 
+      remain so polarized across groups sharing the same landscape.
+    </p>
+  </div>
+</section>
+
+<!-- ======================= -->
+<!-- Recommendations -->
+<!-- ======================= -->
+<hr class="major" />
+<h2>Recommendations</h2>
           <span class="image" style="width:100%; text-align:center;">
             <img src="images/SEM3.png"
                 alt="Illustrated summary comparing hunters and nonhunters, with polarizing vs uniting forces"
                 style="max-width:750px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
           </span>
-          <div class="content">
-            <p>
-              To translate statistical findings into <strong>usable insights</strong>, we developed a visual guide contrasting
-              hunters and nonhunters on their grizzly experiences and highlighting <strong>polarizing vs. uniting forces</strong>.
-            </p>
-            <ul>
-              <li><strong>Comparative traits:</strong> Hunters more likely to have direct or vicarious encounters; nonhunters less exposed but more fearful.</li>
-              <li><strong>Polarizing forces:</strong> Negative stories, dismissals, limited cross-talk, and out-group exaggeration.</li>
-              <li><strong>Uniting forces:</strong> Positive in-group narratives, collaborative interventions, shared values, and inclusive “we” language.</li>
-            </ul>
-            <p>
-              This step moves beyond modeling to show <strong>how findings can inform outreach and conflict mitigation</strong>.
-            </p>
-          </div>
-        </section>
+<p>
+Our findings suggest that <strong>social identity is a key driver of how Montanans interpret 
+experiences with grizzly bears</strong>. Hunters are more exposed to negative encounters and 
+more influenced by stories within their in-group, which amplifies risks of polarization 
+between hunters and non-hunters as bear populations expand. Based on these insights, 
+we recommend the following actions:
+</p>
 
+<ul>
+  <li>
+    <strong>Prioritize conflict prevention:</strong> Because vicarious property damage among 
+    hunters drives negative attitudes, managers should reduce the occurrence and spread 
+    of such incidents by securing attractants (garbage, livestock feed) and deploying 
+    proactive mitigation measures in high-risk areas.
+  </li>
+  <li>
+    <strong>Amplify positive experiences:</strong> Neutral or positive encounters improve 
+    attitudes—especially among non-hunters. Public education campaigns, guided viewing 
+    opportunities, and rapid-response communications that highlight coexistence success 
+    stories can help normalize grizzly presence.
+  </li>
+  <li>
+    <strong>Use trusted in-group voices:</strong> Hunters are most influenced by fellow hunters. 
+    Partnering with respected hunting organizations or local leaders to share balanced 
+    messages about bear management may be more effective than agency-led messaging alone.
+  </li>
+  <li>
+    <strong>Frame around shared identity:</strong> Emphasizing common ground (e.g., being 
+    “Montanans” who care about outdoor traditions and safety) may soften divisions 
+    between hunters and non-hunters and reduce the perception of polarization.
+  </li>
+  <li>
+    <strong>Monitor polarization risk:</strong> Continued survey work can help detect 
+    widening gaps between groups. Early recognition of diverging attitudes allows 
+    managers to intervene before polarization hardens into intractable conflict.
+  </li>
+</ul>
 
+<p>
+Taken together, these steps highlight a shift from treating hunters and non-hunters as 
+monolithic “stakeholder groups” toward recognizing the <strong>identity-driven dynamics 
+within and between them</strong>. Management strategies that build on in-group trust, 
+reduce conflict exposure, and highlight shared values will be better positioned to 
+sustain both <strong>grizzly bear conservation and social acceptance</strong> in Montana.
+</p>
 
-            <hr class="major" />
+<!-- ======================= -->
+<!-- Clarifying Questions, Assumptions, Caveats -->
+<!-- ======================= -->
+<hr class="major" />
+<h2>Clarifying Questions, Assumptions, Caveats</h2>
 
-            <h2>What This Demonstrates</h2>
-            <ul>
-              <li><strong>Measurement to insight:</strong> Turn abstract ideas into reliable metrics, not just proxies.</li>
-              <li><strong>Modeling literacy:</strong> Choose methods that match the data (factor analysis, SEM), not the other way around.</li>
-              <li><strong>Reproducibility:</strong> End-to-end R pipeline (wrangle → validate → model → visualize → export).</li>
-              <li><strong>Communication:</strong> Clear, visual storytelling that keeps stakeholders out of the weeds and in the loop.</li>
-            </ul>
+<p>
+While this study provides new insight into how <strong>social identity shapes attitudes toward 
+grizzly bears</strong>, several caveats should be kept in mind when interpreting the results:
+</p>
 
-            <p class="align-right"><a href="index.html" class="button">Back to Portfolio</a></p>
-          </section>
+<ul>
+  <li>
+    <strong>Cross-sectional data:</strong> The survey represents a snapshot in time (2019–2020). 
+    Attitudes and identity dynamics may evolve as grizzly populations expand or as policy 
+    debates intensify. Longitudinal work would be needed to capture change over time.
+  </li>
+  <li>
+    <strong>Identity strength not measured:</strong> We classified respondents as hunters 
+    or non-hunters, but did not assess how strongly individuals identified with these 
+    groups. Identity salience could moderate effects but was beyond the scope here.
+  </li>
+  <li>
+    <strong>Focus on Montana:</strong> Results reflect the cultural and ecological context of 
+    Montana, where grizzly populations are recovering and hunting is central to rural 
+    identity. Findings may differ in other regions or with other species.
+  </li>
+  <li>
+    <strong>Mechanisms inferred, not proven:</strong> The observed interactions (e.g., 
+    hunters’ stronger response to vicarious property damage) are consistent with 
+    in-group dynamics, but causal processes were not directly measured.
+  </li>
+  <li>
+    <strong>Survey design limits:</strong> As with all self-reported surveys, responses 
+    may be influenced by recall error, social desirability, or nonresponse bias, 
+    though weighting procedures helped minimize these risks.
+  </li>
+</ul>
+
+<p>
+These caveats do not undermine the core finding—that <strong>identity-driven dynamics 
+powerfully shape wildlife attitudes</strong>—but they highlight the need for 
+follow-up research and context-sensitive application of these results in management.
+</p>
 
         </div>
       </div>

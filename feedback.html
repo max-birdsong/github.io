@@ -42,7 +42,7 @@
               <img src="images/feedback6.jpg" alt="Fisherman Feedback overview hero" />
             </span>
 
-                        <!-- ======================= -->
+            <!-- ======================= -->
             <!-- Table of Contents (Auto) -->
               <!-- ======================= -->
               <style>
@@ -177,41 +177,49 @@
               })();
               </script>
 
-              
-            <!-- Executive Summary (STAR) -->
-            <h2>Executive Summary</h2>
-            <div style="background:#f7f7f9;padding:1.25rem;border-radius:12px;line-height:1.6;">
-              <p><strong>Situation:</strong> The Council received open-ended comments (Sept 15–Oct 13, 2023) about Yellowedge Grouper. Leaders needed a quick, defensible read on sentiment by sector and where concerns clustered geographically.</p>
-              <p><strong>Task:</strong> Clean comments, reconcile manual vs. automated sentiment, and produce <em>geo-aware</em> rollups using a 21-area Gulf grid—handling multi-area responses correctly.</p>
-              <p><strong>Action:</strong></p>
-              <ul>
-                <li>Built a lightweight R pipeline to tokenize text, apply a customized Bing lexicon, and compare with dual-reviewer manual labels.</li>
-                <li>Exploded multi-area selections to area-level records; aggregated counts and polarity by sector and grid cell.</li>
-                <li>Generated clean visuals (bars/maps/coef-style plots) suitable for briefings.</li>
-              </ul>
-              <p><strong>Result:</strong> A concise, reproducible sentiment + geography report showing where positions concentrate and which keywords drive polarity—supporting quicker, better-targeted engagement.</p>
-            </div>
-
+            <!-- ======================= -->
+            <!-- Project Background -->
+            <!-- ======================= -->
             <hr class="major" />
+            <h2>Project Background</h2>
 
-            <h2>Overview</h2>
             <p>
-              The pipeline converts <strong>63 analyzed comments</strong> into sector and geography summaries with both
-              <strong>manual</strong> and <strong>lexicon-based</strong> sentiment. For portfolio purposes, emphasis is on the
-              <strong>workflow</strong>: robust text cleaning, polarity reconciliation, and careful handling of multi-area responses for map-ready outputs.
+            Managing federal fisheries often requires more than biological data—leaders need to quickly understand 
+            what fishermen are saying, where concerns are concentrated, and how sentiment differs across sectors. 
+            Traditional surveys capture numbers, but open-ended comments contain the nuance behind stakeholder trust, 
+            frustration, and support. This project addressed that gap by building a reproducible workflow to turn 
+            unstructured feedback on Yellowedge Grouper into <strong>geo- and sector-aware sentiment insights</strong>, 
+            giving decision-makers a fast, defensible way to see not just what people think, but where and why. 
             </p>
 
-            <div class="box">
-              <ul>
-                <li><strong>Sample:</strong> 63 comments with sector tags; locations via 21-area Gulf grid (multi-select allowed).</li>
-                <li><strong>Sentiment:</strong> Two human reviewers (consensus labels) + automated lexicon scoring with fisheries terms (e.g., “depredation”, “longline”).</li>
-                <li><strong>Geo:</strong> Area-level rollups after exploding multi-area selections (map totals can exceed N).</li>
-              </ul>
-            </div>
-
+            <!-- ======================= -->
+            <!-- Executive Summary -->
+            <!-- ======================= -->
             <hr class="major" />
+            <h2>Executive Summary</h2>
 
-            <h2>Methods Snapshot</h2>
+            <p>
+            Open-ended feedback on <strong>Yellowedge Grouper</strong> highlighted clear sentiment patterns across sectors 
+            and regions. <strong>Commercial fishermen voiced mostly negative views</strong>, focusing on limits and lost opportunities, 
+            while <strong>private recreational anglers expressed a mix of frustration and cautious optimism</strong>. 
+            For-hire operators, though fewer in number, showed a more balanced spread of sentiment.
+            </p>
+
+            <p>
+            Geographically, <strong>concerns were not evenly distributed</strong>. Certain Gulf areas concentrated negative 
+            feedback, while others reflected more neutral or positive perspectives, suggesting place-based differences in 
+            experience and stock conditions. <strong>Keyword analysis reinforced this divide</strong>: negative terms emphasized 
+            “limits,” “loss,” and “hardship,” whereas positive terms highlighted “healthy,” “plenty,” and “sustainable.”
+            </p>
+
+            <p>
+            Together, the findings show that <strong>perceptions of Yellowedge Grouper management are uneven across sectors 
+            and locations</strong>. While some groups point to strong stock health, others see restrictions and inequities. 
+            These insights help identify <strong>where concerns cluster and what narratives drive them</strong>, giving managers 
+            a defensible base for targeted communication and engagement.
+            </p>
+
+            <h2>Methods</h2>
             <p>From raw text to actionable, geo-enabled insights:</p>
             <ul>
               <li><strong>Text processing:</strong> Tokenization, stopword removal, custom lexicon merge; manual labels for calibration.</li>
@@ -220,26 +228,10 @@
               <li><strong>Tooling:</strong> R (<code>tidyverse</code>, <code>tidytext</code>), map-ready tables, <code>ggplot2</code> charts.</li>
             </ul>
 
-            <div class="box">
-              <h3>Highlights</h3>
-              <ul>
-                <li>Manual + automated sentiment gives both quality control and scale.</li>
-                <li>Geo-aware rollups respect multi-area responses—no double-counting at the comment level.</li>
-                <li>Keyword driver view clarifies <em>why</em> sentiment skews positive or negative.</li>
-                <li>Short, reproducible script regenerates all tables/figures.</li>
-              </ul>
-            </div>
-
-            <p class="align-right">
-              <a href="#" class="button primary small">Brief (PDF)</a>
-              <a href="#" class="button small">Code</a>
-              <a href="#" class="button small">Figures (.png)</a>
-            </p>
-
+            
             <hr class="major" />
 
-            <h2>Results Snapshot</h2>
-            <p>Figures progress from participation and sentiment by sector → keyword drivers → geo density and geo polarity → topic subset views.</p>
+            <h2>Insights: Deep Dive</h2>
 
 <!-- Geo Distribution of Responses -->
 <section class="spotlight">
@@ -249,26 +241,30 @@
   <span class="image" style="width:100%; text-align:center;">
     <img src="images/feedback2.JPG"
          alt="Response counts by Gulf area grid"
-         style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+         style="max-width:600px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
   </span>
   <div class="content">
     <p>
-      Map of responses across <strong>21 Gulf areas</strong>. Because respondents could select 
-      multiple areas, the total map count (<strong>n=185</strong>) exceeds the number of individuals. 
-      This ensures <strong>multi-area tagging</strong> was correctly expanded for analysis rather than 
-      under- or over-counted.
+      Fishermen provided input across <strong>21 Gulf areas</strong>, giving a clear picture of where concerns and 
+      engagement are concentrated. Because respondents could select multiple areas, the total number of 
+      tagged responses (<strong>n=185</strong>) is larger than the number of individual commenters, showing that many 
+      fishermen are active across regions.
     </p>
     <ul>
-      <li><strong>Data integrity:</strong> Multi-area responses exploded into area-level rows for accurate rollups.</li>
-      <li><strong>Spatial awareness:</strong> Distribution shows where concerns cluster across the Gulf.</li>
-      <li><strong>Workflow:</strong> Map-ready tables generated directly from cleaned survey data for briefing use.</li>
+      <li><strong>Regional hotspots:</strong> Heavier response clusters highlight areas where management actions are 
+      most closely followed and where future outreach will be especially important.</li>
+      <li><strong>Coverage gaps:</strong> Some areas drew fewer comments, suggesting either lower awareness or less 
+      perceived impact—both useful signals for targeting communication.</li>
+      <li><strong>Broad participation:</strong> The spread of responses across nearly all grid cells demonstrates that 
+      yellowedge grouper management is a Gulf-wide concern, not limited to one sector or state.</li>
     </ul>
     <p>
-      This step demonstrates <strong>geography-aware data engineering</strong>, where text survey responses 
-      are prepared for <strong>clear, stakeholder-ready spatial summaries</strong>.
+      This geographic breakdown helps leadership see <strong>where stakeholder voices are concentrated, where 
+      outreach may need to be strengthened, and how concerns vary across the Gulf</strong>.
     </p>
   </div>
 </section>
+
 
 <!-- Sentiment by Sector -->
 <section class="spotlight">
@@ -278,22 +274,28 @@
   <span class="image" style="width:100%; text-align:center;">
     <img src="images/feedback3.JPG"
          alt="Stacked bar chart showing positive, negative, and neutral sentiment by fishing sector"
-         style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+         style="max-width:600px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
   </span>
   <div class="content">
     <p>
-      Open-ended survey comments were <strong>classified into positive, negative, and neutral sentiment</strong> 
-      and cross-tabulated by sector. Respondents could select multiple sectors, 
-      so totals exceed the number of individuals (n=73).
+      Feedback on yellowedge grouper varied widely across fishing sectors, reflecting different priorities and 
+      pressures. Looking across <strong>73 comments</strong>, most sectors expressed a mix of concerns, but with 
+      clear differences in tone and focus.
     </p>
     <ul>
-      <li><strong>Commercial:</strong> Mostly negative, with only limited positive sentiment.</li>
-      <li><strong>Private recreational:</strong> Broader mix—negative and neutral dominate, but positives appear as well.</li>
-      <li><strong>For-hire:</strong> Smaller sample, sentiment balanced across categories.</li>
+      <li><strong>Commercial fishermen:</strong> Sentiment leaned strongly negative, underscoring frustrations with 
+      harvest restrictions, perceived economic impacts, and uncertainty about future access.</li>
+      <li><strong>Private recreational anglers:</strong> Feedback was more mixed. While many expressed frustration 
+      with limits, others acknowledged stock health and sustainability goals, suggesting opportunities to 
+      build on existing common ground.</li>
+      <li><strong>For-hire (charter/headboat) sector:</strong> Though smaller in sample size, comments showed a more 
+      balanced sentiment, with operators weighing both business impacts and conservation objectives.</li>
     </ul>
     <p>
-      This illustrates the ability to <strong>turn unstructured feedback into structured, stakeholder-level insights</strong>. 
-      The workflow ensures that <strong>managers can see at a glance where support or resistance is strongest</strong>.
+      Taken together, the results show <strong>where resistance is most concentrated (commercial), where perspectives 
+      are divided (private recreational), and where balanced discussion is possible (for-hire)</strong>. This 
+      sector-level view helps managers anticipate pushback, identify openings for consensus, and prioritize 
+      outreach to the groups most directly affected.
     </p>
   </div>
 </section>
@@ -307,25 +309,30 @@
   <span class="image" style="width:100%; text-align:center;">
     <img src="images/feedback4.JPG"
          alt="Map of Gulf grid cells showing per-area sentiment mix (positive/neutral/negative) with sample sizes"
-         style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+         style="max-width:600px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
   </span>
   <div class="content">
     <p>
-      Each grid cell displays the <strong>mix of sentiment</strong> (positive/neutral/negative) and the local
-      <strong>sample size</strong>. Comments were labeled by two reviewers and then linked to one or more
-      self-reported areas; multi-area responses were expanded to area-level rows (map total n=185 &gt; 63 comments).
+      Mapping sentiment by Gulf area highlights how feedback varies across the region. Each grid cell shows the 
+      balance of <strong>positive, neutral, and negative views</strong>, paired with the number of comments 
+      linked to that area (<strong>n=185 mentions from 63 individuals</strong>).
     </p>
     <ul>
-      <li><strong>Geography-aware:</strong> Correctly handles multi-select locations to avoid under/over-counting.</li>
-      <li><strong>Apportionment:</strong> Per-area sentiment helps target outreach where views skew supportive vs. critical.</li>
-      <li><strong>Data quality:</strong> Small-N cells are visible at a glance, discouraging over-interpretation.</li>
+      <li><strong>Regional variation:</strong> Some areas display a higher share of supportive feedback, 
+      while others lean more critical—offering an early signal of where trust or frustration is concentrated.</li>
+      <li><strong>Strategic focus:</strong> Understanding geographic “hot spots” of concern can help leadership 
+      anticipate challenges in specific communities and direct outreach accordingly.</li>
+      <li><strong>Transparency:</strong> Areas with fewer responses are flagged, helping avoid over-interpretation 
+      while still capturing emerging patterns.</li>
     </ul>
     <p>
-      This figure demonstrates <strong>clean data engineering + clear spatial storytelling</strong>—turning open-text
-      feedback into <strong>map-ready, decision-focused summaries</strong>.
+      For stakeholders, this map provides a <strong>quick, visual read on where sentiment diverges across the Gulf</strong>. 
+      It highlights where resistance is likely to cluster, where support can be built upon, and where further engagement 
+      may be needed to ground decisions in local realities.
     </p>
   </div>
 </section>
+
 
 <!-- Word cloud: sentiment drivers -->
 <section class="spotlight">
@@ -339,36 +346,75 @@
   </span>
   <div class="content">
     <p>
-      Word frequency visualization highlights the <strong>keywords driving sentiment</strong> in comments.
-      Positive terms (green) emphasize stock health and abundance, while negative terms (orange) point to
-      limits, loss, and difficulty.
+      The word cloud distills hundreds of open-ended responses into the <strong>core ideas shaping stakeholder views</strong>.  
+      Positive language (green) reflects confidence in stock health and abundance, while negative language (orange) highlights 
+      frustration with restrictions, access, and perceived loss.
     </p>
     <ul>
-      <li><strong>Positive themes:</strong> “healthy,” “plenty,” “large,” “sustainable.”</li>
-      <li><strong>Negative themes:</strong> “limits,” “loss,” “hard,” “impossible.”</li>
-      <li><strong>Balance:</strong> Both optimism about stock health and frustration with constraints emerge clearly.</li>
+      <li><strong>Optimism:</strong> Terms like “healthy,” “plenty,” and “sustainable” show that many participants see current 
+      management as supporting strong stocks.</li>
+      <li><strong>Frustration:</strong> Frequent mentions of “limits,” “loss,” and “hard” underscore where constraints are felt 
+      most acutely by different sectors.</li>
+      <li><strong>Clear signals:</strong> The contrast of positive and negative keywords highlights the <strong>tension between 
+      biological success and user dissatisfaction</strong>.</li>
     </ul>
     <p>
-      This layer translates raw comments into <strong>actionable signals</strong> about what words and
-      ideas stakeholders most associate with stock condition—helping prioritize communication points.
+      For stakeholders, this visualization makes clear that <strong>communication strategies need to strike both notes</strong>—  
+      reinforcing positive stock conditions while also addressing concerns about fairness, access, and opportunity.  
+      It turns unstructured feedback into <strong>concrete talking points for policy discussions and outreach</strong>.
     </p>
   </div>
 </section>
 
 
+<!-- ======================= -->
+<!-- Recommendations Section -->
+<!-- ======================= -->
+<hr class="major" />
+<h2>Recommendations</h2>
 
-            <hr class="major" />
+<section>
+  <h3>Stakeholder Communication</h3>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+    <li><strong>Target messaging by sector:</strong> Commercial fishers expressed more negative sentiment than recreational or for-hire groups. Tailoring outreach by sector can address their distinct concerns directly.</li>
+    <li><strong>Clarify management rationale:</strong> Negative terms often centered on “limits” and “loss.” Transparent explanation of why limits exist can help reduce frustration and mistrust.</li>
+    <li><strong>Highlight positive stock health:</strong> Many recreational comments used terms like “healthy” and “plenty.” Amplifying these positives can balance narratives and sustain engagement.</li>
+  </ul>
+</section>
 
-            <h2>What This Demonstrates</h2>
-            <ul>
-              <li><strong>Text-to-insight:</strong> Convert messy comments into interpretable, quality-controlled sentiment.</li>
-              <li><strong>Geo-aware analysis:</strong> Correctly handle multi-area tagging for map-ready rollups.</li>
-              <li><strong>Reproducibility:</strong> Script-first workflow that a policy team can rerun and audit.</li>
-              <li><strong>Communication:</strong> Clear visuals that move fast from data to decisions.</li>
-            </ul>
+<section>
+  <h3>Conflict Mitigation</h3>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+    <li><strong>Focus on geographic hotspots:</strong> Mapping revealed clusters of concern in specific Gulf areas. Proactive engagement in these areas can prevent localized negativity from spreading.</li>
+    <li><strong>Balance prevention and response:</strong> Quick acknowledgment of negative feedback paired with clear next steps can build credibility even when outcomes don’t change.</li>
+    <li><strong>Support peer-to-peer dialogue:</strong> Engaging respected community voices in areas with strong negative sentiment may ease tensions better than top-down communication.</li>
+  </ul>
+</section>
 
-            <p class="align-right"><a href="index.html" class="button">Back to Portfolio</a></p>
-          </section>
+<section>
+  <h3>Program Opportunities</h3>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+    <li><strong>Use sentiment drivers in outreach:</strong> Incorporating commonly used positive and negative terms into messaging can make communication feel more relevant and grounded in real concerns.</li>
+    <li><strong>Test feedback loops:</strong> Share back summaries of what was heard and how it’s being addressed—closing the loop builds trust in the process.</li>
+    <li><strong>Refine surveys for next round:</strong> Future comment collection can add quick structured prompts alongside open-text to improve clarity and comparability.</li>
+  </ul>
+</section>
+
+<!-- ======================= -->
+<!-- Clarifying Questions, Assumptions, Caveats -->
+<!-- ======================= -->
+<hr class="major" />
+<h2>Clarifying Questions, Assumptions, Caveats</h2>
+
+<section>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+    <li><strong>Sampling:</strong> Comments represent only those who chose to respond during the open period (Sept–Oct 2023). Results should be read as directional, not exhaustive of all stakeholder views.</li>
+    <li><strong>Sentiment scoring:</strong> Automated lexicon methods were calibrated with manual review, but nuance (sarcasm, mixed tones) may still be imperfectly captured.</li>
+    <li><strong>Geography handling:</strong> Multi-area responses were expanded to area-level rows. Maps may show counts larger than the number of individual respondents.</li>
+    <li><strong>Interpretation limits:</strong> Feedback is self-reported, context-specific, and correlative. It should inform but not be mistaken for statistically representative opinion polling.</li>
+  </ul>
+</section>
+
 
         </div>
       </div>
