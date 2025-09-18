@@ -42,67 +42,225 @@
               <img src="images/hunting7.JPG" alt="Survey analysis hero" />
             </span>
 
-            <!-- Executive Summary (STAR) -->
+            <!-- ======================= -->
+            <!-- Table of Contents (Auto) -->
+            <!-- ======================= -->
+              <style>
+                html { scroll-behavior: smooth; }
+
+                .toc-card {
+                  max-width: 900px;
+                  margin: 1rem auto 2rem;
+                  background: #f7f7f9;
+                  border: 1px solid #e5e7eb;
+                  border-radius: 10px;
+                  padding: 1rem 1.25rem;
+                  box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+                }
+                .toc-title {
+                  margin: 0 0 .5rem 0;
+                  font-size: 1.15rem;
+                }
+                .toc-list { 
+                  list-style: none; 
+                  margin: 0; 
+                  padding-left: 0;
+                  line-height: 1.55;
+                }
+                .toc-list > li { margin: .25rem 0; }
+                .toc-sublist { 
+                  list-style: none; 
+                  margin: .2rem 0 .4rem 1rem; 
+                  padding-left: 0;
+                }
+                .toc a { 
+                  text-decoration: none; 
+                  color: #1f2937;
+                }
+                .toc a:hover { text-decoration: underline; }
+
+                /* Active section indicator */
+                .toc a.is-active {
+                  font-weight: 700;
+                  text-decoration: underline;
+                }
+
+                /* Keep it tidy on small screens */
+                @media (max-width: 640px){
+                  .toc-card { padding: .9rem 1rem; }
+                }
+              </style>
+
+              <nav class="toc-card toc" id="auto-toc" aria-label="Table of contents">
+                <h3 class="toc-title">Table of Contents</h3>
+                <ul class="toc-list" id="toc-list"></ul>
+              </nav>
+                  <script>
+              (function () {
+                function buildTOC() {
+                  const contentRoot = document.querySelector('#main .inner');
+                  const tocRoot = document.getElementById('toc-list');
+                  if (!contentRoot || !tocRoot) return;
+
+                  // Collect H2/H3 but skip the TOC's own heading
+                  const headings = Array.from(contentRoot.querySelectorAll('h2, h3'))
+                    .filter(h => !h.closest('#auto-toc') && h.textContent.trim().length > 0);
+
+                  // Helpers: unique ids
+                  const used = new Set();
+                  const slugify = t => t.toLowerCase().replace(/[^\w\s-]/g,'').trim().replace(/\s+/g,'-');
+                  const ensureId = el => {
+                    if (el.id && !used.has(el.id)) { used.add(el.id); return el.id; }
+                    const base = slugify(el.textContent);
+                    let id = base, i = 2;
+                    while (document.getElementById(id) || used.has(id)) id = `${base}-${i++}`;
+                    el.id = id; used.add(id); return id;
+                  };
+
+                  // Build nested list (H2 top-level, H3 children)
+                  tocRoot.innerHTML = '';
+                  let currentSub = null;
+
+                  headings.forEach(h => {
+                    const id = ensureId(h);
+                    const link = document.createElement('a');
+                    link.href = `#${id}`;
+                    link.textContent = h.textContent.trim();
+
+                    if (h.tagName === 'H2') {
+                      const li = document.createElement('li');
+                      const span = document.createElement('span');
+                      span.appendChild(link);
+                      li.appendChild(span);
+
+                      currentSub = document.createElement('ul');
+                      currentSub.className = 'toc-sublist';
+                      li.appendChild(currentSub);
+                      tocRoot.appendChild(li);
+                    } else {
+                      // H3
+                      if (!currentSub) {
+                        const li = document.createElement('li');
+                        currentSub = document.createElement('ul');
+                        currentSub.className = 'toc-sublist';
+                        li.appendChild(currentSub);
+                        tocRoot.appendChild(li);
+                      }
+                      const subLi = document.createElement('li');
+                      subLi.appendChild(link);
+                      currentSub.appendChild(subLi);
+                    }
+                  });
+
+                  // Active link on scroll
+                  const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                      const id = entry.target.id;
+                      const a = document.querySelector(`.toc a[href="#${CSS.escape(id)}"]`);
+                      if (!a) return;
+                      if (entry.isIntersecting) {
+                        document.querySelectorAll('.toc a.is-active').forEach(e => e.classList.remove('is-active'));
+                        a.classList.add('is-active');
+                      }
+                    });
+                  }, { rootMargin: '-30% 0px -65% 0px', threshold: 0 });
+
+                  headings.forEach(h => observer.observe(h));
+                }
+
+                // Run after DOM is ready (fixes "no headers" issue)
+                if (document.readyState === 'loading') {
+                  document.addEventListener('DOMContentLoaded', buildTOC);
+                } else {
+                  buildTOC();
+                }
+              })();
+              </script>
+
+
+              <!-- =======================
+              Background (technical)
+              ======================== -->
+              <hr class="major" />
+              <h2>Background</h2>
+
+              <p>
+                U.S. hunting participation has declined for decades, prompting R3 programs to look beyond traditional family pathways and
+                better understand <strong>non-traditional path hunters (NTPH)</strong>—adult-onset hunters, urban residents, women, and others
+                entering without early family mentorship. This project analyzes a statewide Alabama survey (<strong>~700 hunters</strong>) to
+                distinguish <em>how people enter</em> (socialization pathways) from <em>why they stay</em> (motivational profiles), with a focus on
+                segment-specific R3 opportunities rather than treating NTPH as a single group.
+              </p>
+
+              <p>
+                <strong>I led the analytics workflow</strong>—validating multi-item scales into reliable indices, harmonizing 25+ outcomes, and fitting
+                <strong>generalized ordinal models</strong> to estimate how background factors (e.g., non-hunting family, adult-onset, urbanicity, women,
+                millennials) relate to <strong>recruitment vs. retention</strong>. The result is <strong>actionable R3 intelligence</strong> that shows which
+                messages and supports are likely to move distinct segments—from entry outreach to long-term engagement.
+              </p>
+
+
+            <!-- ======================= -->
+            <!-- Executive Summary -->
+            <!-- ======================= -->
+            <hr class="major" />
             <h2>Executive Summary</h2>
-            <div style="background:#f7f7f9;padding:1.25rem;border-radius:12px;line-height:1.6;">
-              <p><strong>Situation:</strong> Agencies wanted to understand <em>how</em> people become hunters (socialization) and <em>why</em> they stay (motivation), especially for non-traditional segments.</p>
-              <p><strong>Task:</strong> Turn multi-item pathway/motive batteries into reliable indices and model how background factors relate to pathways and motives—without overfitting.</p>
-              <p><strong>Action:</strong></p>
-              <ul>
-                <li>Validated multi-item scales and harmonized 25+ outcomes across domains.</li>
-                <li>Fit generalized (partial) proportional-odds models with group contrasts and multiple-testing control.</li>
-                <li>Automated an R pipeline (<code>tidyverse</code>, <code>oglmx</code>/<code>MASS</code>, <code>ggplot2</code>) for transparent, reproducible outputs.</li>
-              </ul>
-              <p><strong>Result:</strong> Clear, defensible evidence showing which backgrounds and contexts shape <em>entry pathways</em> vs. <em>retention motives</em>, delivered as code + figures and a short, visual brief.</p>
-            </div>
 
-            <hr class="major" />
-
-            <h2>Overview</h2>
             <p>
-              This project analyzes a large-scale Alabama hunter survey to map <strong>pathways into hunting</strong> and <strong>motives for continued participation</strong>.
-              For portfolio purposes, the emphasis is on the <strong>analytics workflow</strong>—scale construction, ordinal modeling with assumption checks,
-              and stakeholder-ready visuals generated from a reproducible script.
+              Hunting participation continues to decline nationwide, raising concerns for conservation funding 
+              and cultural continuity. Recruitment, retention, and reactivation (R3) programs are increasingly 
+              turning to <strong>non-traditional pathway hunters (NTPHs)</strong>—including women, adult-onset 
+              hunters, and those from non-hunting families—as key audiences for growth.
             </p>
 
-            <div class="box">
-              <ul>
-                <li><strong>Sample:</strong> ~700 respondents in a stratified mail + online design with weights for inference.</li>
-                <li><strong>Data prep:</strong> Cleaned and harmonized 25+ items across socialization and motivation constructs.</li>
-                <li><strong>Focus:</strong> How demographics/backgrounds predict pathways (entry) vs. motives (retention).</li>
-              </ul>
-            </div>
+            <p>
+              Results from a survey of <strong>~700 Alabama hunters</strong> show that while traditional and 
+              non-traditional hunters share many core motivations, <strong>specific subgroups diverge in how 
+              they enter and stay engaged</strong>. Women emphasized family connections and nature, 
+              adult-onset hunters leaned less on family tradition and more on peer or mentor support, 
+              and hunters from non-hunting families reported weaker ties to cultural heritage but similar 
+              long-term retention motives once established.
+            </p>
 
-            <hr class="major" />
+            <p>
+              Taken together, the findings underscore a central point: 
+              <strong>NTPHs are not a single, uniform segment</strong>. Effective R3 strategies will require 
+              tailoring to subgroup differences—emphasizing family and food for some, peer networks and 
+              outdoor confidence for others—rather than relying on one-size-fits-all approaches.
+            </p>
 
-            <h2>Methods Snapshot</h2>
-            <p>From raw batteries to interpretable effects and predictions:</p>
-            <ul>
-              <li><strong>Measurement:</strong> Item screening, internal consistency, and composite index construction for pathways/motives.</li>
-              <li><strong>Modeling:</strong> Generalized ordinal logistic regression for ordered responses; checked proportional-odds assumptions.</li>
-              <li><strong>Inference:</strong> Group contrasts with multiple-testing correction; partial-dependence style predictions.</li>
-              <li><strong>Tooling:</strong> R (<code>tidyverse</code> for wrangling, <code>oglmx</code>/<code>MASS</code> for modeling, <code>ggplot2</code> for plots). Fully scripted.</li>
+
+            <!-- =======================
+              Methods
+            ======================== -->
+          <hr class="major" />
+          <h2>Methods</h2>
+
+          <p>
+            We drew a <strong>stratified random sample of 3,000 hunters</strong> from the Alabama Wildlife Management Area (WMA) license 
+            database (<strong>34,708 total</strong>). The Alabama Department of Conservation and Natural Resources divided license holders 
+            into three age cohorts (19–35, 36–50, 51+), and we randomly selected 1,000 hunters per stratum. This design accounted for 
+            known cohort effects in outdoor recreation participation. 
+          </p>
+
+          <p>
+            Data were collected through a <strong>mail survey</strong> following the <em>Tailored Design Method</em>, with four contacts over 
+            ten weeks (April–June 2018). Questionnaires measured: 
+            <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+              <li><strong>Socialization pathways:</strong> 7 items capturing how respondents were introduced to hunting (e.g., family mentors).</li>
+              <li><strong>Recruitment motives:</strong> 8 items on initial reasons for starting to hunt.</li>
+              <li><strong>Retention motives:</strong> 8 items on reasons for continuing to hunt.</li>
+              <li><strong>Retention pathways:</strong> 2 items on clubs and associations.</li>
             </ul>
+            All items were measured on a 7-point scale (1 = “not at all important” to 7 = “very important”). Demographic questions 
+            identified <strong>non-traditional backgrounds</strong> such as adult-onset hunters, women, urban residents, those from non-hunting families, 
+            and millennials.
+          </p>
 
-            <div class="box">
-              <h3>Highlights</h3>
-              <ul>
-                <li>Managed 25+ items with clear mapping to pathways vs. motives.</li>
-                <li>Handled ordinal outcomes with appropriate generalized models.</li>
-                <li>Produced effect-size/uncertainty visuals leaders can scan quickly.</li>
-                <li>End-to-end reproducibility: raw → cleaned → modeled → exported.</li>
-              </ul>
-            </div>
+              <hr class="major" />
 
-            <p class="align-right">
-              <a href="assets/papers/birdsong-ntph-2021.pdf" class="button primary small">PDF</a>
-              <a href="#" class="button small">Code</a>
-            </p>
-
-            <hr class="major" />
-
-        <h2>Results Snapshot</h2>
-        <p>Figures move from descriptive comparisons to modeled effects—showing clearly what differs, for whom, and by how much.</p>
+          <h2>Insights: Deep Dive</h2>
+          <p>Figures move from descriptive comparisons to modeled effects—showing clearly what differs, for whom, and by how much.</p>
 
         <!-- 1) Pathways: descriptive comparison -->
         <section class="spotlight">
@@ -116,89 +274,194 @@
           </span>
           <div class="content">
             <p>
-              Average ratings (1–7 scale) for how traditional and non-traditional hunters value different 
-              <strong>entry pathways</strong>.
+              Average ratings (1–7 scale) reveal both overlap and divergence in how <strong>traditional hunters</strong> 
+              and <strong>non-traditional path hunters (NTPHs)</strong> were socialized into the activity. 
+              These findings highlight <em>which pathways remain central</em> and where recruitment strategies 
+              may need to adapt. 
             </p>
-            <ul>
-              <li><strong>Traditional hunters:</strong> strongly shaped by family and early outdoor experiences.</li>
-              <li><strong>Non-traditional hunters:</strong> less tied to inherited traditions, more influenced by peers and group introductions.</li>
-              <li><strong>Meaningful differences:</strong> highlights show where groups diverge in a statistically reliable way.</li>
+            <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+              <li><strong>Shared top pathways:</strong> Both groups rated <em>time outdoors in youth</em> (NTPH: 6.25; Traditional: 6.65), 
+              <em>family mentorship</em> (NTPH: 5.60; Traditional: 6.32), and <em>neighbors or friends</em> 
+              (NTPH: 4.54; Traditional: 4.71) as the three most important entry routes.</li>
+              <li><strong>Stronger family effect for traditional hunters:</strong> Family and outdoor upbringing were 
+              significantly more important to traditional hunters (p < .01), showing the persistence of 
+              intergenerational transmission.</li>
+              <li><strong>NTPHs less tied to heritage:</strong> While still valuing family and outdoor exposure, NTPHs 
+              leaned more heavily on <em>peer introductions</em> and <em>organized opportunities</em> compared to 
+              traditional hunters.</li>
+              <li><strong>Low-impact pathways:</strong> Scouts, summer camps, and local/national hunting or wildlife 
+              conservation groups scored low across both groups, suggesting limited influence on initial recruitment.</li>
             </ul>
             <p>
-              Identifies which pathways matter most for each segment, turning survey results into 
-              <strong>practical guidance for recruitment strategies</strong>.
+              For managers, the implication is clear: <strong>family and outdoor childhood remain key, but 
+              peer-based and programmatic entry points are essential for reaching NTPHs</strong>. 
+              Diversifying recruitment efforts beyond inherited traditions is necessary to grow participation. 
             </p>
           </div>
         </section>
+
 
         <!-- 2) Motivations: descriptive comparison -->
         <section class="spotlight">
           <div class="content">
             <h3>Recruitment vs. Retention Motivations</h3>
           </div>
+
           <span class="image" style="width:100%; text-align:center;">
             <img src="images/hunting3.JPG"
                 alt="Mean importance of recruitment and retention motivations for Traditional vs. NTPH hunters"
                 style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
           </span>
+          <p class="viz-caption" style="text-align:center; font-size:.9rem; color:#444; margin-top:.6rem;">
+            <em>Means on a 1–7 scale. Bars show recruitment (why people start) vs. retention (why they stay) for Traditional vs. NTPH hunters.</em>
+          </p>
+
           <div class="content">
             <p>
-              Clear separation between <strong>recruitment</strong> (why people start) and 
-              <strong>retention</strong> (why they stay).
+              Results show a <strong>stable hierarchy of motives</strong> across segments and phases, with nature and stress relief at the top—
+              but <em>subtle, meaningful differences</em> at recruitment for NTPHs.
             </p>
-            <ul>
-              <li><strong>Traditional hunters:</strong> emphasize family tradition, cultural identity, and providing meat.</li>
-              <li><strong>Non-traditional hunters:</strong> lean toward stress relief, social connection, and building outdoor confidence.</li>
-              <li><strong>Reliable contrasts:</strong> differences tested and adjusted to ensure they reflect real patterns, not noise.</li>
+
+            <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.6;">
+              <li><strong>Shared top motives (both groups):</strong> <em>Being in nature</em> ranks #1 for recruitment and retention
+                (NTPH: 6.48 → 6.63; Traditional: 6.54 → 6.62), followed by <em>relaxation/stress relief</em>
+                (NTPH: 6.12 → 6.53; Traditional: 6.44 → 6.58) and <em>confidence in outdoor abilities</em>
+                (NTPH: 5.92 → 6.24; Traditional: 6.35 → 6.39).</li>
+
+              <li><strong>Recruitment gap for NTPHs:</strong> At the <em>start</em>, NTPHs rate
+                <em>confidence-building</em> (t = 4.47, p &lt; .01) and <em>stress relief</em> (t = 3.32, p &lt; .01)
+                significantly lower than traditional hunters—suggesting early barriers and uncertainty.</li>
+
+              <li><strong>Convergence at retention:</strong> By the <em>stay</em> phase, NTPH means
+                rise toward traditional levels across these top motives, indicating that experience closes
+                early motivational gaps.</li>
             </ul>
-            <p>
-              Shows how motivations shift by segment and by phase of participation, producing 
-              <strong>clear engagement profiles</strong> that can inform outreach and retention efforts.
-            </p>
-          </div>
-        </section>
 
-        <!-- 3) Pathways: modeled effects -->
-        <section class="spotlight">
-          <div class="content">
-            <h3>Modeled Effects on Socialization Pathways</h3>
-          </div>
-          <span class="image" style="width:100%; text-align:center;">
-            <img src="images/hunting4.JPG"
-                alt="Regression estimates of socialization pathways by non-traditional hunter backgrounds"
-                style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
-          </span>
-          <div class="content">
             <p>
-              Regression models estimate how different backgrounds influence the likelihood of following each 
-              <strong>socialization pathway</strong>. Subgroups include non-hunting family, adult-onset hunters, urban residents, women, and millennials. 
-              Effects are shown with uncertainty ranges to indicate confidence.
-            </p>
-            <p>
-              The same workflow was applied to <strong>recruitment motives</strong> and <strong>retention motives</strong>, 
-              providing a consistent, comparable view across all outcome domains.
+              <strong>Implications for R3:</strong> Lead with <em>nature-forward, low-stress entry experiences</em> that build
+              <em>confidence</em> early (skills clinics, mentored hunts, clear wayfinding). As hunters remain engaged,
+              continue reinforcing <em>restorative benefits</em> and <em>competence gains</em> to sustain participation.
             </p>
           </div>
         </section>
 
 
-            <hr class="major" />
+          <!-- 3) Pathways: modeled effects -->
+          <section class="spotlight">
+            <div class="content">
+              <h3>Modeled Effects on Socialization Pathways</h3>
+            </div>
 
-        <h2>What This Demonstrates</h2>
-        <ul>
-          <li><strong>From data to insight:</strong> Built reliable indices that turn raw survey items into actionable measures.</li>
-          <li><strong>Smart modeling:</strong> Used ordinal regression at the right level of complexity—rigorous yet explainable.</li>
-          <li><strong>Reproducible workflow:</strong> Scripted pipeline for clean, repeatable, auditable results.</li>
-          <li><strong>Clear communication:</strong> Complex analysis distilled into visuals and takeaways decision-makers can use.</li>
-        </ul>
+            <span class="image" style="width:100%; text-align:center;">
+              <img src="images/hunting4.JPG"
+                  alt="Regression estimates of socialization pathways by non-traditional hunter backgrounds"
+                  style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
+            </span>
+            <p class="viz-caption" style="text-align:center; font-size:.9rem; color:#444; margin-top:.6rem;">
+              <em>Generalized ordinal logit models show how non-traditional backgrounds shift the importance of different entry pathways.</em>
+            </p>
 
-        <p class="align-right"><a href="index.html" class="button">Back to Portfolio</a></p>
+            <div class="content">
+              <p>
+                Regression models highlight how <strong>non-traditional backgrounds reshape entry into hunting</strong>.
+                Instead of one “NTPH profile,” each subgroup shows its own distinct pattern.
+              </p>
 
+              <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.6;">
+                <li><strong>Family as foundation:</strong> Women rated <em>family mentorship</em> more important than men, 
+                  while adult-onset hunters and those from non-hunting families rated it much lower. Without family traditions, 
+                  these hunters lean on alternative routes.</li>
 
+                <li><strong>Neighbors and friends:</strong> Less emphasized by hunters from non-hunting families compared to traditional hunters, 
+                  but still relatively more important than family for them—signaling the role of <em>peer substitution</em> when family is absent.</li>
+
+                <li><strong>Time outdoors in youth:</strong> Adult-onset hunters, women, and those from non-hunting families reported 
+                  lower importance, underscoring that <em>childhood exposure</em> is less central for these groups.</li>
+
+                <li><strong>Organized groups:</strong> Adult-onset hunters and millennials consistently rated Scouts, 4-H, summer camps, 
+                  and local/national clubs as <em>less important pathways</em>. Structured organizations play a minor role for modern NTPHs.</li>
+              </ul>
+
+              <p>
+                <strong>Takeaway for R3:</strong> Traditional pathways like <em>family mentorship</em> and <em>early outdoor experiences</em> 
+                are still dominant—but they underserve NTPHs. To broaden recruitment, agencies should 
+                <em>invest in peer-led mentoring networks, entry points for adults, and confidence-building programs</em> 
+                that mirror the functions of family support without requiring it.
+              </p>
+            </div>
           </section>
+
+
+          <!-- =======================
+              Recommendations
+          ======================= -->
+          <hr class="major" />
+          <h2>Recommendations</h2>
+
+          <p>
+          Our results show that while traditional and non-traditional hunters (NTPHs) often converge in their long-term motivations,
+          their <strong>initial entry pathways and early drivers</strong> differ in meaningful ways. Treating NTPHs as a single group
+          risks missing important distinctions across women, adult-onset hunters, and those from non-hunting families.
+          Managers can use these insights to refine R3 strategies:
+          </p>
+
+          <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.6;">
+            <li><strong>Strengthen mentoring alternatives:</strong> NTPHs without family hunting traditions benefit from peer-led
+                mentoring and community-based programs. Building “family substitutes” helps close the socialization gap.</li>
+            <li><strong>Support adult-onset hunters:</strong> Adults entering hunting later in life value nature, relaxation,
+                and skill-building but often feel less tied to heritage and tradition. Recruitment messages should emphasize
+                <em>confidence, personal growth, and access to local networks</em>.</li>
+            <li><strong>Engage women intentionally:</strong> Family remains an important pathway, but women’s retention is tied
+                strongly to <em>meat acquisition and time in nature</em>. Framing hunting around food quality, health, and family
+                connection may be especially effective.</li>
+            <li><strong>Address urban challenges:</strong> Urban hunters rate “meat” and “herd management” motives lower than
+                rural hunters. Recruitment in cities should highlight <em>outdoor escape, community, and unique experiences</em>,
+                while also reducing access barriers (travel, equipment, information).</li>
+            <li><strong>Invest in younger generations:</strong> Millennials and Gen Z show potential interest in food and
+                conservation motives but face competing demands from technology and urban lifestyles. Programs should
+                deliver <em>accessible, short-format experiences</em> that meet expectations of immediacy and skill-building.</li>
+          </ul>
+
+          <p>
+          <strong>Key takeaway:</strong> R3 efforts should move beyond a one-size-fits-all “NTPH” category. Instead, 
+          they should <em>tailor strategies to the specific backgrounds driving differences in pathways and motivations</em>. 
+          By doing so, agencies can expand participation, improve retention, and strengthen the cultural and conservation 
+          foundations of hunting.
+          </p>
+
+      
+      <!-- =======================
+          Clarifying Questions, Assumptions, Caveats
+      ======================= -->
+      <hr class="major" />
+      <h2>Clarifying Questions, Assumptions, Caveats</h2>
+
+      <p>
+      While this analysis provides useful insight into how traditional and non-traditional hunters (NTPHs) differ in their 
+      socialization pathways and motivations, several important caveats frame interpretation:
+      </p>
+
+      <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.6;">
+        <li><strong>Not a representative sample:</strong> The study surveyed existing hunters in Alabama Wildlife Management Areas. 
+            Findings cannot be generalized to all U.S. hunters or to potential recruits who never entered hunting.</li>
+        <li><strong>Response bias:</strong> Survey participants may skew toward more avid, motivated hunters, potentially overstating 
+            the strength of certain pathways and motives.</li>
+        <li><strong>Retrospective recall:</strong> Respondents were asked to reflect on why they started hunting. These 
+            retrospective accounts may differ from their actual initial motivations at the time of entry.</li>
+        <li><strong>Urban classification:</strong> Urban/non-urban status was based on current residence, not where respondents 
+            grew up, which may have underestimated the role of early life setting in socialization.</li>
+        <li><strong>Limited subgroup sizes:</strong> Certain groups (e.g., women, non-hunting families, adult-onset hunters) 
+            had relatively small sample sizes, limiting statistical power and calling for caution in broad application.</li>
+        <li><strong>Motivations as partial picture:</strong> Self-reported motivations (“why I hunt”) may not fully capture 
+            implicit drivers of behavior. These findings should be interpreted alongside behavioral data, satisfaction measures, 
+            and constraints.</li>
+        <li><strong>Context specificity:</strong> Results reflect Alabama hunters in 2018. Cultural, ecological, and 
+            regulatory differences may shape patterns differently in other regions or time periods.</li>
+      </ul>
 
         </div>
       </div>
+
 
       <!-- Sidebar -->
       <div id="sidebar">
@@ -240,26 +503,26 @@
 					</nav>
 
 
-<!-- Mini posts -->
-<section>
-  <header class="major">
-    <h2>Recent</h2>
-  </header>
-  <div class="mini-posts">
-    <article>
-      <a href="mtb.html" class="image"><img src="images/mtb.png" alt="Mountain biking preferences" loading="lazy" /></a>
-      <p>Mountain Biking: Preferences & Behavior</p>
-    </article>
-    <article>
-      <a href="catch_sat.html" class="image"><img src="images/CatchSat.JPG" alt="Angler satisfaction model" loading="lazy" /></a>
-      <p>Angler Satisfaction Model</p>
-    </article>
-    <article>
-      <a href="feedback.html" class="image"><img src="images/feedback.JPG" alt="Fishermen feedback" loading="lazy" /></a>
-      <p>Fishermen Feedback: Sentiment + Locations</p>
-    </article>
-  </div>
-</section>
+      <!-- Mini posts -->
+      <section>
+        <header class="major">
+          <h2>Recent</h2>
+        </header>
+        <div class="mini-posts">
+          <article>
+            <a href="mtb.html" class="image"><img src="images/mtb.png" alt="Mountain biking preferences" loading="lazy" /></a>
+            <p>Mountain Biking: Preferences & Behavior</p>
+          </article>
+          <article>
+            <a href="catch_sat.html" class="image"><img src="images/CatchSat.JPG" alt="Angler satisfaction model" loading="lazy" /></a>
+            <p>Angler Satisfaction Model</p>
+          </article>
+          <article>
+            <a href="feedback.html" class="image"><img src="images/feedback.JPG" alt="Fishermen feedback" loading="lazy" /></a>
+            <p>Fishermen Feedback: Sentiment + Locations</p>
+          </article>
+        </div>
+      </section>
 
 							<!-- Section -->
 								<section>

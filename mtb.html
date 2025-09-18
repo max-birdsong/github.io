@@ -42,285 +42,417 @@
               <img src="images/mtb2.jpg" alt="Mountain biking analysis hero" />
             </span>
 
-            <!-- Executive Summary (STAR) -->
-          <h2>Executive Summary</h2>
-          <div style="background:#f7f7f9;padding:1.25rem;border-radius:12px;line-height:1.6;">
-            <p><strong>Situation:</strong> Planners needed to understand what <em>motivates</em> riders (push factors), what <em>destination attributes</em> attract them (pull factors), and how these interact to shape actual visitation.</p>
-            
-            <p><strong>Task:</strong> Build a reliable data pipeline that turns survey responses and destination information into clear insights on customer preferences and visitation drivers.</p>
-            
-            <p><strong>Action:</strong></p>
-            <ul>
-              <li>Created and administered a statewide rider survey covering motivations and destination attributes.</li>
-              <li>Condensed <em>25 motivation items</em> into five customer motive segments; reduced <em>57 pull items</em> into eight destination features.</li>
-              <li>Mapped how motives influence attribute preferences using multivariable regression with error control.</li>
-              <li>Scraped trail and amenity data, built an algorithm to calculate travel distance for every respondent, and integrated these datasets into a customer-choice model predicting visitation patterns.</li>
-            </ul>
-            
-            <p><strong>Result:</strong> A reproducible analytics pipeline and clear visuals showing that travel distance is the biggest barrier to visitation, while trail supply, variety, and supporting infrastructure significantly increase demand—moderated by different customer segments.</p>
+            <!-- ======================= -->
+            <!-- Table of Contents (Auto) -->
+            <!-- ======================= -->
+              <style>
+                html { scroll-behavior: smooth; }
+
+                .toc-card {
+                  max-width: 900px;
+                  margin: 1rem auto 2rem;
+                  background: #f7f7f9;
+                  border: 1px solid #e5e7eb;
+                  border-radius: 10px;
+                  padding: 1rem 1.25rem;
+                  box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+                }
+                .toc-title {
+                  margin: 0 0 .5rem 0;
+                  font-size: 1.15rem;
+                }
+                .toc-list { 
+                  list-style: none; 
+                  margin: 0; 
+                  padding-left: 0;
+                  line-height: 1.55;
+                }
+                .toc-list > li { margin: .25rem 0; }
+                .toc-sublist { 
+                  list-style: none; 
+                  margin: .2rem 0 .4rem 1rem; 
+                  padding-left: 0;
+                }
+                .toc a { 
+                  text-decoration: none; 
+                  color: #1f2937;
+                }
+                .toc a:hover { text-decoration: underline; }
+
+                /* Active section indicator */
+                .toc a.is-active {
+                  font-weight: 700;
+                  text-decoration: underline;
+                }
+
+                /* Keep it tidy on small screens */
+                @media (max-width: 640px){
+                  .toc-card { padding: .9rem 1rem; }
+                }
+              </style>
+
+              <nav class="toc-card toc" id="auto-toc" aria-label="Table of contents">
+                <h3 class="toc-title">Table of Contents</h3>
+                <ul class="toc-list" id="toc-list"></ul>
+              </nav>
+                  <script>
+              (function () {
+                function buildTOC() {
+                  const contentRoot = document.querySelector('#main .inner');
+                  const tocRoot = document.getElementById('toc-list');
+                  if (!contentRoot || !tocRoot) return;
+
+                  // Collect H2/H3 but skip the TOC's own heading
+                  const headings = Array.from(contentRoot.querySelectorAll('h2, h3'))
+                    .filter(h => !h.closest('#auto-toc') && h.textContent.trim().length > 0);
+
+                  // Helpers: unique ids
+                  const used = new Set();
+                  const slugify = t => t.toLowerCase().replace(/[^\w\s-]/g,'').trim().replace(/\s+/g,'-');
+                  const ensureId = el => {
+                    if (el.id && !used.has(el.id)) { used.add(el.id); return el.id; }
+                    const base = slugify(el.textContent);
+                    let id = base, i = 2;
+                    while (document.getElementById(id) || used.has(id)) id = `${base}-${i++}`;
+                    el.id = id; used.add(id); return id;
+                  };
+
+                  // Build nested list (H2 top-level, H3 children)
+                  tocRoot.innerHTML = '';
+                  let currentSub = null;
+
+                  headings.forEach(h => {
+                    const id = ensureId(h);
+                    const link = document.createElement('a');
+                    link.href = `#${id}`;
+                    link.textContent = h.textContent.trim();
+
+                    if (h.tagName === 'H2') {
+                      const li = document.createElement('li');
+                      const span = document.createElement('span');
+                      span.appendChild(link);
+                      li.appendChild(span);
+
+                      currentSub = document.createElement('ul');
+                      currentSub.className = 'toc-sublist';
+                      li.appendChild(currentSub);
+                      tocRoot.appendChild(li);
+                    } else {
+                      // H3
+                      if (!currentSub) {
+                        const li = document.createElement('li');
+                        currentSub = document.createElement('ul');
+                        currentSub.className = 'toc-sublist';
+                        li.appendChild(currentSub);
+                        tocRoot.appendChild(li);
+                      }
+                      const subLi = document.createElement('li');
+                      subLi.appendChild(link);
+                      currentSub.appendChild(subLi);
+                    }
+                  });
+
+                  // Active link on scroll
+                  const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                      const id = entry.target.id;
+                      const a = document.querySelector(`.toc a[href="#${CSS.escape(id)}"]`);
+                      if (!a) return;
+                      if (entry.isIntersecting) {
+                        document.querySelectorAll('.toc a.is-active').forEach(e => e.classList.remove('is-active'));
+                        a.classList.add('is-active');
+                      }
+                    });
+                  }, { rootMargin: '-30% 0px -65% 0px', threshold: 0 });
+
+                  headings.forEach(h => observer.observe(h));
+                }
+
+                // Run after DOM is ready (fixes "no headers" issue)
+                if (document.readyState === 'loading') {
+                  document.addEventListener('DOMContentLoaded', buildTOC);
+                } else {
+                  buildTOC();
+                }
+              })();
+              </script>
+
+                  <!-- =======================
+                  Background (technical)
+                  ======================== -->
+                <hr class="major" />
+                <h2>Background</h2>
+
+                <p>
+                  In 2023, our team surveyed nearly 600 riders across Alabama to assess <strong>mountain biking 
+                  participation, motivations, and setting preferences</strong>. <strong>I co-led the analysis</strong>—designing 
+                  the survey, cleaning responses, and linking rider “push” motivations with destination “pull” 
+                  attributes. The results provide <strong>trail developers and managers with clear, data-driven 
+                  guidance</strong> on how to align facilities, trails, and community infrastructure with the diverse 
+                  needs of local riders and bike tourists.
+                </p>
+
+                <!-- ======================= -->
+                <!-- Executive Summary -->
+                <!-- ======================= -->
+                <hr class="major" />
+                <h2>Executive Summary</h2>
+
+                <p>
+                  Mountain biking has become one of the fastest-growing forms of outdoor recreation, and our 
+                  <strong>2023 statewide survey of nearly 600 Alabama riders</strong> captured detailed insights into 
+                  <strong>participation, motivations, and setting preferences</strong>. Riders reported a median of 
+                  50 trail days per year—well above national averages—underscoring the sport’s strong and 
+                  engaged user base.
+                </p>
+
+                <p>
+                  Analysis of <strong>push (why people ride)</strong> and <strong>pull (where they ride)</strong> factors revealed 
+                  distinct rider segments. Health-focused riders prioritize proximity, nature, and relaxation. 
+                  Thrill-seekers and competitors demand advanced features and multiple trails close to home. 
+                  Socially motivated riders value novelty and group experiences, traveling further and rating 
+                  camping facilities highly. These differences highlight how <strong>motivation shapes destination choice</strong>.
+                </p>
+
+                <p>
+                  Taken together, the findings show that <strong>aligning facilities and infrastructure with diverse rider 
+                  motives is key to sustaining growth</strong>. For communities and land managers, the data provide 
+                  <strong>clear, evidence-based guidance</strong> on when to emphasize natural settings, when to build 
+                  advanced technical features, and how to attract bike tourism through amenities and community 
+                  infrastructure.
+                </p>
+
+
+                <!-- =======================
+                Methods
+                ======================== -->
+                <hr class="major" />
+                <h2>Methods</h2>
+
+                <p>
+                We designed and distributed an <strong>online survey</strong> in early 2023, promoted through 
+                SORBA chapters, Alabama State Parks, and social media. The instrument covered 
+                <strong>five areas</strong>: rider motivations, satisfaction with current conditions, setting preferences, 
+                destinations visited, and demographics. The survey yielded <strong>593 responses</strong> from a broad 
+                spectrum of riders, with items rated on anchored 5- and 7-point scales.
+                </p>
+
+                <p>
+                To interpret results, we grouped motivations (“push” factors) and destination attributes 
+                (“pull” factors) using <strong>factor analysis</strong>. We then applied <strong>regression models</strong> to examine 
+                how rider motives relate to preferred settings, and <strong>correlation analysis</strong> to identify the 
+                strongest drivers of overall satisfaction. Finally, we used a <strong>revealed preference model</strong>, 
+                linking actual visitation patterns across 28 major Alabama trail systems to distance, trail 
+                features, facilities, and community characteristics. This provided both stated preferences 
+                and observed behavior to inform management decisions.
+                </p>
+
+                <hr class="major" />
+
+          <!-- ======================= -->
+          <!-- Findings: Deep Dive -->
+          <!-- ======================= -->
+
+          <h2>Insights: Deep Dive</h2>
+
+          <p>
+          The Alabama mountain biking survey unpacked riders’ <strong>motivations, destination preferences, and visitation behavior</strong> into a layered story. Below are the key insights: what drives individuals (push factors), what destinations provide (pull factors), how the two connect, and which features actually determine visitation.
+          </p>
+
+          <!-- Motives -->
+          <h3>Which Motives Drive Participation?</h3>
+
+          <p>
+          Understanding <strong>why people ride</strong> is the foundation for designing trails and communities that match their needs. 
+          Factor analysis of <strong>25 motivation items</strong> revealed a <strong>five-factor structure</strong>, explaining ~69% of variance. 
+          These “push factors” capture the internal drivers that get riders on their bikes.
+          </p>
+
+          <div style="max-width:700px; margin: 0 auto; text-align:center;">
+          <span class="image fit">
+            <img src="images/mtb3.JPG" alt="Factor analysis of rider motives" />
+          </span>
+          <p class="viz-caption">
+            <em>Push factors: Health & Nature dominated overall, with novelty and mastery also standing out as core motivations.</em>
+          </p>
           </div>
 
+          <p>
+          Each factor reflects a distinct way that mountain biking creates value for participants:
+          </p>
+
+          <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+            <li><strong>Health & Nature (highest overall):</strong> riding for physical fitness, stress relief, and time outdoors. These riders emphasize well-being and restorative benefits.</li>
+            <li><strong>Competency–Mastery:</strong> riders motivated by challenge and skill progression. They seek technical features and opportunities to push limits.</li>
+            <li><strong>Novelty:</strong> exploration and variety drive this group. They prioritize new landscapes, trail systems, and the excitement of discovery.</li>
+            <li><strong>Social Interaction:</strong> group riding, belonging, and shared experiences matter most. These riders value infrastructure that supports community.</li>
+            <li><strong>Competition (least common):</strong> performance, racing, and comparison to others motivate a smaller but dedicated segment.</li>
+          </ul>
+
+          <p>
+          For managers, the key takeaway is that <strong>well-being and connection to nature anchor the majority of riders</strong>, but substantial segments ride for skill, novelty, or social reasons. 
+          Each of these motives aligns with different trail features and amenities—underscoring the importance of a diverse portfolio of riding opportunities.
+          </p>
+
+
+          <!-- Destination Attributes -->
+          <h3>Which Destination Attributes Matter Most?</h3>
+
+          <p>
+          If motives explain <em>why</em> riders get on the bike, destination attributes explain <em>where</em> they choose to go. 
+          Analysis of <strong>57 setting items</strong> revealed an <strong>eight-component solution</strong> that explains ~62% of variance. 
+          These “pull factors” capture the qualities of destinations that make them attractive—and worth returning to.
+          </p>
+
+          <div style="max-width:700px; margin: 0 auto; text-align:center;">
+          <span class="image fit">
+            <img src="images/mtb4.JPG" alt="Factor analysis of destination attributes" />
+          </span>
+          <p class="viz-caption">
+            <em>Pull factors: Trail features and park facilities emerged as the strongest overall drivers of destination appeal.</em>
+          </p>
+          </div>
+
+          <p>
+          Together, these components show that riders respond to a mix of <strong>core trail quality, supporting infrastructure, and 
+          value-added amenities</strong>. Breaking it down:
+          </p>
+
+          <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+            <li><strong>Trail Features (highest overall):</strong> mileage, variety, and well-designed singletrack remain the foundation. 
+            Crowding levels are equally critical—congestion detracts sharply from destination quality.</li>
+            <li><strong>Park Facilities:</strong> signage, maps, parking, and consistent maintenance ensure a smooth rider experience 
+            and are often noticed when missing.</li>
+            <li><strong>Community Infrastructure:</strong> local bike shops, active clubs, and a welcoming culture create a 
+            supportive ecosystem that encourages repeat visitation.</li>
+            <li><strong>Natural Setting:</strong> scenery, wildlife, and a pristine feel elevate rides beyond recreation into 
+            restorative experiences.</li>
+            <li><strong>Advanced Features:</strong> downhill runs, flow trails, and technical terrain attract progression-oriented 
+            riders looking to test their skills.</li>
+            <li><strong>Park Amenities:</strong> showers, toilets, and picnic areas provide comfort and convenience, extending 
+            visit length and family appeal.</li>
+            <li><strong>Camping:</strong> developed sites, primitive options, and RV access support multi-day stays and tourism value.</li>
+            <li><strong>Entertainment & Social Offerings:</strong> proximity to food, breweries, and nightlife adds to the 
+            attractiveness of a destination for groups and events.</li>
+          </ul>
+
+          <p>
+          For managers, the message is clear: <strong>trail quality and facilities are the non-negotiables</strong>, but competitive destinations 
+          differentiate themselves with strong community ties, advanced features, and lifestyle amenities. A balanced portfolio ensures appeal 
+          to both core riders and visiting tourists—supporting both recreation outcomes and economic returns.
+          </p>
+
+
+          <!-- Push × Pull -->
+          <h3>How Do Motives Connect to Destination Attributes?</h3>
+
+          <p>
+          The analysis shows that <strong>mountain bikers’ motives directly shape which destination features they prefer</strong>. 
+          These push–pull relationships highlight clear levers for managers: knowing the motives of your target audience 
+          allows you to design and market trail systems that resonate most strongly with them. Instead of a one-size-fits-all approach, 
+          specific investments can be matched to specific rider segments.
+          </p>
+
+          <div style="max-width:700px; margin: 0 auto; text-align:center;">
+          <span class="image fit">
+            <img src="images/mtb.png" alt="Heatmap of push × pull relationships" />
+          </span>
+          <p class="viz-caption">
+            <em>Heatmap of standardized β coefficients: darker cells represent stronger, more consistent push–pull connections.</em>
+          </p>
+          </div>
+
+          <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+            <li><strong>Health & Nature → Trail Features & Natural Setting:</strong> Wellness-oriented riders are drawn to 
+            <em>scenic landscapes, greenery, and well-maintained mileage</em>. Trail upkeep and environmental quality 
+            are critical levers for this group.</li>
+            
+            <li><strong>Mastery → Advanced Features & Community:</strong> Skill-driven riders showed the strongest overall effects, 
+            with clear preference for <em>technical terrain, downhill sections, and strong local infrastructure (shops, clubs, events)</em>. 
+            Advanced trail design is essential to engage this segment.</li>
+            
+            <li><strong>Novelty → Trail Variety & Camping:</strong> Exploration-oriented riders valued <em>diverse mileage, 
+            unique features, and opportunities for overnight stays</em>. Destinations with variety and multi-day options are especially attractive.</li>
+            
+            <li><strong>Social Interaction → Amenities & Community:</strong> Riders motivated by connection prioritized <em>gathering spaces, 
+            welcoming culture, and facilities that support group rides</em>. Even modest investments in amenities and community-building 
+            infrastructure can deliver strong returns.</li>
+            
+            <li><strong>Competition:</strong> Competitive motives showed <em>limited influence</em>, with only weak links to 
+            trail features and facilities—indicating this is more of a niche driver than a broad one.</li>
+          </ul>
+
+          <p>
+          For managers, the takeaway is that <strong>different rider types are activated by different destination features</strong>. 
+          Trail quality and natural scenery form a universal baseline, but mastery riders need advanced terrain, novelty seekers chase 
+          variety and camping, and social riders want amenities and culture. Communities offering this mix—or a range of destinations 
+          within easy reach—will be best positioned to maximize both <em>participation and satisfaction</em>.
+          </p>
 
 
 
-            <hr class="major" />
+<!-- =======================
+        Recommendations
+     ======================= -->
 
-            <h2>Overview</h2>
-            <p>
-              The project maps <strong>push motives</strong> to <strong>pull attributes</strong> and then to <strong>observed visitation</strong>.
-              Portfolio emphasis is on the <strong>workflow</strong>: scale construction, dimensionality reduction, effect estimation, and exportable visuals—fully scripted in R.
-            </p>
+<hr class="major" />
+<h2>Recommendations</h2>
 
-            <div class="box">
-              <ul>
-                <li><strong>Sample:</strong> Online survey of Alabama riders (n = 593; club/listserv + state park outreach; ~1 month fielding).</li>
-                <li><strong>Instruments:</strong> 18 motive items (1–5), 57 setting items (1–5) grouped into 6 categories, 28 destinations with visit frequencies.</li>
-                <li><strong>Objective:</strong> Connect motives → preferred attributes → real destination choices.</li>
-              </ul>
-            </div>
+<p>
+Findings from this study point to <strong>clear, actionable priorities</strong> for trail managers, park staff, and 
+community partners. The most effective strategies will <em>match local investments with the motives of target riders</em>, 
+while ensuring baseline quality across all destinations.
+</p>
 
-            <hr class="major" />
+<ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.6;">
+  <li><strong>Prioritize Trail Quality & Scenery:</strong> Well-maintained mileage, natural landscapes, and signage are 
+  foundational. These appeal broadly, especially to riders motivated by <em>health, nature, and stress relief</em>.</li>
 
-            <h2>Methods Snapshot</h2>
-            <p>From raw Qualtrics exports to interpretable effects and predictions:</p>
-            <ul>
-              <li><strong>Data engineering:</strong> Harmonized Likert coding; logic/range checks; deduping; long-format tables for items and destinations.</li>
-              <li><strong>Push factors:</strong> EFA/CFA with varimax; five motives (stimulus-avoidance, novelty, competency-mastery, social, competition); reliabilities recorded.</li>
-              <li><strong>Pull factors:</strong> PCA on 57 items → eight components (trail features, advanced features, park facilities, community infra, natural setting, amenities, camping, entertainment).</li>
-              <li><strong>Push → Pull:</strong> Multivariable regressions per pull component; Holm–Bonferroni corrections.</li>
-              <li><strong>Revealed preferences:</strong> Use/non-use GLM (visited=1 vs matched 0s) with rider random effects; predictors include distance, trail miles, count of trails, avg ratings, difficulty mix; motive interactions probed.</li>
-              <li><strong>Tooling:</strong> R (<code>tidyverse</code>, <code>psych</code>, base PCA, <code>lme4</code>/<code>glmmTMB</code>, <code>ggplot2</code>); scripted exports.</li>
-            </ul>
+  <li><strong>Build for Mastery:</strong> Include <em>advanced features, downhill sections, and technical challenges</em> 
+  to retain skilled riders. Pair this with strong local infrastructure (shops, clubs, events) to foster progression and community.</li>
 
-            <div class="box">
-              <h3>Highlights</h3>
-              <ul>
-                <li>Validated 5-factor motive structure; 8 pull components explain most variance.</li>
-                <li>Transparent push→pull tables and heatmaps summarize many effects compactly.</li>
-                <li>RSF-style GLM with random effects leverages real behavior, not just intentions.</li>
-                <li>End-to-end reproducibility: raw → cleaned → modeled → figures/deck.</li>
-              </ul>
-            </div>
+  <li><strong>Offer Variety & Overnight Options:</strong> Develop trail systems with <em>diverse mileage, loops, and nearby camping</em> 
+  to satisfy novelty-oriented riders who seek exploration and multi-day experiences.</li>
 
-            <p class="align-right">
-              <a href="assets/papers/birdsong-mtb-preferences.pdf" class="button primary small">PDF</a>
-              <a href="#" class="button small">Code</a>
-              <a href="#" class="button small">Data dictionary</a>
-            </p>
+  <li><strong>Strengthen Social & Community Infrastructure:</strong> Invest in <em>amenities like gathering spaces, 
+  group ride facilities, and welcoming culture initiatives</em>. These elements resonate with socially-motivated riders and 
+  help build repeat visitation.</li>
 
-            <hr class="major" />
+  <li><strong>Calibrate for Competition:</strong> Competitive motives were weaker overall. Specialized race events or 
+  segments can still engage this niche, but they should not overshadow broader investments in trail quality and community.</li>
+</ul>
 
-            <h2>Results Snapshot</h2>
-            <p>Figures move in sequence: from validated structure of rider motives and destination attributes,
-  to their linkages, and finally to revealed behaviors—keeping the story practical for trail and tourism decisions.</p>
-
-<!-- Motivation structure: Push factors -->
-<section class="spotlight">
-  <div class="content">
-    <h3>Factor Analysis of Rider Motivations (Push)</h3>
-  </div>
-
-  <div class="content">
-    <p>
-      Analysis of <strong>25 motivation items</strong> yielded a <strong>five-factor solution</strong> explaining
-      ~<strong>69%</strong> of variance (31.9 + 14.9 + 9.5 + 7.6 + 5.3). All five factors showed acceptable reliability.
-    </p>
-
-    <div style="overflow-x:auto;">
-      <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
-        <thead>
-          <tr>
-            <th style="text-align:left; border-bottom:1px solid #ddd; padding:6px;">Factor</th>
-            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Eigenvalue</th>
-            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">% Var</th>
-            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Mean</th>
-            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">SD</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td style="padding:6px;">Competency–Mastery</td><td style="text-align:right; padding:6px;">5.86</td><td style="text-align:right; padding:6px;">31.9</td><td style="text-align:right; padding:6px;">3.35</td><td style="text-align:right; padding:6px;">0.97</td></tr>
-          <tr><td style="padding:6px;">Stimulus Avoidance</td><td style="text-align:right; padding:6px;">2.73</td><td style="text-align:right; padding:6px;">14.9</td><td style="text-align:right; padding:6px;">4.12</td><td style="text-align:right; padding:6px;">0.68</td></tr>
-          <tr><td style="padding:6px;">Social Interaction</td><td style="text-align:right; padding:6px;">1.74</td><td style="text-align:right; padding:6px;">9.5</td><td style="text-align:right; padding:6px;">3.34</td><td style="text-align:right; padding:6px;">0.99</td></tr>
-          <tr><td style="padding:6px;">Competition</td><td style="text-align:right; padding:6px;">1.39</td><td style="text-align:right; padding:6px;">7.6</td><td style="text-align:right; padding:6px;">2.83</td><td style="text-align:right; padding:6px;">1.05</td></tr>
-          <tr><td style="padding:6px;">Novelty</td><td style="text-align:right; padding:6px;">0.98</td><td style="text-align:right; padding:6px;">5.3</td><td style="text-align:right; padding:6px;">3.66</td><td style="text-align:right; padding:6px;">0.86</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <ul style="margin-top:0.75rem;">
-      <li><strong>Competency–Mastery:</strong> skills, challenge, progress.</li>
-      <li><strong>Stimulus Avoidance:</strong> stress relief, quiet escape.</li>
-      <li><strong>Social Interaction:</strong> group riding, belonging.</li>
-      <li><strong>Competition:</strong> race, compare, improve vs. others.</li>
-      <li><strong>Novelty:</strong> variety, new places, exploration.</li>
-    </ul>
-  </div>
-</section>
+<p>
+Taken together, these steps support a <strong>portfolio approach to trail planning</strong>: ensuring every destination 
+meets core quality standards, while selectively emphasizing the features that align with the dominant motives of local 
+and visiting riders. This strategy maximizes both <em>participation and satisfaction</em>, and positions communities to 
+capture the growing demand for mountain biking in Alabama and beyond.
+</p>
 
 
-<!-- Destination attributes: Pull factors -->
-<section class="spotlight">
-  <div class="content">
-    <h3>Factor Analysis of Destination Attributes (Pull)</h3>
-  </div>
+<!-- ======================= -->
+<!-- Clarifying Questions, Assumptions, Caveats -->
+<!-- ======================= -->
 
-  <div class="content">
-    <p>
-      Analysis of <strong>57 setting items</strong> yielded an <strong>eight-component solution</strong> explaining
-      ~<strong>62.4%</strong> of variance (21.1 + 9.7 + 7.5 + 6.2 + 6.0 + 4.5 + 3.8 + 3.6).
-      These “pull” dimensions summarize what destinations provide.
-    </p>
+<hr class="major" />
+<h2>Clarifying Questions, Assumptions, Caveats</h2>
 
-    <div style="overflow-x:auto;">
-      <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
-        <thead>
-          <tr>
-            <th style="text-align:left; border-bottom:1px solid #ddd; padding:6px;">Component</th>
-            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Eigenvalue</th>
-            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">% Var</th>
-            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Mean</th>
-            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">SD</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td style="padding:6px;">Trail Features</td><td style="text-align:right; padding:6px;">8.70</td><td style="text-align:right; padding:6px;">21.1</td><td style="text-align:right; padding:6px;">3.72</td><td style="text-align:right; padding:6px;">0.63</td></tr>
-          <tr><td style="padding:6px;">Natural Setting</td><td style="text-align:right; padding:6px;">4.01</td><td style="text-align:right; padding:6px;">9.7</td><td style="text-align:right; padding:6px;">3.08</td><td style="text-align:right; padding:6px;">0.85</td></tr>
-          <tr><td style="padding:6px;">Park Amenities</td><td style="text-align:right; padding:6px;">3.10</td><td style="text-align:right; padding:6px;">7.5</td><td style="text-align:right; padding:6px;">2.41</td><td style="text-align:right; padding:6px;">0.81</td></tr>
-          <tr><td style="padding:6px;">Park Facilities</td><td style="text-align:right; padding:6px;">2.56</td><td style="text-align:right; padding:6px;">6.2</td><td style="text-align:right; padding:6px;">3.82</td><td style="text-align:right; padding:6px;">0.61</td></tr>
-          <tr><td style="padding:6px;">Community Infrastructure</td><td style="text-align:right; padding:6px;">2.49</td><td style="text-align:right; padding:6px;">6.0</td><td style="text-align:right; padding:6px;">3.54</td><td style="text-align:right; padding:6px;">0.87</td></tr>
-          <tr><td style="padding:6px;">Advanced Features</td><td style="text-align:right; padding:6px;">1.86</td><td style="text-align:right; padding:6px;">4.5</td><td style="text-align:right; padding:6px;">3.35</td><td style="text-align:right; padding:6px;">0.89</td></tr>
-          <tr><td style="padding:6px;">Camping</td><td style="text-align:right; padding:6px;">1.48</td><td style="text-align:right; padding:6px;">3.8</td><td style="text-align:right; padding:6px;">2.32</td><td style="text-align:right; padding:6px;">1.01</td></tr>
-          <tr><td style="padding:6px;">Entertainment</td><td style="text-align:right; padding:6px;">1.41</td><td style="text-align:right; padding:6px;">3.6</td><td style="text-align:right; padding:6px;">3.05</td><td style="text-align:right; padding:6px;">1.14</td></tr>
-        </tbody>
-      </table>
-    </div>
+<p>
+Like any data-driven analysis, these insights rest on certain assumptions and have boundaries that managers should keep in mind.
+They don’t undermine the results, but they do frame how best to use them.
+</p>
 
-    <ul style="margin-top:0.75rem;">
-      <li><strong>Trail Features:</strong> singletrack length, mileage, variety, crowding.</li>
-      <li><strong>Natural Setting:</strong> scenery, natural variety, wildlife, pristine feel.</li>
-      <li><strong>Park Amenities:</strong> showers, toilets, grills, picnic areas.</li>
-      <li><strong>Park Facilities:</strong> signage, maintenance, maps, parking, connectivity/reviews.</li>
-      <li><strong>Community Infrastructure:</strong> bike shops/clubs, culture, welcoming vibe.</li>
-      <li><strong>Advanced Features:</strong> downhill/flow, bike-only trails, terrain challenge.</li>
-      <li><strong>Camping:</strong> developed & primitive sites, RV options.</li>
-      <li><strong>Entertainment:</strong> food and brewery availability.</li>
-    </ul>
-  </div>
-</section>
+<ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+  <li><strong>Sample not representative:</strong> Respondents were self-selected riders in Alabama, 2023. Findings may not generalize to all mountain bikers.</li>
+  <li><strong>Response bias likely:</strong> Avid and committed riders were more likely to complete the survey, so results may emphasize the preferences of highly engaged users.</li>
+  <li><strong>Motives are latent:</strong> Push factors were distilled from survey items via factor analysis. They capture underlying themes, but labels like “Health & Nature” are interpretive.</li>
+  <li><strong>Self-reported behavior:</strong> Stated preferences describe what riders say they value, not always what they do. That said, patterns aligned well with revealed preferences.</li>
+  <li><strong>Snapshot in time:</strong> Data represent a single survey wave. Rider motives and visitation patterns could evolve with new infrastructure, social trends, or demographics.</li>
+</ul>
 
-
-<!-- Push × Pull link: multivariable regression heatmap -->
-<section class="spotlight">
-  <div class="content">
-    <h3>Linking Rider Motives (Push) to Destination Attributes (Pull)</h3>
-  </div>
-
-  <span class="image" style="width:100%; text-align:center;">
-    <img src="images/mtb.png"
-         alt="Heatmap of multivariable regression β coefficients between push motives and pull attributes; asterisks denote significant relationships"
-         style="max-width:700px; width:100%; height:auto; margin:0 auto; display:inline-block;" />
-  </span>
-
-  <div class="content">
-    <p>
-      Multivariable regressions relate the five <strong>push motives</strong> to the eight <strong>pull attributes</strong>.
-      Cells show standardized <strong>β coefficients</strong> (color = effect size; sign encoded by the palette),
-      with <strong>asterisks marking BH-adjusted <em>p</em> &lt; .05</strong>.
-    </p>
-    <ul>
-      <li><strong>Stimulus-Avoidance → Natural Setting</strong>: strongest positive link (seek scenery, quiet, pristine areas).</li>
-      <li><strong>Mastery → Advanced Features & Community Infrastructure</strong>: skills/ progression align with tech features and local riding support.</li>
-      <li><strong>Novelty → Trail Features</strong>: variety and mileage attract exploration-oriented riders.</li>
-      <li><strong>Social → Amenities/Camping</strong>: small-to-moderate positives where groups can gather and stay.</li>
-      <li><strong>Competition</strong>: limited effects overall (light cells), suggesting race mindset isn’t the main destination driver here.</li>
-    </ul>
-    <p style="opacity:.9;">
-      Because effects are estimated in a single model, each cell reflects the unique association of a push factor with a pull attribute
-      <em>holding the other motives constant</em>—more decision-useful than simple correlations.
-    </p>
-  </div>
-</section>
-
-
-<!-- Revealed preference model: visitation vs destination attributes -->
-<section class="spotlight">
-  <div class="content">
-    <h3>Revealed Preferences — What Drives Visitation?</h3>
-  </div>
-
-  <div class="content">
-    <p>
-      We combined a <strong>scraped destination dataset</strong> (trail miles, number of trails, average rating,
-      share of difficult trails) with an <strong>origin–destination cost matrix</strong> (home→site distance for each rider).
-      Using riders’ reported visit counts, we fit a <strong>multivariable regression</strong> with interactions between
-      destination attributes and rider traits (commitment + five motives).
-    </p>
-
-    <!-- Key takeaways first -->
-    <ul>
-      <li><strong>Distance dominates:</strong> large negative main effect; far sites see fewer visits.</li>
-      <li><strong>More to ride helps:</strong> trail <em>miles</em> and <em>number of trails</em> generally increase visits.</li>
-      <li><strong>Quality matters:</strong> higher average ratings predict more visitation.</li>
-      <li><strong>Difficulty is nuanced:</strong> baseline effect small, but varies by rider type (see interactions).</li>
-    </ul>
-
-    <!-- Compact coefficient table -->
-    <div style="overflow-x:auto; margin-top:0.75rem;">
-      <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
-        <thead>
-          <tr>
-            <th style="text-align:left; border-bottom:1px solid #ddd; padding:6px;">Predictor</th>
-            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Main</th>
-            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Behav. Commit.</th>
-            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Mastery</th>
-            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Stimulus-Avoid.</th>
-            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Social</th>
-            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Competition</th>
-            <th style="text-align:right; border-bottom:1px solid #ddd; padding:6px;">Novelty</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td style="padding:6px;">Distance</td><td style="text-align:right; padding:6px;">−3.080**</td><td style="text-align:right; padding:6px;">−0.364*</td><td style="text-align:right; padding:6px;">−0.587**</td><td style="text-align:right; padding:6px;">−1.096**</td><td style="text-align:right; padding:6px;">0.470**</td><td style="text-align:right; padding:6px;">−0.257**</td><td style="text-align:right; padding:6px;">2.240**</td></tr>
-          <tr><td style="padding:6px;">Miles of trail</td><td style="text-align:right; padding:6px;">0.362**</td><td style="text-align:right; padding:6px;">0.231**</td><td style="text-align:right; padding:6px;">0.231**</td><td style="text-align:right; padding:6px;">−0.089</td><td style="text-align:right; padding:6px;">−0.321**</td><td style="text-align:right; padding:6px;">−0.143**</td><td style="text-align:right; padding:6px;">0.117</td></tr>
-          <tr><td style="padding:6px;">Number of trails</td><td style="text-align:right; padding:6px;">0.654**</td><td style="text-align:right; padding:6px;">0.087</td><td style="text-align:right; padding:6px;">−0.091</td><td style="text-align:right; padding:6px;">−0.216</td><td style="text-align:right; padding:6px;">0.124</td><td style="text-align:right; padding:6px;">0.249**</td><td style="text-align:right; padding:6px;">−0.190</td></tr>
-          <tr><td style="padding:6px;">Average rating</td><td style="text-align:right; padding:6px;">0.332**</td><td style="text-align:right; padding:6px;">−0.144**</td><td style="text-align:right; padding:6px;">0.065</td><td style="text-align:right; padding:6px;">0.265</td><td style="text-align:right; padding:6px;">0.318**</td><td style="text-align:right; padding:6px;">0.198**</td><td style="text-align:right; padding:6px;">−0.552**</td></tr>
-          <tr><td style="padding:6px;">% Difficult trails</td><td style="text-align:right; padding:6px;">0.099</td><td style="text-align:right; padding:6px;">0.260**</td><td style="text-align:right; padding:6px;">0.645**</td><td style="text-align:right; padding:6px;">0.239</td><td style="text-align:right; padding:6px;">−0.430**</td><td style="text-align:right; padding:6px;">−0.353**</td><td style="text-align:right; padding:6px;">0.111</td></tr>
-        </tbody>
-      </table>
-      <p style="font-size:0.9rem; margin-top:0.5rem;">
-        <em>Notes:</em> Entries are coefficients from a single multivariable model.
-        <strong>*</strong> p&nbsp;&lt;&nbsp;.05, <strong>**</strong> p&nbsp;&lt;&nbsp;.01 (multiple-testing adjusted).
-        Interaction columns indicate how the predictor’s effect changes with the rider attribute (slope moderation).
-      </p>
-    </div>
-
-    <!-- What it means in practice -->
-    <ul style="margin-top:0.75rem;">
-      <li><strong>Novelty offsets distance:</strong> novelty-seeking riders are more willing to travel (large positive distance×novelty).</li>
-      <li><strong>Mastery likes challenge & supply:</strong> mastery strengthens the draw of trail miles and difficult terrain.</li>
-      <li><strong>Social riders value vibe over volume:</strong> more miles can matter less; ratings help more.</li>
-      <li><strong>Committed/competitive riders are selective:</strong> they favor difficulty and quality, and are less swayed by raw mileage.</li>
-    </ul>
-
-    <p style="opacity:.9;">
-      This section showcases full-stack work: <strong>web scraping</strong> → <strong>OD-matrix engineering</strong> →
-      <strong>interaction modeling</strong> → <strong>decision-ready effects</strong> that explain <em>who goes where and why</em>.
-    </p>
-  </div>
-</section>
-
-            <hr class="major" />
-
-            <h2>What This Demonstrates</h2>
-            <ul>
-              <li><strong>Measurement → insight:</strong> Latent motives and reduced attribute sets that decision-makers can use.</li>
-              <li><strong>Behaviorally grounded:</strong> Real visitation (use/non-use) complements stated preferences.</              li>
-              <li><strong>Reproducibility:</strong> Code-first pipeline enables audit, extensions, and quick re-runs.</li>
-              <li><strong>Communication:</strong> Compact visuals that translate stats into planning guidance.</li>
-            </ul>
-
-            <p class="align-right"><a href="index.html" class="button">Back to Portfolio</a></p>
-          </section>
+<p>
+For managers, the takeaway is clear: <strong>use these findings as reliable directional guidance rather than fixed rules</strong>. They highlight where investment is most likely to pay off, while leaving space for local context, future monitoring, and rider feedback.
+</p>
 
         </div>
       </div>

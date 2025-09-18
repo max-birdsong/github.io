@@ -42,6 +42,141 @@
               <img src="images/SEM4.jpg" alt="Social identity analysis hero" />
             </span>
 
+                        <!-- ======================= -->
+            <!-- Table of Contents (Auto) -->
+              <!-- ======================= -->
+              <style>
+                html { scroll-behavior: smooth; }
+
+                .toc-card {
+                  max-width: 900px;
+                  margin: 1rem auto 2rem;
+                  background: #f7f7f9;
+                  border: 1px solid #e5e7eb;
+                  border-radius: 10px;
+                  padding: 1rem 1.25rem;
+                  box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+                }
+                .toc-title {
+                  margin: 0 0 .5rem 0;
+                  font-size: 1.15rem;
+                }
+                .toc-list { 
+                  list-style: none; 
+                  margin: 0; 
+                  padding-left: 0;
+                  line-height: 1.55;
+                }
+                .toc-list > li { margin: .25rem 0; }
+                .toc-sublist { 
+                  list-style: none; 
+                  margin: .2rem 0 .4rem 1rem; 
+                  padding-left: 0;
+                }
+                .toc a { 
+                  text-decoration: none; 
+                  color: #1f2937;
+                }
+                .toc a:hover { text-decoration: underline; }
+
+                /* Active section indicator */
+                .toc a.is-active {
+                  font-weight: 700;
+                  text-decoration: underline;
+                }
+
+                /* Keep it tidy on small screens */
+                @media (max-width: 640px){
+                  .toc-card { padding: .9rem 1rem; }
+                }
+              </style>
+
+              <nav class="toc-card toc" id="auto-toc" aria-label="Table of contents">
+                <h3 class="toc-title">Table of Contents</h3>
+                <ul class="toc-list" id="toc-list"></ul>
+              </nav>
+                  <script>
+              (function () {
+                function buildTOC() {
+                  const contentRoot = document.querySelector('#main .inner');
+                  const tocRoot = document.getElementById('toc-list');
+                  if (!contentRoot || !tocRoot) return;
+
+                  // Collect H2/H3 but skip the TOC's own heading
+                  const headings = Array.from(contentRoot.querySelectorAll('h2, h3'))
+                    .filter(h => !h.closest('#auto-toc') && h.textContent.trim().length > 0);
+
+                  // Helpers: unique ids
+                  const used = new Set();
+                  const slugify = t => t.toLowerCase().replace(/[^\w\s-]/g,'').trim().replace(/\s+/g,'-');
+                  const ensureId = el => {
+                    if (el.id && !used.has(el.id)) { used.add(el.id); return el.id; }
+                    const base = slugify(el.textContent);
+                    let id = base, i = 2;
+                    while (document.getElementById(id) || used.has(id)) id = `${base}-${i++}`;
+                    el.id = id; used.add(id); return id;
+                  };
+
+                  // Build nested list (H2 top-level, H3 children)
+                  tocRoot.innerHTML = '';
+                  let currentSub = null;
+
+                  headings.forEach(h => {
+                    const id = ensureId(h);
+                    const link = document.createElement('a');
+                    link.href = `#${id}`;
+                    link.textContent = h.textContent.trim();
+
+                    if (h.tagName === 'H2') {
+                      const li = document.createElement('li');
+                      const span = document.createElement('span');
+                      span.appendChild(link);
+                      li.appendChild(span);
+
+                      currentSub = document.createElement('ul');
+                      currentSub.className = 'toc-sublist';
+                      li.appendChild(currentSub);
+                      tocRoot.appendChild(li);
+                    } else {
+                      // H3
+                      if (!currentSub) {
+                        const li = document.createElement('li');
+                        currentSub = document.createElement('ul');
+                        currentSub.className = 'toc-sublist';
+                        li.appendChild(currentSub);
+                        tocRoot.appendChild(li);
+                      }
+                      const subLi = document.createElement('li');
+                      subLi.appendChild(link);
+                      currentSub.appendChild(subLi);
+                    }
+                  });
+
+                  // Active link on scroll
+                  const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                      const id = entry.target.id;
+                      const a = document.querySelector(`.toc a[href="#${CSS.escape(id)}"]`);
+                      if (!a) return;
+                      if (entry.isIntersecting) {
+                        document.querySelectorAll('.toc a.is-active').forEach(e => e.classList.remove('is-active'));
+                        a.classList.add('is-active');
+                      }
+                    });
+                  }, { rootMargin: '-30% 0px -65% 0px', threshold: 0 });
+
+                  headings.forEach(h => observer.observe(h));
+                }
+
+                // Run after DOM is ready (fixes "no headers" issue)
+                if (document.readyState === 'loading') {
+                  document.addEventListener('DOMContentLoaded', buildTOC);
+                } else {
+                  buildTOC();
+                }
+              })();
+              </script>
+
             <!-- Executive Summary (STAR) -->
             <h2>Executive Summary</h2>
             <div style="background:#f7f7f9;padding:1.25rem;border-radius:12px;line-height:1.6;">
