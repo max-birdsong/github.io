@@ -41,171 +41,421 @@
   			<img src="images/meta6.png" alt="Meta-analysis hero" />
 			</span>
 
-			<h2>Executive Summary</h2>
 
-			<div style="background:#f7f7f9;padding:1.25rem;border-radius:12px;line-height:1.6;">
-			<p><strong>Situation:</strong> Decision-makers were confronted with 20+ separate studies on angler satisfaction, each using different measures and reporting formats. Taken individually, these results were fragmented and sometimes contradictory.</p>
+			            <!-- ======================= -->
+            <!-- Table of Contents (Auto) -->
+              <!-- ======================= -->
+              <style>
+                html { scroll-behavior: smooth; }
 
-			<p><strong>Task:</strong> Build a clear, reliable evidence base that could synthesize all studies into one coherent picture, identify the strongest drivers of satisfaction, and ensure the findings were robust enough for policy decisions.</p>
+                .toc-card {
+                  max-width: 900px;
+                  margin: 1rem auto 2rem;
+                  background: #f7f7f9;
+                  border: 1px solid #e5e7eb;
+                  border-radius: 10px;
+                  padding: 1rem 1.25rem;
+                  box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+                }
+                .toc-title {
+                  margin: 0 0 .5rem 0;
+                  font-size: 1.15rem;
+                }
+                .toc-list { 
+                  list-style: none; 
+                  margin: 0; 
+                  padding-left: 0;
+                  line-height: 1.55;
+                }
+                .toc-list > li { margin: .25rem 0; }
+                .toc-sublist { 
+                  list-style: none; 
+                  margin: .2rem 0 .4rem 1rem; 
+                  padding-left: 0;
+                }
+                .toc a { 
+                  text-decoration: none; 
+                  color: #1f2937;
+                }
+                .toc a:hover { text-decoration: underline; }
 
-			<p><strong>Action:</strong> 
-				<ul>
-				<li>Standardized results into a common effect-size metric so findings were directly comparable</li>
-				<li>Applied <em>multilevel meta-analysis</em> to account for multiple results per study (nested data)</li>
-				<li>Ran subgroup tests and meta-regressions to explain variation across settings and study designs</li>
-				<li>Checked reliability with funnel plots and sensitivity analyses to detect possible publication bias</li>
-				<li>Produced a reproducible analysis pipeline and visual summaries for stakeholders</li>
-				</ul>
+                /* Active section indicator */
+                .toc a.is-active {
+                  font-weight: 700;
+                  text-decoration: underline;
+                }
+
+                /* Keep it tidy on small screens */
+                @media (max-width: 640px){
+                  .toc-card { padding: .9rem 1rem; }
+                }
+              </style>
+
+              <nav class="toc-card toc" id="auto-toc" aria-label="Table of contents">
+                <h3 class="toc-title">Table of Contents</h3>
+                <ul class="toc-list" id="toc-list"></ul>
+              </nav>
+                  <script>
+              (function () {
+                function buildTOC() {
+                  const contentRoot = document.querySelector('#main .inner');
+                  const tocRoot = document.getElementById('toc-list');
+                  if (!contentRoot || !tocRoot) return;
+
+                  // Collect H2/H3 but skip the TOC's own heading
+                  const headings = Array.from(contentRoot.querySelectorAll('h2, h3'))
+                    .filter(h => !h.closest('#auto-toc') && h.textContent.trim().length > 0);
+
+                  // Helpers: unique ids
+                  const used = new Set();
+                  const slugify = t => t.toLowerCase().replace(/[^\w\s-]/g,'').trim().replace(/\s+/g,'-');
+                  const ensureId = el => {
+                    if (el.id && !used.has(el.id)) { used.add(el.id); return el.id; }
+                    const base = slugify(el.textContent);
+                    let id = base, i = 2;
+                    while (document.getElementById(id) || used.has(id)) id = `${base}-${i++}`;
+                    el.id = id; used.add(id); return id;
+                  };
+
+                  // Build nested list (H2 top-level, H3 children)
+                  tocRoot.innerHTML = '';
+                  let currentSub = null;
+
+                  headings.forEach(h => {
+                    const id = ensureId(h);
+                    const link = document.createElement('a');
+                    link.href = `#${id}`;
+                    link.textContent = h.textContent.trim();
+
+                    if (h.tagName === 'H2') {
+                      const li = document.createElement('li');
+                      const span = document.createElement('span');
+                      span.appendChild(link);
+                      li.appendChild(span);
+
+                      currentSub = document.createElement('ul');
+                      currentSub.className = 'toc-sublist';
+                      li.appendChild(currentSub);
+                      tocRoot.appendChild(li);
+                    } else {
+                      // H3
+                      if (!currentSub) {
+                        const li = document.createElement('li');
+                        currentSub = document.createElement('ul');
+                        currentSub.className = 'toc-sublist';
+                        li.appendChild(currentSub);
+                        tocRoot.appendChild(li);
+                      }
+                      const subLi = document.createElement('li');
+                      subLi.appendChild(link);
+                      currentSub.appendChild(subLi);
+                    }
+                  });
+
+                  // Active link on scroll
+                  const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                      const id = entry.target.id;
+                      const a = document.querySelector(`.toc a[href="#${CSS.escape(id)}"]`);
+                      if (!a) return;
+                      if (entry.isIntersecting) {
+                        document.querySelectorAll('.toc a.is-active').forEach(e => e.classList.remove('is-active'));
+                        a.classList.add('is-active');
+                      }
+                    });
+                  }, { rootMargin: '-30% 0px -65% 0px', threshold: 0 });
+
+                  headings.forEach(h => observer.observe(h));
+                }
+
+                // Run after DOM is ready (fixes "no headers" issue)
+                if (document.readyState === 'loading') {
+                  document.addEventListener('DOMContentLoaded', buildTOC);
+                } else {
+                  buildTOC();
+                }
+              })();
+              </script>
+
+			<!-- =======================
+				Background (technical)
+			======================== -->
+			<hr class="major" />
+			<h2>Background</h2>
+
+		
+			<p>
+			Our stakeholders, fisheries managers faced a fragmented evidence base: more than 20 peer-reviewed studies on angler satisfaction existed, 
+			but they used different measures, reported results inconsistently, and often pointed in conflicting directions. 
+			Without a synthesis, it was impossible to know which factors reliably shaped satisfaction or to base policy on 
+			more than isolated findings. I conducted a <strong>multilevel meta-analysis</strong> to standardize results into 
+			a common effect-size metric, account for multiple outcomes per study, and test variation across contexts with 
+			subgroup analyses and meta-regressions. Reliability checks like funnel plots and sensitivity analyses further 
+			strengthened confidence. The outcome was a <strong>coherent, decision-ready knowledge base</strong> that distilled 
+			scattered research into clear priorities managers could trust when designing policies and programs.
 			</p>
 
-			<p><strong>Result:</strong> The final synthesis revealed which factors consistently had the strongest, most reliable effects on satisfaction. Leaders could prioritize high-impact drivers, communicate clear evidence-based insights, and understand where additional data was still needed. The process delivered not just findings, but a transferable method for combining fragmented evidence into actionable strategy.</p>
-			</div>
 
 
-            <hr class="major" />
+			<!-- ======================= -->
+			<!-- Executive Summary -->
+			<!-- ======================= -->
+			<hr class="major" />
+			<h2>Executive Summary</h2>
 
-<h2>Methods Snapshot</h2>
-<p>
-  Here’s how I translated 20+ independent studies into a single, decision-ready analysis:
-</p>
-<ul>
-  <li><strong>Study selection:</strong> Screened and logged sources from academic and industry databases.</li>
-  <li><strong>Metric alignment:</strong> Converted varied reporting styles into a shared effect size for direct comparison.</li>
-  <li><strong>Evidence synthesis:</strong> Applied multilevel models that balance differences in study size and design.</li>
-  <li><strong>Quality checks:</strong> Used subgroup tests and funnel plots to confirm robustness and spot potential bias.</li>
-</ul>
+			<p>
+			Across 23 studies on recreational angler satisfaction, results were highly fragmented: 
+			different measures, inconsistent reporting, and sometimes contradictory conclusions. 
+			By applying a <strong>multilevel meta-analysis</strong>, we synthesized this body of work into a 
+			clear, evidence-based picture of what drives satisfaction across settings.
+			</p>
+
+			<p>
+			The analysis revealed that <strong>catch-related components—catch success, harvest, and fish size—
+			consistently show the strongest positive effects</strong> on satisfaction. 
+			Two non-catch factors, <strong>space and congestion</strong>, also emerged as significant and influential, 
+			while <strong>relaxation, facilities, aesthetics, and mastery</strong> showed moderate but reliable relationships. 
+			By contrast, <strong>social quality and water quality perceptions</strong> were not consistently significant.
+			</p>
+
+			<p>
+			Moderator analyses highlighted that <strong>species, country, and satisfaction metric</strong> shape how strongly 
+			different components matter. For example, <strong>aesthetics, mastery, and relaxation are especially important 
+			to freshwater anglers and in German studies</strong>, while catch-related factors remain universally strong 
+			across all contexts. A publication bias check showed no significant evidence of distortion.
+			</p>
+
+			<p>
+			Taken together, these results provide <strong>managers and policymakers with clear, defensible insights</strong>: 
+			investments that improve catch outcomes and reduce congestion will yield the largest gains in satisfaction, 
+			while the importance of non-catch aspects depends on context. The approach also demonstrates the power of 
+			meta-analysis to turn fragmented evidence into <strong>decision-ready guidance</strong>—a transferable method for 
+			other contested or complex management domains.
+			</p>
 
 
 
-            <h2>Findings in Detail</h2>
+			<!-- =======================
+				Methods
+			======================== -->
+			<hr class="major" />
+			<h2>Methods</h2>
 
-            <!-- Figure 1 -->
-            <section>
-              <h3>Study Screening Process</h3>
-                <div style="max-width:700px; margin: 0 auto;">
+			<p>
+			We conducted a <strong>systematic review and meta-analysis</strong> of published studies on recreational angler satisfaction. 
+			Our search used Web of Science, BioONE, BASE, Google Scholar, and archival sources (including the Ditton library), yielding 
+			<strong>279 papers</strong>. After title, abstract, and full-text screening, <strong>23 studies (33 datasets, 172 effect sizes)</strong> 
+			met inclusion criteria. Eligible studies reported satisfaction with both specific trip components (e.g., catch rate, crowding, 
+			facilities) and overall angling satisfaction on a common scale, or linked actual trip outcomes to reported quality.
+			</p>
+
+                <div style="max-width:400px; margin: 0 auto;">
     			<span class="image fit">
                 <img src="images/meta3.JPG" alt="Study screening flow" />
               </span>
 			  </div>
-              <p>
-                A transparent screening flow shows how hundreds of initial search results were narrowed down to 
-                the 23 studies included in the final analysis. This gives confidence that the results are based on 
-                a systematic and unbiased process rather than cherry-picking.
-              </p>
-            </section>
 
-            <!-- Figure 3 -->
+			<p>
+			Effect sizes were transformed into a standardized <strong>Fisher’s z</strong>, ensuring comparability across study designs and 
+			metrics. To account for non-independence of multiple results per study, we fitted a <strong>three-level random-effects model</strong> 
+			using restricted maximum likelihood with Knapp–Hartung adjustment, nesting effect sizes within studies. Subgroup analyses 
+			classified satisfaction determinants into categories such as <em>catch, harvest, size, congestion, facilities, aesthetics, relaxation, mastery, 
+			social quality, space,</em> and <em>water quality</em>. We also tested <strong>moderator effects</strong> of country, species, satisfaction metric, 
+			and fishery type (wild vs. put-and-take) through univariate meta-regressions.
+			</p>
+
+			<p>
+			To assess robustness, we conducted <strong>sensitivity checks</strong> (e.g., reversing direction of negative indicators such as crowding) and 
+			examined <strong>publication bias</strong> with funnel plots and Begg–Mazumdar rank correlation tests. Analyses were implemented in R using 
+			the <code>metafor</code> package, ensuring reproducibility and transparency.
+			</p>
+			<hr class="major" />
+
+		<!-- ======================= -->
+		<!-- Findings: Deep Dive -->
+		<!-- ======================= -->
+	
+		<h2>Insights: Deep Dive</h2>
+
+		<p>
+		The meta-analysis unpacked hundreds of effect sizes into a clear picture of what consistently drives angler satisfaction, 
+		where results vary, and how reliable the evidence base is. Below are the key layers of insight.
+		</p>
+
+		<!-- Subgroup Effects -->
+		<h3>Which Experience Components Drive Satisfaction?</h3>
+
+		<p>
+		To understand which components of an angling experience mattered most, we compared 
+		<strong>11 experience components</strong> against overall satisfaction across studies. 
+		The chart below shows the pooled effect size for each factor, with confidence intervals.
+		</p>
+
+		<div style="max-width:700px; margin: 0 auto; text-align:center;">
+		<span class="image fit">
+			<img src="images/meta2.JPG" alt="Effect sizes of 11 experience components on satisfaction" />
+		</span>
+		<p class="viz-caption">
+			<em>Effect sizes reflect pooled correlations across studies. Strong effects (g&gt;0.4) are shown in dark blue, 
+			moderate effects (g&gt;0.2) in light blue, and insignificant effects in grey.</em>
+		</p>
+		</div>
+
+		<style>
+		.viz-caption {
+			text-align: center;
+			font-size: 0.9rem;
+			color: #444;
+			margin-top: 0.6rem;
+		}
+		</style>
+
+		<ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+		<li><strong>Catch-related factors dominated:</strong> Catch, harvest, and fish size consistently showed 
+			the strongest positive effects on overall satisfaction.</li>
+		<li><strong>Space and congestion mattered too:</strong> Anglers valued room on the water and disliked crowding; 
+			both emerged as strong non-catch determinants.</li>
+		<li><strong>Moderate but meaningful effects:</strong> Relaxation, aesthetics, facilities, and mastery all showed 
+			moderate yet significant relationships with satisfaction.</li>
+		<li><strong>No consistent effect:</strong> Social quality and perceived water quality were not significantly related 
+			to satisfaction across studies.</li>
+		</ul>
+
+		<!-- Meta-Regression -->
+		<h3>Meta-Regression: Interpreting Results by Context</h3>
+
+		<p>
+		One advantage of meta-analysis is the ability to <strong>separate results by key subgroups</strong>—for example, 
+		target species, country, or whether satisfaction was measured by trip or year. 
+		These comparisons reveal how much context shifts the importance of different experience dimensions. 
+		For instance, <strong>catch-related factors remained strong across all groups</strong>, while 
+		aesthetics, relaxation, and mastery showed larger effects in German and freshwater studies. 
+		Measuring satisfaction over a full year also made non-catch dimensions more influential 
+		compared to single-trip measures.
+		</p>
+
+		<div style="max-width:700px; margin: 0 auto; text-align:center;">
+		<span class="image fit">
+			<img src="images/meta4.JPG" alt="Meta-regression of moderators of angler satisfaction" />
+		</span>
+		<p class="viz-caption">
+			<em>Note:</em> Insignificant effects are shown in grey. Differences between groups are considered 
+    significant when 95% confidence bars do not overlap.
+		</p>
+		</div>
+
+		<p>
+		For managers, the key takeaway is that <strong>evidence can be filtered by the contexts most 
+		relevant to their fishery</strong>. This makes it possible to identify which levers are most 
+		likely to improve satisfaction in their setting—whether that means emphasizing catch, investing 
+		in facilities, or addressing congestion.
+		</p>
+
+
+
+		<!-- Bias -->
+		<h3>Publication Bias Check</h3>
+
+		<p>
+		Because meta-analyses combine results across many independent studies, it’s important to test whether 
+		the available evidence is <strong>systematically biased</strong>—for example, if studies with 
+		non-significant or “negative” results were less likely to be published. 
+		To assess this, we generated a <strong>funnel plot</strong> (Figure 5).
+		</p>
+
+		<div style="max-width:300px; margin: 0 auto; text-align:center;">
+		<span class="image fit">
+			<img src="images/meta5.JPG" alt="Funnel plot bias check" />
+		</span>
+	
+		</div>
+	<p>
+			<em>The funnel plot showed no significant asymmetry (p = .356; Kendall's τ = 0.487), 
+			indicating limited evidence of publication bias in the dataset.</em>
+		</p>
+		<p>
+		This result provides confidence that the synthesized findings are not driven solely by selective 
+		reporting. For decision-makers, the implication is that <strong>the identified satisfaction drivers 
+		are robust across the published evidence base</strong>, rather than reflecting a skewed subset of studies.
+		</p>
+
+			<!-- ======================= -->
+			<!-- Recommendations Section -->
+			<!-- ======================= -->
+			<hr class="major" />
+			<h2>Recommendations</h2>
+
 			<section>
-  				<h3>Subgroup Analysis: Understanding Variation</h3>
-  				<div style="max-width:700px; margin: 0 auto;">
-    				<span class="image fit">
-      					<img src="images/meta2.JPG" alt="Subgroup analysis of satisfaction components" />
-    				</span>
-  				</div>
-  				<p>
-    			This figure demonstrates a <strong>subgroup analysis</strong>, a common extension of meta-analysis used to explore why results vary across studies. 
-    			Instead of only calculating one overall effect, subgroup analysis partitions the data into categories (here, different components of the fishing experience) and calculates a pooled effect size for each.
-  				</p>
-  				<p>
-    			This approach helps explain <em>heterogeneity</em>—the fact that not all studies produce the same results. By comparing subgroups, we can test whether certain factors consistently show stronger or weaker associations. 
-    			Confidence intervals illustrate the reliability of each subgroup effect, and statistical tests determine if differences between subgroups are meaningful.
-  				</p>
-  				<p>
-    			Beyond this case, subgroup analyses are valuable whenever you want to know <em>why</em> results differ across contexts—whether comparing product features, demographic groups, or organizational settings. 
-    			It’s a way of moving beyond averages to uncover patterns that matter for interpretation and decision-making.
-  				</p>
-			</section>
-
-
-
-
-			<!-- Figure 2 -->
-			<section>
-			<h3>Meta-Regression: Exploring Moderators of Satisfaction</h3>
-			<div style="max-width:700px; margin: 0 auto;">
-				<span class="image fit">
-				<img src="images/meta4.JPG" alt="Meta-regression of satisfaction determinants across moderators" />
-				</span>
-			</div>
-			<p>
-				This figure shows a <strong>meta-regression</strong> analysis, where effect sizes for 11 determinants of 
-				satisfaction were compared across different subgroups of studies. Each panel represents a different moderator:
-				(a) study setting, (b) fishery type, (c) unit of analysis, and (d) country. 
-			</p>
-			<p>
-				Meta-regression extends a standard meta-analysis by adding predictors at the study level. Instead of reporting 
-				one pooled effect, it tests whether variation in study outcomes can be explained by factors like geography, 
-				methodology, or context. The plotted points represent pooled effect sizes for each subgroup, with confidence 
-				intervals showing uncertainty, while moderator p-values indicate whether the differences are statistically 
-				meaningful.
-			</p>
-			<p>
-				The strength of this approach is general: whenever results vary across contexts, meta-regression provides 
-				a structured way to test hypotheses about <em>why</em>. In practical terms, this allows analysts to go 
-				beyond averages and identify which conditions consistently shift outcomes — whether that means differences 
-				across customer segments, regions, product categories, or study designs.
-			</p>
-			</section>
-
-
-
-			<!-- Figure 4 -->
-			<section>
-			<h3>Publication Bias Check</h3>
-			<div style="max-width:500px; margin: 0 auto;">
-				<span class="image fit">
-				<img src="images/meta5.JPG" alt="Funnel plot bias check" />
-				</span>
-			</div>
-			<p>
-				Meta-analyses rely on the assumption that the included studies represent the full body of 
-				available evidence. If only “positive” results are published and negative or inconclusive 
-				findings remain in the file drawer, estimates can become systematically biased.
-			</p>
-			<p>
-				To test this, I generated a <strong>funnel plot</strong>, a standard diagnostic for detecting 
-				publication bias. In a well-balanced funnel, study results should scatter symmetrically around 
-				the pooled effect size, with smaller studies showing more variation and larger studies clustering 
-				near the center. Systematic asymmetry would indicate missing or selectively reported evidence.
-			</p>
-			<p>
-				In this case, the funnel appeared relatively balanced, suggesting that the findings are unlikely 
-				to be strongly distorted by publication bias. The key point is methodological: incorporating 
-				bias checks ensures that reported insights rest on a stable and representative evidence base. 
-				This practice can be generalized to any domain where data availability is selective, from 
-				customer behavior studies to clinical trials.
-			</p>
-			</section>
-
-
-            <hr class="major" />
-
-			<h2>What This Demonstrates</h2>
-			<p>
-			This project demonstrates a full spectrum of data analyst skills — from handling messy inputs to delivering insights that stakeholders can actually use:
-			</p>
-			<ul>
-			<li><strong>Data integration:</strong> Combined results from dozens of independent sources into one consistent, analysis-ready dataset</li>
-			<li><strong>Data cleaning & standardization:</strong> Resolved inconsistencies, aligned variables across studies, and created a common framework for comparison</li>
-			<li><strong>Statistical analysis:</strong> Applied advanced methods (meta-analysis, subgroup tests, meta-regression) to extract reliable patterns from heterogeneous data</li>
-			<li><strong>Insight generation:</strong> Translated raw results into clear, decision-ready insights about what factors matter most</li>
-			<li><strong>Communication:</strong> Delivered findings through intuitive visuals and plain-language summaries tailored to non-technical audiences</li>
+			<h3>Evidence-Based Priority Setting</h3>
+			<ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+				<li><strong>Elevate catch-related factors:</strong> Consistently strong effects of catch, size, and harvest mean these remain the most reliable levers for improving angler satisfaction across contexts.</li>
+				<li><strong>Don’t overlook non-catch drivers:</strong> Space and congestion also had major effects—showing that crowding can offset biological success and should be a management priority.</li>
+				<li><strong>Support the “whole experience” view:</strong> Facilities, aesthetics, and relaxation carried moderate but significant influence, reminding managers that quality infrastructure and environment matter as much as fish.</li>
 			</ul>
+			</section>
+
+			<section>
+			<h3>Context-Specific Management</h3>
+			<ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+				<li><strong>Tailor by species:</strong> Freshwater anglers placed higher importance on mastery and relaxation, while catch-related aspects were equally important across species—highlighting where context shapes priorities.</li>
+				<li><strong>Adapt by geography:</strong> German studies emphasized aesthetics and social experiences more than North American ones, suggesting cultural differences in what drives satisfaction.</li>
+				<li><strong>Measure satisfaction carefully:</strong> Annual satisfaction scores captured stronger effects for many drivers than trip-level scores—showing that survey design choices shape insights.</li>
+			</ul>
+			</section>
+
+			<section>
+			<h3>Program & Policy Applications</h3>
+			<ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+				<li><strong>Balance biological and social strategies:</strong> Stocking and harvest management remain key, but capacity limits, site design, and aesthetics should be built into planning.</li>
+				<li><strong>Invest in crowding solutions:</strong> Rotating access, spatial zoning, or timing policies can directly address congestion—a high-impact satisfaction driver.</li>
+				<li><strong>Frame communication broadly:</strong> Outreach should highlight not just fish availability but also the quality of space, environment, and community around angling.</li>
+			</ul>
+			</section>
+
+			<section>
+			<h3>Data & Future Research</h3>
+			<ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+				<li><strong>Standardize measurement:</strong> Future studies should adopt common satisfaction metrics to reduce heterogeneity and strengthen comparability.</li>
+				<li><strong>Expand beyond catch:</strong> More consistent reporting of non-catch dimensions (e.g., social quality, water quality) would fill key evidence gaps.</li>
+				<li><strong>Continue synthesis:</strong> Updating this meta-analysis with new data ensures that management keeps pace with evolving angler values.</li>
+			</ul>
+			</section>
 
 
-            <hr class="major" />
+			<hr class="major" />
+			<h2>Clarifying Questions, Assumptions, and Caveats</h2>
 
-            <p class="align-center">
-              <a href="assets/papers/angler-satisfaction-meta.pdf" class="button primary small">PDF Summary</a>
-              <a href="#" class="button small">Code (GitHub)</a>
-              <a href="#" class="button small">Data & Codebook</a>
-            </p>
+			<section>
+			<h3>Clarifying Questions</h3>
+			<ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+				<li><strong>Geographic scope:</strong> Would results hold in regions not represented (e.g., Asia, South America, Africa)?</li>
+				<li><strong>Alternative study designs:</strong> How might including economics-focused studies (e.g., choice models) change conclusions?</li>
+				<li><strong>Interaction of factors:</strong> Do satisfaction components operate additively, or are there thresholds/synergies across dimensions?</li>
+			</ul>
+			</section>
 
-            <p class="align-center"><a href="index.html" class="button">Back to Portfolio</a></p>
-          </section>
+			<section>
+			<h3>Assumptions</h3>
+			<ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+				<li><strong>Inclusion criteria:</strong> Only studies that measured both component-level and overall satisfaction were included, ensuring comparability.</li>
+				<li><strong>Framework choice:</strong> Adopted the “sum-of-satisfactions” approach, assuming each component contributes independently.</li>
+				<li><strong>Comparability across studies:</strong> Standardized all findings to a common effect-size metric to allow pooling.</li>
+			</ul>
+			</section>
+
+			<section>
+			<h3>Caveats</h3>
+			<ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+				<li><strong>Geographic bias:</strong> Most studies were from the U.S., Germany, and Canada—limiting generalizability elsewhere.</li>
+				<li><strong>Context dependence:</strong> Moderator results show that drivers of satisfaction vary by species, country, and metric; findings are not one-size-fits-all.</li>
+				<li><strong>Scope limitations:</strong> Excluding certain traditions (e.g., purely economic valuation) narrows the lens but strengthens comparability.</li>
+			</ul>
+			</section>
 
         </div>
       </div>
+
+
 
       <!-- Sidebar -->
       <div id="sidebar">
