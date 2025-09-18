@@ -37,101 +37,355 @@
               <img src="images/catchsat3.jpg" alt="Catch satisfaction hero" />
             </span>
 
-            <!-- Executive Summary (STAR) -->
-            <h2>Executive Summary</h2>
-            <div style="background:#f7f7f9;padding:1.25rem;border-radius:12px;line-height:1.6;">
-              <p><strong>Situation:</strong> Two German regions collect detailed trip diaries from anglers, but results vary by water access, culture, and angler type. Leaders needed a clear view of what actually drives trip satisfaction.</p>
-              <p><strong>Task:</strong> Build a unified analysis from ~20k trips that separates signal from noise, captures non-linear payoffs (e.g., “bigger fish boost satisfaction more than expected”), and communicates results for policy and program design.</p>
-              <p><strong>Action:</strong></p>
-              <ul>
-                <li>Combined two diary programs (East/West) into one tidy, analysis-ready dataset with consistent trip, angler, and context fields.</li>
-                <li>Fit a <em>multivariate ordinal model</em> with repeated measures to account for multiple trips per person and non-linear effects (quadratic/exponential terms).</li>
-                <li>Generated model-based predictions and partial-dependence style plots in <strong>R + ggplot2</strong> for stakeholder-ready visuals.</li>
-                <li>Stress-tested results across subgroups (region, skill/commitment) to see where effects really change.</li>
-              </ul>
-              <p><strong>Result:</strong> Clear guidance on levers that move satisfaction: diminishing returns from catch rate, outsized gains from landing a large fish, modest influence of harvest, and meaningful baseline differences by region. Delivered a reproducible pipeline and an explainer deck leaders could use immediately.</p>
-            </div>
 
+            <!-- ======================= -->
+            <!-- Table of Contents (Auto) -->
+              <!-- ======================= -->
+              <style>
+                html { scroll-behavior: smooth; }
+
+                .toc-card {
+                  max-width: 900px;
+                  margin: 1rem auto 2rem;
+                  background: #f7f7f9;
+                  border: 1px solid #e5e7eb;
+                  border-radius: 10px;
+                  padding: 1rem 1.25rem;
+                  box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+                }
+                .toc-title {
+                  margin: 0 0 .5rem 0;
+                  font-size: 1.15rem;
+                }
+                .toc-list { 
+                  list-style: none; 
+                  margin: 0; 
+                  padding-left: 0;
+                  line-height: 1.55;
+                }
+                .toc-list > li { margin: .25rem 0; }
+                .toc-sublist { 
+                  list-style: none; 
+                  margin: .2rem 0 .4rem 1rem; 
+                  padding-left: 0;
+                }
+                .toc a { 
+                  text-decoration: none; 
+                  color: #1f2937;
+                }
+                .toc a:hover { text-decoration: underline; }
+
+                /* Active section indicator */
+                .toc a.is-active {
+                  font-weight: 700;
+                  text-decoration: underline;
+                }
+
+                /* Keep it tidy on small screens */
+                @media (max-width: 640px){
+                  .toc-card { padding: .9rem 1rem; }
+                }
+              </style>
+
+              <nav class="toc-card toc" id="auto-toc" aria-label="Table of contents">
+                <h3 class="toc-title">Table of Contents</h3>
+                <ul class="toc-list" id="toc-list"></ul>
+              </nav>
+                  <script>
+              (function () {
+                function buildTOC() {
+                  const contentRoot = document.querySelector('#main .inner');
+                  const tocRoot = document.getElementById('toc-list');
+                  if (!contentRoot || !tocRoot) return;
+
+                  // Collect H2/H3 but skip the TOC's own heading
+                  const headings = Array.from(contentRoot.querySelectorAll('h2, h3'))
+                    .filter(h => !h.closest('#auto-toc') && h.textContent.trim().length > 0);
+
+                  // Helpers: unique ids
+                  const used = new Set();
+                  const slugify = t => t.toLowerCase().replace(/[^\w\s-]/g,'').trim().replace(/\s+/g,'-');
+                  const ensureId = el => {
+                    if (el.id && !used.has(el.id)) { used.add(el.id); return el.id; }
+                    const base = slugify(el.textContent);
+                    let id = base, i = 2;
+                    while (document.getElementById(id) || used.has(id)) id = `${base}-${i++}`;
+                    el.id = id; used.add(id); return id;
+                  };
+
+                  // Build nested list (H2 top-level, H3 children)
+                  tocRoot.innerHTML = '';
+                  let currentSub = null;
+
+                  headings.forEach(h => {
+                    const id = ensureId(h);
+                    const link = document.createElement('a');
+                    link.href = `#${id}`;
+                    link.textContent = h.textContent.trim();
+
+                    if (h.tagName === 'H2') {
+                      const li = document.createElement('li');
+                      const span = document.createElement('span');
+                      span.appendChild(link);
+                      li.appendChild(span);
+
+                      currentSub = document.createElement('ul');
+                      currentSub.className = 'toc-sublist';
+                      li.appendChild(currentSub);
+                      tocRoot.appendChild(li);
+                    } else {
+                      // H3
+                      if (!currentSub) {
+                        const li = document.createElement('li');
+                        currentSub = document.createElement('ul');
+                        currentSub.className = 'toc-sublist';
+                        li.appendChild(currentSub);
+                        tocRoot.appendChild(li);
+                      }
+                      const subLi = document.createElement('li');
+                      subLi.appendChild(link);
+                      currentSub.appendChild(subLi);
+                    }
+                  });
+
+                  // Active link on scroll
+                  const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                      const id = entry.target.id;
+                      const a = document.querySelector(`.toc a[href="#${CSS.escape(id)}"]`);
+                      if (!a) return;
+                      if (entry.isIntersecting) {
+                        document.querySelectorAll('.toc a.is-active').forEach(e => e.classList.remove('is-active'));
+                        a.classList.add('is-active');
+                      }
+                    });
+                  }, { rootMargin: '-30% 0px -65% 0px', threshold: 0 });
+
+                  headings.forEach(h => observer.observe(h));
+                }
+
+                // Run after DOM is ready (fixes "no headers" issue)
+                if (document.readyState === 'loading') {
+                  document.addEventListener('DOMContentLoaded', buildTOC);
+                } else {
+                  buildTOC();
+                }
+              })();
+              </script>
+
+            <!-- =======================
+            Background (technical)
+            ======================== -->
             <hr class="major" />
+            <h2>Background</h2>
 
-            <!-- Methods Snapshot -->
-            <h2>Methods Snapshot</h2>
-            <ul>
-              <li><strong>Data:</strong> 19,958 trips from 1,169 anglers; Lower Saxony (2011–2012) & Mecklenburg-Vorpommern (2006–2007).</li>
-              <li><strong>Features:</strong> Catch rate (CPUE), size of largest fish, proportion harvested, species diversity, prior “blank” trips, season, specialization (skill/commitment).</li>
-              <li><strong>Model:</strong> Adjacent-category ordinal logit with repeated measures; included non-linear terms to capture diminishing/exponential effects.</li>
-              <li><strong>Tooling:</strong> R for data wrangling, modeling, and charts (<strong>ggplot2</strong>); Latent Gold for the repeated-measures structure.</li>
-            </ul>
-
-            <hr class="major" />
-
-            <!-- Figure A: Central predictions -->
-            <section>
-              <h3>Predicted Satisfaction by Catch Outcomes (Central Figure)</h3>
-              <div style="max-width:780px;margin:0 auto;">
-                <span class="image fit">
-                  <img src="images/CatchSat2.JPG" alt="Predicted satisfaction by catch rate, fish size, harvest across regions" />
-                </span>
-              </div>
-              <p>
-                Model-based prediction curves for <strong>catch rate</strong>, <strong>largest fish size</strong>, and
-                <strong>proportion harvested</strong>, shown separately for each region. These are akin to 
-                <em>partial dependence</em> views: one factor varies while others are held at typical values.
-              </p>
-              <ul>
-                <li><strong>Catch rate:</strong> Strong early gains that plateau — classic diminishing returns.</li>
-                <li><strong>Fish size:</strong> A steep, non-linear lift; big fish punch above their weight for satisfaction.</li>
-                <li><strong>Harvest:</strong> Modest, steady effect; culture and baseline expectations matter more.</li>
-                <li><strong>Baseline difference:</strong> Lower Saxony starts higher at the same catch conditions, pointing to contextual/cultural drivers.</li>
-              </ul>
-              <p><em>How the chart was built:</em> I generated predicted probabilities from the fitted model across a grid of inputs, converted them to an expected satisfaction score, then plotted with <strong>ggplot2</strong>. This is the same workflow analysts use for
-              <code>predict()</code> → summarize → visualize.</p>
-            </section>
-
-            <!-- Figure B: Skill/commitment lenses -->
-            <section>
-              <h3>How Angler Segments Weight Outcomes</h3>
-              <div style="max-width:780px;margin:0 auto;">
-                <span class="image fit">
-                  <img src="images/CatchSat.JPG" alt="Predicted satisfaction by skill and behavioral commitment" />
-                </span>
-              </div>
-              <p>
-                Segment views (skill and behavioral commitment) reveal subtle but meaningful differences in how outcomes translate to satisfaction.
-                This is useful for targeting programs or communications by audience.
-              </p>
-            </section>
-
-            <hr class="major" />
-
-            <!-- Key Findings -->
-            <h2>Key Findings</h2>
-            <ul>
-              <li><strong>Non-linear payoffs:</strong> Catch rate shows diminishing returns; big-fish encounters have outsized impact.</li>
-              <li><strong>Context matters:</strong> Regional baseline satisfaction differs even at the same catch conditions.</li>
-              <li><strong>Adaptive expectations:</strong> After a run of blank trips, anglers rely less on catch outcomes for satisfaction.</li>
-              <li><strong>Segment variation:</strong> Specialized anglers weight outcomes differently than casual anglers.</li>
-            </ul>
-
-            <hr class="major" />
-
-            <!-- What this demonstrates -->
-            <h2>What This Demonstrates</h2>
-            <ul>
-              <li><strong>Data integration:</strong> Unified trip-level and person-level data across programs into a consistent schema.</li>
-              <li><strong>Modeling judgment:</strong> Chose an ordered-outcome model with non-linear terms to reflect real behavior.</li>
-              <li><strong>Explainable outputs:</strong> Turned model coefficients into intuitive, scenario-based visuals for non-technical stakeholders.</li>
-              <li><strong>Reproducibility:</strong> End-to-end R workflow (wrangle → model → predict → visualize) for fast iteration.</li>
-            </ul>
-
-            <p class="align-center">
-              <a href="#" class="button primary small">Slides / One-Pager</a>
-              <a href="#" class="button small">Code (GitHub)</a>
-              <a href="#" class="button small">Data Dictionary</a>
+            <p>
+              Understanding what makes an angling trip satisfying is critical for fisheries managers: 
+              satisfied anglers are more likely to return, support management programs, and contribute 
+              to local economies. Yet satisfaction is shaped by multiple factors—catch outcomes, 
+              harvest, context, and even prior experiences—that can interact in complex ways. 
+              To provide clarity, I combined two large trip-diary datasets from <strong>Lower Saxony</strong> 
+              (2011–2012) and <strong>Mecklenburg-Vorpommern</strong> (2006–2007), covering nearly 
+              <strong>20,000 trips from over 1,100 anglers</strong>. This unified analysis allowed me 
+              to compare regions, test non-linear payoffs of catch outcomes, and reveal how angler 
+              specialization shapes expectations. The result is a reproducible, model-driven approach 
+              that translates raw diaries into <strong>actionable insights for management and program design</strong>.
             </p>
 
-            <p class="align-center"><a href="index.html" class="button">Back to Portfolio</a></p>
-          </section>
+
+          <!-- ======================= -->
+          <!-- Executive Summary -->
+          <!-- ======================= -->
+          <hr class="major" />
+          <h2>Executive Summary</h2>
+
+          <p>
+          This project analyzed nearly <strong>20,000 fishing trips</strong> from two German diary programs 
+          — one in Lower Saxony (West) and one in Mecklenburg-Vorpommern (East). By combining trip-level catch data 
+          with angler characteristics, the analysis tested how catch outcomes, trip context, and specialization shape 
+          satisfaction. The unified dataset offered a rare opportunity to compare fisheries that share species and 
+          ecology but differ in cultural and institutional settings.
+          </p>
+
+          <p>
+          Results show clear patterns: <strong>catch rate improves satisfaction up to a point, but with diminishing returns</strong>; 
+          <strong>the size of the largest fish caught provides an outsized, exponential lift</strong>; harvest opportunities and 
+          species diversity contribute positively, but at smaller margins. Importantly, satisfaction differed systematically 
+          between regions even at equivalent catch conditions, underscoring that <strong>social-ecological context influences 
+          experience quality as much as biological outcomes</strong>. Specialized anglers weighted outcomes more heavily, while 
+          casual anglers showed more flexibility when catch outcomes were poor.
+          </p>
+
+          <p>
+          Taken together, these findings suggest that managing for ever-higher catch rates may not deliver sustained 
+          improvements in satisfaction. Instead, <strong>catch thresholds, opportunities for diverse or high-quality fish, 
+          and context-specific strategies</strong> are more effective levers. Beyond fisheries, the analysis illustrates 
+          how advanced modeling can separate signal from noise in large behavioral datasets, providing transferable 
+          insights for any field where experience quality depends on both outcomes and context.
+          </p>
+
+
+
+        <!-- ======================= -->
+        <!-- Methods -->
+        <!-- ======================= -->
+        <hr class="major" />
+        <h2>Methods</h2>
+
+        <p>
+        We analyzed <strong>19,958 angling trips from 1,169 anglers</strong> across two German states: 
+        <strong>Mecklenburg–Western Pomerania (2006–2007)</strong> and 
+        <strong>Lower Saxony (2011–2012)</strong>. Both used structured diary programs linked to 
+        angler questionnaires, harmonized into one dataset. Key details:
+        </p>
+
+        <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+          <li><strong>Trip diaries:</strong> Anglers recorded timing, effort, target species, catch, harvest, 
+              size of largest fish, and catch satisfaction (10-point scale). Regular follow-ups minimized recall bias.</li>
+          <li><strong>Catch outcomes:</strong> Modeled four dimensions — catch per unit effort (CPUE), 
+              largest fish size (standardized by species), proportion harvested, and species diversity.</li>
+          <li><strong>Trip context:</strong> Target species, number of species targeted, targeted vs. incidental catch, 
+              number of rods, season, and catch deprivation (blank trips in sequence).</li>
+          <li><strong>Angler specialization:</strong> Centrality to lifestyle (6-item index, α = .84), 
+              self-perceived skill, behavioral commitment (total trips), and catch orientation (importance of size/number vs. consumption).</li>
+          <li><strong>Modeling approach:</strong> Used <em>adjacent-category ordinal logit models</em> with repeated measures 
+              (~29k records nested within anglers and trips). Non-linear effects were tested with quadratic terms, and a 
+              “specialization subset” model incorporated lifestyle, skill, and orientations for a reduced sample.</li>
+        </ul>
+
+        <p>
+        This modeling design allowed us to capture <strong>both trip-level variation and between-angler differences</strong>, 
+        isolating how outcomes, contexts, and specialization interact to shape satisfaction in real fishing settings.
+        </p>
+
+
+<!-- ======================= -->
+<!-- Insights: Deep Dive -->
+<!-- ======================= -->
+<hr class="major" />
+<h2>Insights: Deep Dive</h2>
+
+<!-- Figure A: Central predictions -->
+<section>
+  <h3>Predicted Satisfaction by Catch Outcomes</h3>
+  <div style="max-width:780px;margin:0 auto;">
+    <span class="image fit">
+      <img src="images/CatchSat2.JPG" alt="Predicted satisfaction by catch rate, fish size, harvest across regions" />
+    </span>
+    <p class="viz-caption"><em>Note:</em> Curves are model-based predictions holding other trip factors constant, similar to partial dependence plots.</p>
+  </div>
+  <p>
+    The modeling results revealed that not all catch outcomes contribute equally to satisfaction. Instead, each dimension 
+    follows its own pattern, with clear non-linearities that highlight both limits and opportunities:
+  </p>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+    <li><strong>Catch rate:</strong> Satisfaction rises steeply with the first few fish, but additional catch yields diminishing returns. 
+      In other words, the difference between zero and a few fish is critical, while adding “extra” fish provides only marginal benefit.</li>
+    <li><strong>Fish size:</strong> Large fish have an outsized influence. The relationship is exponential—landing a big specimen creates a 
+      disproportionate jump in satisfaction compared to catching many small fish. This shows why size regulations are such a powerful lever.</li>
+    <li><strong>Harvest:</strong> The ability to keep fish does improve satisfaction, but the effect is modest compared to catch rate and size. 
+      Its influence also varies by cultural and regulatory context, meaning harvest matters most when it aligns with anglers’ expectations.</li>
+    <li><strong>Regional baseline:</strong> Even at identical catch conditions, anglers in Lower Saxony consistently reported higher satisfaction 
+      than those in Mecklenburg–Western Pomerania. This gap underscores that <em>social and cultural context can set the baseline for how catch 
+      outcomes are experienced</em>.</li>
+  </ul>
+</section>
+
+<!-- ======================= -->
+<!-- Insight Box: Thresholds & Satisficing -->
+<!-- ======================= -->
+<section style="border:1px solid #ddd; padding:1.5rem; border-radius:8px; margin:2rem 0; background:#fafafa;">
+  <h3>Insight: Thresholds & Satisficing</h3>
+  <p>
+    Not all outcomes boost satisfaction equally. Our study found that anglers respond non-linearly to catch experiences.
+  </p>
+ 
+    These patterns reflect the principle of <strong>satisficing</strong>. Instead of maximizing, people often set thresholds: once a trip meets “good enough” conditions, further improvements matter little. 
+  </p>
+  <p>
+    <strong>Beyond fisheries, this insight applies broadly:</strong> customers, employees, or users often stop seeking once key thresholds are met, while rare, standout experiences (the “trophy fish”) deliver disproportionate impact. Recognizing where diminishing returns set in helps organizations allocate resources efficiently and focus on the moments that truly delight.
+  </p>
+</section>
+
+
+<!-- Figure B: Segments -->
+<section>
+  <h3>How Angler Segments Weight Outcomes</h3>
+  <div style="max-width:780px;margin:0 auto;">
+    <span class="image fit">
+      <img src="images/CatchSat.JPG" alt="Predicted satisfaction by skill and behavioral commitment" />
+    </span>
+  </div>
+  <p>
+    Segmenting the results by angler type revealed important differences in how outcomes translate into satisfaction. This shows 
+    that programs or communications targeted at anglers should consider who the audience is, not just what the catch looks like:
+  </p>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+    <li><strong>Specialized anglers:</strong> Anglers with higher skill and commitment were more sensitive to catch outcomes. For them, 
+      both size and catch rate strongly influenced satisfaction, reinforcing that expectations grow with investment in the activity.</li>
+    <li><strong>Casual anglers:</strong> For less specialized anglers, satisfaction was more loosely tied to outcomes. Their experiences were 
+      shaped as much by context—season, company, or scenery—as by how many or how big the fish were.</li>
+    <li><strong>Catch deprivation:</strong> A string of blank trips depressed satisfaction overall, but it also shifted expectations. After repeated 
+      unsuccessful trips, anglers placed less emphasis on outcomes, suggesting an adaptation process that buffers disappointment.</li>
+  </ul>
+  <p>
+    Together, these results highlight that catch satisfaction is not a simple linear payoff. It reflects a mix of outcomes, expectations, 
+    and cultural context—meaning that the same catch can be experienced very differently depending on who the angler is and where they fish.
+  </p>
+</section>
+
+<!-- ======================= -->
+<!-- Recommendations Section -->
+<!-- ======================= -->
+<hr class="major" />
+<h2>Recommendations</h2>
+
+<section>
+  <h3>Set Clear Benchmarks</h3>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.55;">
+    <li><strong>Catch thresholds, not maximums:</strong> Define realistic target ranges for catch rates and species diversity (e.g., “1–2 fish per trip, 2–3 species per season”) instead of chasing ever-higher numbers. This reflects how satisfaction levels off after basic needs are met.</li>
+    <li><strong>Prioritize trophy-size opportunities:</strong> Protect and promote a pool of larger fish using slot limits or harvest caps, since big-fish encounters provide the steepest lift in satisfaction.</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Design Around Context</h3>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.55;">
+    <li><strong>Adapt targets by region:</strong> Recognize that identical catch outcomes deliver different satisfaction levels in different cultural contexts. Establish baselines for each fishery and manage toward those, not a one-size-fits-all goal.</li>
+    <li><strong>Balance harvest with access:</strong> Maintain moderate, visible harvest opportunities while communicating why limits exist. This keeps both harvest-oriented and casual anglers engaged without eroding stock health.</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Shape Angler Expectations</h3>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.55;">
+    <li><strong>Transparent communication:</strong> Provide anglers with clear guidance on what constitutes a “good day” under current regulations. This helps align expectations with ecological realities and reduces dissatisfaction from mismatched assumptions.</li>
+    <li><strong>Segmented outreach:</strong> Tailor messaging: emphasize big-fish opportunities and skill challenges for specialized anglers, while framing casual fishing as accessible, social, and family-friendly.</li>
+  </ul>
+</section>
+
+
+
+<!-- ======================= -->
+<!-- Clarifying Questions, Assumptions, and Caveats -->
+<!-- ======================= -->
+<hr class="major" />
+<h2>Clarifying Questions, Assumptions, and Caveats</h2>
+
+<ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+  <li><strong>Catch outcomes as primary drivers:</strong> Analyses assume satisfaction is mainly explained by measurable trip-level outcomes (catch rate, size, harvest, species diversity). Other social or experiential factors may also play important roles but were not modeled here.</li>
+  
+  <li><strong>Regional representativeness:</strong> The two German contexts (Lower Saxony vs. Mecklenburg–Western Pomerania) serve as contrasting case studies. Findings should not be assumed to generalize to all fisheries or cultural settings without local validation.</li>
+  
+  <li><strong>Nonlinear relationships:</strong> The diminishing returns and exponential effects are modeled as continuous functions. Threshold points (“good enough” catch rates) are inferred rather than directly observed in angler decision-making.</li>
+  
+  <li><strong>Harvest dynamics:</strong> The role of harvest is shaped by species-specific bag limits and regulations. Our estimates reflect average responses, but harvest-oriented anglers may diverge sharply from the mean.</li>
+  
+  <li><strong>Temporal and recall effects:</strong> Analyses are based on trip-level reports. Satisfaction may shift in retrospect (e.g., post-trip memory bias) or over repeated trips, which is not fully captured here.</li>
+  
+  <li><strong>Broader satisficing behavior:</strong> The concept of “satisficing” is applied from economic theory. While strongly suggested by patterns in the data, explicit tests of satisficing thresholds would require targeted experimental designs.</li>
+</ul>
+
 
         </div>
       </div>
