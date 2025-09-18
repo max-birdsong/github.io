@@ -395,7 +395,24 @@
                 color: #444;
                 margin-top: 0.75rem;
               }
+
+             
+            /* Only the final prevalence viz */
+            #wolfPrevViz.tableauPlaceholder { aspect-ratio: 5 / 6; } /* was 4/5; this is ~4% taller */
+            @media (max-width: 640px){
+              #wolfPrevViz.tableauPlaceholder { aspect-ratio: 3 / 4; } /* keep mobile sane */
+            }
             </style>
+
+              <script>
+              // make just the final prevalence viz taller
+              sizeViz('wolfPrevViz', 1.20, 1.00, 760); // was 1.10, 0.95, 720
+
+              // and in your resize handler, update the same line:
+              window.addEventListener('resize', function(){
+                sizeViz('wolfPrevViz', 1.20, 1.00, 760);
+              });
+            </script>
 
             <div class="viz-wrap">
               <div class="tableauPlaceholder" id="wolfToleranceViz">
@@ -607,7 +624,7 @@
             </p>
 
             <div class="viz-wrap">
-              <div class='tableauPlaceholder viz-5cat' id='viz1757947469848' style='position: relative'>
+                <div class="tableauPlaceholder viz-5cat" id="wolfPrevViz" style="position: relative">
                 <!-- Tableau embed for prevalence -->
                 <object class="tableauViz" style="display:none;">
                   <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
