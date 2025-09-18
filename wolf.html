@@ -42,6 +42,89 @@
               <img src="images/wolf2.jpg" alt="Wolf survey analytics hero" />
             </span>
 
+    <script>
+(function () {
+  function buildTOC() {
+    const contentRoot = document.querySelector('#main .inner');
+    const tocRoot = document.getElementById('toc-list');
+    if (!contentRoot || !tocRoot) return;
+
+    // Collect H2/H3 but skip the TOC's own heading
+    const headings = Array.from(contentRoot.querySelectorAll('h2, h3'))
+      .filter(h => !h.closest('#auto-toc') && h.textContent.trim().length > 0);
+
+    // Helpers: unique ids
+    const used = new Set();
+    const slugify = t => t.toLowerCase().replace(/[^\w\s-]/g,'').trim().replace(/\s+/g,'-');
+    const ensureId = el => {
+      if (el.id && !used.has(el.id)) { used.add(el.id); return el.id; }
+      const base = slugify(el.textContent);
+      let id = base, i = 2;
+      while (document.getElementById(id) || used.has(id)) id = `${base}-${i++}`;
+      el.id = id; used.add(id); return id;
+    };
+
+    // Build nested list (H2 top-level, H3 children)
+    tocRoot.innerHTML = '';
+    let currentSub = null;
+
+    headings.forEach(h => {
+      const id = ensureId(h);
+      const link = document.createElement('a');
+      link.href = `#${id}`;
+      link.textContent = h.textContent.trim();
+
+      if (h.tagName === 'H2') {
+        const li = document.createElement('li');
+        const span = document.createElement('span');
+        span.appendChild(link);
+        li.appendChild(span);
+
+        currentSub = document.createElement('ul');
+        currentSub.className = 'toc-sublist';
+        li.appendChild(currentSub);
+        tocRoot.appendChild(li);
+      } else {
+        // H3
+        if (!currentSub) {
+          const li = document.createElement('li');
+          currentSub = document.createElement('ul');
+          currentSub.className = 'toc-sublist';
+          li.appendChild(currentSub);
+          tocRoot.appendChild(li);
+        }
+        const subLi = document.createElement('li');
+        subLi.appendChild(link);
+        currentSub.appendChild(subLi);
+      }
+    });
+
+    // Active link on scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const id = entry.target.id;
+        const a = document.querySelector(`.toc a[href="#${CSS.escape(id)}"]`);
+        if (!a) return;
+        if (entry.isIntersecting) {
+          document.querySelectorAll('.toc a.is-active').forEach(e => e.classList.remove('is-active'));
+          a.classList.add('is-active');
+        }
+      });
+    }, { rootMargin: '-30% 0px -65% 0px', threshold: 0 });
+
+    headings.forEach(h => observer.observe(h));
+  }
+
+  // Run after DOM is ready (fixes "no headers" issue)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', buildTOC);
+  } else {
+    buildTOC();
+  }
+})();
+</script>
+
+
             <!-- =======================
                  Background (technical)
             ======================== -->
@@ -722,9 +805,87 @@
               });
             </script>
 
+
+
+<!-- ======================= -->
+<!-- Recommendations Section -->
+<!-- ======================= -->
+<hr class="major" />
+<h2>Recommendations</h2>
+
+<section>
+  <h3>Stakeholder Engagement & Messaging</h3>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+    <li><strong>Lead with distant-sighting storytelling:</strong> Distant wolf sightings consistently build tolerance. Agencies can emphasize these positive encounters in outreach and media.</li>
+    <li><strong>Differentiate for wolf hunters:</strong> Since hunters don’t respond positively to encounters, messaging should focus on management clarity, herd health, and fairness in regulation.</li>
+    <li><strong>Address near-home encounters:</strong> Sightings close to residences are strongly negative. Localized communication and rapid response can reduce fear and improve community relations.</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Conflict Mitigation & Response</h3>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+    <li><strong>Prioritize property-damage incidents:</strong> Damage reports drive the largest negative shifts. Timely investigation and transparent communication are key to limiting spillover distrust.</li>
+    <li><strong>Proactive prevention near homes:</strong> Small steps—like deterrents or buffer practices—can prevent incidents that otherwise erode trust quickly.</li>
+    <li><strong>Consistent communication playbook:</strong> Clear, fast messaging after conflicts can keep small events from fueling wider negativity.</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Program & Policy Opportunities</h3>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+    <li><strong>Create safe-distance viewing opportunities:</strong> Guided programs for observing wolves from afar can turn neutral curiosity into positive tolerance.</li>
+    <li><strong>Pair deterrents with compensation:</strong> Offering tools alongside financial relief helps landowners feel supported while also reducing future conflicts.</li>
+    <li><strong>Segmented hunter briefs:</strong> Concise, targeted updates for hunters can improve perceptions of fairness, even if tolerance levels don’t shift.</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Data & Tracking</h3>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+    <li><strong>Integrate encounter data:</strong> Linking survey data with field and hotline reports can help identify hotspots and patterns in real time.</li>
+    <li><strong>Track sentiment over time:</strong> Shorter pulse surveys can detect changes in tolerance more quickly than 5-year waves.</li>
+    <li><strong>Test communication frames:</strong> Comparing “awe” vs. “risk management” narratives helps refine messaging that resonates across different groups.</li>
+  </ul>
+</section>
+
+<!-- ============================================ -->
+<!-- Clarifying Questions, Assumptions, Caveats -->
+<!-- ============================================ -->
+<hr class="major" />
+<h2>Clarifying Questions, Assumptions, and Caveats</h2>
+
+<section>
+  <h3>Questions for Stakeholders Prior to Project Advancement</h3>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+    <li><strong>Experience Measurement Consistency:</strong> Should all wolf-related encounters (seeing tracks, hearing of damage, visual sightings) be standardized into a single index, or treated separately? How should we define the temporal window of an encounter (e.g., within the past year vs. lifetime experience)?</li>
+    <li><strong>Contextual Variables:</strong> To what extent do demographic or geographic controls (e.g., rural vs. urban residence) need to be included alongside wolf encounters? Should “close to home” sightings be defined by distance bands (e.g., within 5 miles), or by self-reported perceptions?</li>
+    <li><strong>Interpretation of Effects:</strong> How should small but statistically significant coefficients (e.g., seeing tracks) be communicated — as actionable insights or background context? Should distant sightings be emphasized as a reliable positive driver, even if the effect size is moderate?</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Assumptions</h3>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+    <li><strong>Linearity in Relationships:</strong> Logistic regressions assume linear relationships on the log-odds scale. Threshold effects of repeated damage are not captured.</li>
+    <li><strong>Independence of Encounters:</strong> Each reported encounter is treated as independent. Overlap (e.g., tracks and damage at the same site) may bias estimates.</li>
+    <li><strong>Population Representativeness:</strong> The sample is assumed to represent residents in wolf regions. Without survey weighting, generalizability may be limited.</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Caveats</h3>
+  <ul style="margin:.6rem 0 1rem 1.2rem; line-height:1.5;">
+    <li><strong>Omitted Variables:</strong> Attitudes may also be shaped by cultural, political, or historical factors not included in the dataset.</li>
+    <li><strong>Communication of Risk:</strong> Stakeholders may misinterpret coefficients as causal. Results should be framed as associations.</li>
+    <li><strong>Survey Design Constraints:</strong> Recall bias may affect reported encounters, particularly rare or emotionally charged events like property damage.</li>
+  </ul>
+</section>
+
+
+
         </div>
       </div>
-
       <!-- Sidebar -->
       <div id="sidebar">
         <div class="inner">
